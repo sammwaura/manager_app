@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.usalamatechnology.manageapp.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/bg"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.2"
+                    android:src="@drawable/menu" />
+
+
+                <com.usalamatechnology.manageapp.TextView_Lato
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_weight="1.6"
+                    android:gravity="center_horizontal"
+                    android:text="S.O.S"
+                    android:textColor="#fff"
+                    android:textSize="26dp"
+                    android:textStyle="bold"
+
+                    />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Tap on the BELL in case of an emergency"
+                    android:textColor="#fff"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:src="@drawable/bell" />
+
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="KCE 2547K"
+                    android:textColor="#fff"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="185dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </FrameLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/frameLayout"
+    >
+    <pl.bclogic.pulsator4droid.library.PulsatorLayout
+        android:id="@+id/pulsatorgreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:pulse_count="4"
+        app:pulse_duration="7000"
+        app:pulse_repeat="0"
+        app:pulse_color="@color/colorPrimary"
+        app:pulse_startFromScratch="false"
+        app:pulse_interpolator="Linear">
+    <android.support.v7.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="6dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/fab"
+        android:layout_centerInParent="true"
+        android:background="@color/colorPrimary"
+        >
+        <com.andexert.library.RippleView
+            android:id="@+id/more"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/more2"
+            app:rv_color="@color/colorPrimary"
+            android:layout_margin="5dp"
+            rv_centered="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/panicButton"
+                android:src="@drawable/sos_bell"
+                />
+
+            <com.usalamatechnology.manageapp.TextView_Lato
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/panicButton"
+                android:text="Press Here"
+                android:id="@+id/text_help"
+                android:layout_centerHorizontal="true"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+        </com.andexert.library.RippleView>
+
+    </android.support.v7.widget.CardView>
+    </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+
+    <pl.bclogic.pulsator4droid.library.PulsatorLayout
+        android:id="@+id/pulsatorred"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:pulse_count="4"
+        app:pulse_duration="7000"
+        android:visibility="gone"
+        app:pulse_repeat="0"
+        app:pulse_color="@color/pulseColor"
+        app:pulse_startFromScratch="false"
+        app:pulse_interpolator="Linear">
+        <android.support.v7.widget.CardView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="100dp"
+            app:cardElevation="6dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/fab2"
+            android:layout_centerInParent="true"
+            android:background="@color/pulseColor"
+            >
+            <com.andexert.library.RippleView
+                android:id="@+id/more2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/more2"
+                app:rv_color="@color/pulseColor"
+                android:layout_margin="5dp"
+                rv_centered="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/panicButton2"
+                        android:src="@drawable/sos_bell"
+                        />
+
+                    <com.usalamatechnology.manageapp.TextView_Lato
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/panicButton2"
+                        android:text="Cancel Help"
+                        android:id="@+id/text_help2"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+            </com.andexert.library.RippleView>
+
+        </android.support.v7.widget.CardView>
+    </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+</RelativeLayout>
+
+
+
+</RelativeLayout>
+

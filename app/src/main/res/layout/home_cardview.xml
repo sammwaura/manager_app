@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:components="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="15dp"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="4dp">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cardview_bg"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/bar_green"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/bar_orange"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorOrange"
+                android:visibility="gone" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp">
+
+                <com.usalamatechnology.manageapp.TextView_Lato
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Fare - Town to Githurai"
+                    android:textColor="@color/colorGray"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:id="@+id/circle_green"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/gree_circle"
+                        android:visibility="gone" />
+
+                    <View
+                        android:id="@+id/circle_orange"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/orange_circle"
+                        android:visibility="gone" />
+
+                    <com.usalamatechnology.manageapp.TextView_Lato
+
+                        android:id="@+id/text_earnings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="EARNINGS"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <com.usalamatechnology.manageapp.TextView_Lato
+
+                        android:id="@+id/text_expense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="EXPENSE"
+                        android:textColor="@color/colorOrange"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_name"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+
+                    <com.usalamatechnology.manageapp.Textview_lato_thin
+                        android:id="@+id/text_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="Today : 5:40 pm"
+                        android:textColor="@color/colorLightGray"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/the_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginLeft="7dp"
+                        android:src="@drawable/placeholder" />
+
+                    <com.usalamatechnology.manageapp.Textview_lato_thin
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="Githurai"
+                        android:textColor="@color/colorLightGray"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear"
+                    android:id="@+id/layout_amount"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <com.usalamatechnology.manageapp.TextView_Lato
+                        android:id="@+id/text_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/roun_rect_lightgray"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:text="Kes 15,000"
+                        android:textColor="@color/colorGray"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.usalamatechnology.manageapp.TextView_Lato
+                        android:id="@+id/approve_trip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/roun_rect_approve"
+                        android:gravity="center"
+                        android:text="Tap to approve"
+                        android:visibility="gone"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.usalamatechnology.manageapp.TextView_Lato
+                        android:id="@+id/edit_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/roun_rect_edit_rate"
+                        android:gravity="center"
+                        android:text="Edit Rate"
+                        android:visibility="gone"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/text_approve"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="8dp"
+                        android:visibility="gone"
+                        android:src="@drawable/approve_trip" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear_trip_on"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/layout_amount"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+                    <com.usalamatechnology.manageapp.GIFView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/trip_on"
+                        android:visibility="gone"
+                        components:src="@raw/trip_on_two"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>

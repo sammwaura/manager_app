@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:id="@+id/main_layout"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/progressBar3"
+            android:layout_toEndOf="@+id/progressBar3">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="92dp"
+                    android:layout_height="92dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/approve_trip"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/textView40"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Approve this trip."
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:id="@+id/textViewCar"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Car Reg: KCA 345T"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:id="@+id/textViewName"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Driver Name : Eliud Kagiha"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginBottom="5dp"
+                    />
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:id="@+id/textViewPhone"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Phone: 0700402788"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginBottom="5dp"
+                    />
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:id="@+id/textViewLocation"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Location: Githurai 45"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:id="@+id/textViewRate"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Rate : Ksh. 40 per person"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:id="@+id/textViewTimeStart"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Time Start: 4:05 PM 27/8/2018"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:id="@+id/textViewTimeEnd"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Time Start: 4:47 PM 27/8/2018"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:id="@+id/textViewTotal"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.14"
+                    android:gravity="center"
+                    android:text="Total: Ksh.4500"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            </ScrollView>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+

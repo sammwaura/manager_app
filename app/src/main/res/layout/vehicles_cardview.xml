@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:components="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="7dp"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="4dp">
+
+    <com.andexert.library.RippleView
+        android:id="@+id/more3"
+        rv_centered="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:layout_toLeftOf="@+id/more2"
+        app:rv_color="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cardview_bg"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/bar_green"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                 />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp">
+
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:id="@+id/circle_green"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/gree_circle"
+                         />
+
+                    <com.usalamatechnology.manageapp.TextView_Lato
+
+                        android:id="@+id/text_earnings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="VEHICLES"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_name"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear"
+                    android:id="@+id/layout_amount"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <com.usalamatechnology.manageapp.TextView_Lato
+                        android:id="@+id/text_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/roun_rect_lightgray"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:text="Kes 15,000"
+                        android:textColor="@color/colorGray"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </com.andexert.library.RippleView>
+
+    </android.support.v7.widget.CardView>
