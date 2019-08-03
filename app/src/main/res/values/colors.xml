@@ -8,6 +8,9 @@
     <color name="colorOrange">#F68159</color>
     <color name="colorLightGray">#a6abae</color>
     <color name="pulseColor">#e74c3c</color>
-
+    <color name="colortext">#100b20</color>
+    <color name="colorhint">#a9aaac</color>
     <color name="colorBackroundWhite">#f0f2ea</color>
+
+
 </resources>

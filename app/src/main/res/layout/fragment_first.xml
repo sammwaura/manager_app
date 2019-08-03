@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:text="Manager"
+                    android:text="Teller"
                     android:id="@+id/driver_car"
                     android:textColor="#fff"
                     android:textSize="14dp" />
@@ -119,18 +119,19 @@
             android:orientation="horizontal">
 
 
-            <com.usalamatechnology.manageapp.TextView_Lato
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/roun_rect_white"
-                android:text="Refresh"
+                android:text="Make Payment"
 
-                android:id="@+id/refresh"
+                android:id="@+id/makePayment"
                 android:textColor="@color/colorGray"
-                android:textSize="14dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
+
             <com.usalamatechnology.manageapp.TextView_Lato
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

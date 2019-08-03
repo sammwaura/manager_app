@@ -32,6 +32,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -164,7 +165,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
     @Override
     public void onCardClicked(final int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
-               type= homePosts.get(pos).type.split("#")[0];
+        type= homePosts.get(pos).type.split("#")[0];
         is_approved= homePosts.get(pos).type.split("#")[1];
         if(type.equals("0"))
         {
@@ -499,11 +500,13 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_first, container, false);
 
-        view.findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.makePayment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(CheckNetwork.isInternetAvailable(getActivity()))
                 {
+
+
                     getAllPostFromOnline(view);
                     refreshFragment();
                     getHeaderDetails();
@@ -527,8 +530,8 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
             //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
             if(getActivity() != null)
             {
-               // Toast.makeText(getActivity(), "Please grant permission to send SMS for distress to be sent",
-                 //       Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), "Please grant permission to send SMS for distress to be sent",
+                //       Toast.LENGTH_LONG).show();
             }
 
         }
@@ -625,22 +628,12 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), textView.getText(), Toast.LENGTH_SHORT).show();
-
                 if (textView.getText().toString().equals("Start Trip")) {
-
-
                 } else if (textView.getText().toString().equals("End Trip")) {
-
                     credentialsEditor.putString(tripStatus, "0");
                     credentialsEditor.apply();
-
                     endTrip();
-
-
-
                 }
-
-
             }
         });*/
 
@@ -667,6 +660,8 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
         return view;
     }
+
+
 
     private class GetHeader extends AsyncTask<String, Integer, Boolean> {
         String data = null;
@@ -764,7 +759,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
                             JSONArray array = null;
                             try {
                                 JSONObject jsonObj = new JSONObject(s);
-                                 posts = jsonObj.getJSONArray("trips");
+                                posts = jsonObj.getJSONArray("trips");
                                 if(posts.length() >0)
                                 {
                                     homePosts.clear();
@@ -995,9 +990,9 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         };
 
 
-                requestQueue = Volley.newRequestQueue(getActivity());
-                //Adding request to the queue
-                requestQueue.add(stringRequest);
+        requestQueue = Volley.newRequestQueue(getActivity());
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
 
 
 
@@ -1005,16 +1000,61 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
     }
 
     public void refreshFragment() {
-        if (getActivity() != null) {
-            try {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .detach(this)
-                        .attach(this)
-                        .commit();
-            } catch (Exception e) {
-                e.printStackTrace();
+        final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(FirstFragment.host);
+        dialogBuilder
+                .withTitle("Make Payment")
+                .withTitleColor("#2daad4")
+                .withDividerColor("#00b873")
+                .withMessageColor("#303F9F")
+                .withDialogColor("#495C67")
+                .withDuration(700)
+                .isCancelableOnTouchOutside(false)
+                .isCancelable(false)
+                .withEffect(Effectstype.Newspager)
+                .withButton2Text("CANCEL")//def Effectstype.Slidetop
+                .withButton1Text("EDIT")
+                .setCustomView(R.layout.dialog_make_payment, FirstFragment.host)
+                .isCancelableOnTouchOutside(true)
+                .setButton2Click(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialogBuilder.dismiss();
+                    }
+                })
+                .setButton1Click(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final EditText number_plate = dialogBuilder.findViewById(R.id.number_plate);
+                        final EditText spinnerTypeFare = dialogBuilder.findViewById(R.id.spinnerTypeFare);
+                        final EditText amount = dialogBuilder.findViewById(R.id.amount);
+                        final EditText name_passenger = dialogBuilder.findViewById(R.id.name_passenger);
+                        final EditText phone_passenger = dialogBuilder.findViewById(R.id.phone_passenger);
+                        final EditText ID_passenger = dialogBuilder.findViewById(R.id.ID_passenger);
+                        final EditText destination = dialogBuilder.findViewById(R.id.destination);
+                    }
+
+                });
+
+        final EditText number_plate = dialogBuilder.findViewById(R.id.number_plate);
+        final Button delete = dialogBuilder.findViewById(R.id.button);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
+        });        if (getActivity() != null) {
+//
+//            try {
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .detach(this)
+//                        .attach(this)
+//                        .commit();
+//            } catch (Exception e) {
+//
+//                e.printStackTrace();
+//            }
         }
     }
 
@@ -1182,8 +1222,8 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         };
 
 
-            requestQueue = Volley.newRequestQueue(getActivity());
-            requestQueue.add(stringRequest);
+        requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
 
 
     }
