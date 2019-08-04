@@ -1,6 +1,7 @@
 package com.usalamatechnology.manageapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,8 +22,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,6 +67,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
 import static com.usalamatechnology.manageapp.Constants.addressKey;
 import static com.usalamatechnology.manageapp.Constants.editTrip;
@@ -82,7 +87,7 @@ import static com.usalamatechnology.manageapp.Constants.uploadApproval;
 import static com.usalamatechnology.manageapp.Constants.uploadManagerTrip;
 import static com.usalamatechnology.manageapp.Constants.user_id;
 
-public class FirstFragment extends Fragment implements LocationListener, HomeIObserver {
+public class FirstFragment extends Fragment implements LocationListener, HomeIObserver, MyCustomDialogFragment.CustomDialogueListener {
     public static final String ARG_PAGE = "ARG_PAGE";
     private static final int PERMISSIONS_REQUEST_SEND_SMS = 100;
     private static final int REQUEST_PHONE_CALL = 200;
@@ -108,6 +113,8 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
     final int periodicUpdate = minute * milliseconds * seconds ;
 
     private String TAG = "TAG";
+
+
 
     public List<HomePost> homePosts;
     private RecyclerView rv;
@@ -156,7 +163,15 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         Holder = locationManager.getBestProvider(criteria, false);
         context = getContext();
         CheckGpsStatus();
+        showCustomDialog();
     }
+
+    private void showCustomDialog() {
+        FragmentManager fragmentManager = getFragmentManager();
+        MyCustomDialogFragment myCustomDialogFragment = MyCustomDialogFragment.newInstance("Enter Number plate");
+        myCustomDialogFragment.show(fragmentManager, "dialog_make_payment");
+    }
+
 
     String physical_address = "";
 
@@ -444,6 +459,11 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         requestQueue.add(stringRequest);
     }
 
+    @Override
+    public void onFinishCustomDilaogue(String inputText) {
+//        Toast.makeText(this, "Dialogue "+ inputText, Toast.LENGTH_SHORT).show();
+    }
+
     class AddressResultReceiver extends ResultReceiver {
         public AddressResultReceiver(Handler handler) {
             super(handler);
@@ -495,19 +515,21 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
     View view;
 
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_first, container, false);
 
         view.findViewById(R.id.makePayment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if(CheckNetwork.isInternetAvailable(getActivity()))
                 {
-
-
-                    getAllPostFromOnline(view);
+//                    getAllPostFromOnline(view);
                     refreshFragment();
                     getHeaderDetails();
                 }
@@ -660,6 +682,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
         return view;
     }
+
 
 
 
@@ -1000,50 +1023,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
     }
 
     public void refreshFragment() {
-        final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(FirstFragment.host);
-        dialogBuilder
-                .withTitle("Make Payment")
-                .withTitleColor("#2daad4")
-                .withDividerColor("#00b873")
-                .withMessageColor("#303F9F")
-                .withDialogColor("#495C67")
-                .withDuration(700)
-                .isCancelableOnTouchOutside(false)
-                .isCancelable(false)
-                .withEffect(Effectstype.Newspager)
-                .withButton2Text("CANCEL")//def Effectstype.Slidetop
-                .withButton1Text("EDIT")
-                .setCustomView(R.layout.dialog_make_payment, FirstFragment.host)
-                .isCancelableOnTouchOutside(true)
-                .setButton2Click(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialogBuilder.dismiss();
-                    }
-                })
-                .setButton1Click(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        final EditText number_plate = dialogBuilder.findViewById(R.id.number_plate);
-                        final EditText spinnerTypeFare = dialogBuilder.findViewById(R.id.spinnerTypeFare);
-                        final EditText amount = dialogBuilder.findViewById(R.id.amount);
-                        final EditText name_passenger = dialogBuilder.findViewById(R.id.name_passenger);
-                        final EditText phone_passenger = dialogBuilder.findViewById(R.id.phone_passenger);
-                        final EditText ID_passenger = dialogBuilder.findViewById(R.id.ID_passenger);
-                        final EditText destination = dialogBuilder.findViewById(R.id.destination);
-                    }
-
-                });
-
-        final EditText number_plate = dialogBuilder.findViewById(R.id.number_plate);
-        final Button delete = dialogBuilder.findViewById(R.id.button);
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });        if (getActivity() != null) {
+              if (getActivity() != null) {
 //
 //            try {
 //                getActivity().getSupportFragmentManager()
