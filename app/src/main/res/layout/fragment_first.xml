@@ -125,7 +125,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/roun_rect_white"
-                android:text="Make Payment"
+                android:text="Pay"
 
                 android:id="@+id/makePayment"
                 android:textColor="@color/colorGray"

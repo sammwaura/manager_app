@@ -77,13 +77,13 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
         trips_today = (TextView_Lato) findViewById(R.id.total_trips);
         total_profits = (TextView_Lato) findViewById(R.id.total_earned);
 
-        rv = (RecyclerView) findViewById(R.id.rv);
-        TextView emptyView = (TextView) findViewById(R.id.empty_view);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-
-        rv.setLayoutManager(llm);
-        rv.setHasFixedSize(true);
+//        rv = (RecyclerView) findViewById(R.id.rv);
+//        TextView emptyView = (TextView) findViewById(R.id.empty_view);
+//
+//        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+//
+//        rv.setLayoutManager(llm);
+//        rv.setHasFixedSize(true);
 
         if (CheckNetwork.isInternetAvailable(Trips.this)) {
             getAllPostFromOnline();
@@ -196,7 +196,7 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
     private void initializeData() {
 
         adapter = new VehiclesRVAdapter(homePosts);
-        rv.setAdapter(adapter);
+//        rv.setAdapter(adapter);
         adapter.setListener(this);
 
     }
