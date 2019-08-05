@@ -177,6 +177,175 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="10dp">
 
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/card"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginBottom="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginBottom="15dp"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginRight="27dp"
+                                            android:layout_marginBottom="3dp"
+                                            android:letterSpacing="0.093"
+                                            android:text="Number Plate"
+                                            android:textColor="@color/colorPrimaryDark"
+                                            android:textSize="12.7sp"
+                                            android:textStyle="normal|bold" />
+
+                                        <TextView
+                                            android:id="@+id/name"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:letterSpacing="0.093"
+                                            android:text=":KCA 456T"
+                                            android:textColor="@color/colorPrimaryDark"
+                                            android:textSize="12.7sp" />
+
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_gravity="end"
+                                        android:gravity="end"
+                                        android:paddingEnd="5dp"
+                                        android:layout_height="wrap_content">
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="2dp"
+                                    android:background="@color/colorPrimary" />
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="23dp"
+                                        android:layout_marginBottom="3dp"
+                                        android:letterSpacing="0.093"
+                                        android:text="No of passenger"
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp"
+                                        android:textStyle="normal|bold" />
+
+                                    <TextView
+                                        android:id="@+id/name_passenger"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:letterSpacing="0.093"
+                                        android:text=": 14"
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="2dp"
+                                    android:background="#f0f0f0" />
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="23dp"
+                                        android:layout_marginBottom="3dp"
+                                        android:letterSpacing="0.093"
+                                        android:text="Amount"
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp"
+                                        android:textStyle="normal|bold" />
+
+                                    <TextView
+                                        android:id="@+id/amount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:letterSpacing="0.093"
+                                        android:text=":20000"
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="2dp"
+                                    android:background="#f0f0f0" />
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="23dp"
+                                        android:layout_marginBottom="3dp"
+                                        android:letterSpacing="0.093"
+                                        android:text="Destination"
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp"
+                                        android:textStyle="normal|bold" />
+
+                                    <TextView
+                                        android:id="@+id/date"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:letterSpacing="0.093"
+                                        android:text=":Nakuru "
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
                 <android.support.v7.widget.RecyclerView
                     android:layout_height="fill_parent"
                     android:layout_width="match_parent"
