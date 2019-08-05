@@ -37,7 +37,7 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
     public static MyCustomDialogFragment newInstance(String title) {
         MyCustomDialogFragment myCustomDialogFragment = new MyCustomDialogFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString("Make payment", title);
         myCustomDialogFragment.setArguments(args);
         return myCustomDialogFragment;
     }
@@ -54,7 +54,7 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
 
     //listener
     public interface CustomDialogueListener{
-        void onFinishCustomDilaogue(String inputText);
+        void onFinishCustomDialogue(String inputText);
     }
 
     @Override
@@ -72,7 +72,7 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         if (EditorInfo.IME_ACTION_DONE == actionId){
             CustomDialogueListener listener = (CustomDialogueListener) getActivity();
-            listener.onFinishCustomDilaogue(number_plate.getText().toString());
+            listener.onFinishCustomDialogue(number_plate.getText().toString());
 
             dismiss();
             return true;

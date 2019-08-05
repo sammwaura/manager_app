@@ -163,7 +163,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         Holder = locationManager.getBestProvider(criteria, false);
         context = getContext();
         CheckGpsStatus();
-        showCustomDialog();
+
     }
 
     private void showCustomDialog() {
@@ -459,9 +459,11 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         requestQueue.add(stringRequest);
     }
 
+
+    //when listener is triggered
     @Override
-    public void onFinishCustomDilaogue(String inputText) {
-//        Toast.makeText(this, "Dialogue "+ inputText, Toast.LENGTH_SHORT).show();
+    public void onFinishCustomDialogue(String inputText) {
+        System.out.println("Make payment" + inputText);
     }
 
     class AddressResultReceiver extends ResultReceiver {
@@ -532,6 +534,8 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 //                    getAllPostFromOnline(view);
                     refreshFragment();
                     getHeaderDetails();
+                    showCustomDialog();
+
                 }
 
             }
