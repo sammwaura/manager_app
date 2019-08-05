@@ -1,6 +1,7 @@
 package com.usalamatechnology.manageapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,12 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alexzh.circleimageview.ItemSelectedListener;
+
+import java.util.ArrayList;
+
 @SuppressLint("ValidFragment")
-class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditorActionListener {
+class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditorActionListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "MyCustomDialog";
 
@@ -29,6 +37,7 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
     private EditText destination;
     private Button makePayment;
     private int actionId;
+    Spinner spinner;
 
     public MyCustomDialogFragment(){
 
@@ -48,9 +57,19 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.dialog_make_payment, container);
+    }
 
+
+    @Override
+    public void onItemSelected(AdapterView <?> adapterView, View view, int i, long l) {
 
     }
+
+    @Override
+    public void onNothingSelected(AdapterView <?> adapterView) {
+
+    }
+
 
     //listener
     public interface CustomDialogueListener{
@@ -66,6 +85,11 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
         getDialog().setTitle(title);
         number_plate.requestFocus();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        spinner = (Spinner) view.findViewById(R.id.spinner1);
+        spinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.payment, R.layout.support_simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     @Override
@@ -80,4 +104,6 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
 
         return false;
     }
+
+
 }
