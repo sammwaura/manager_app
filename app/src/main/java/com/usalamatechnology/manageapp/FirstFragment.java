@@ -29,6 +29,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -166,10 +167,20 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
     }
 
+
+
     private void showCustomDialog() {
         FragmentManager fragmentManager = getFragmentManager();
         MyCustomDialogFragment myCustomDialogFragment = MyCustomDialogFragment.newInstance("Enter Number plate");
         myCustomDialogFragment.show(fragmentManager, "dialog_make_payment");
+    }
+
+    private void showPassengerInfoFrag(){
+        FragmentManager fragmentManager = getFragmentManager();
+        PassengerInfoFrag passengerInfoFrag = PassengerInfoFrag.newInstance("");
+        fragmentManager.beginTransaction();
+
+
     }
 
 
@@ -579,6 +590,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
+
 
         CheckGpsStatus();
 

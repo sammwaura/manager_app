@@ -177,12 +177,23 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="10dp">
 
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/rv"
+                    >
+                </android.support.v7.widget.RecyclerView>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="10dp"
-                    android:id="@+id/card"
+                    android:id="@+id/cardPay"
                     android:layout_marginRight="19dp"
                     android:layout_marginBottom="5dp">
 
@@ -281,6 +292,34 @@
                                     android:layout_height="1dp"
                                     android:layout_marginTop="2dp"
                                     android:background="#f0f0f0" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp">
+
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="23dp"
+                                        android:layout_marginBottom="3dp"
+                                        android:letterSpacing="0.093"
+                                        android:text="Trip Rate"
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp"
+                                        android:textStyle="normal|bold" />
+
+                                    <TextView
+                                        android:id="@+id/rate"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:letterSpacing="0.093"
+                                        android:text=":Ksh 350"
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp" />
+                                </LinearLayout>
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -302,7 +341,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:letterSpacing="0.093"
-                                        android:text=":20000"
+                                        android:text=":4900"
                                         android:textColor="#7d7e82"
                                         android:textSize="12.7sp" />
                                 </LinearLayout>
@@ -329,11 +368,37 @@
                                         android:textStyle="normal|bold" />
 
                                     <TextView
-                                        android:id="@+id/date"
+                                        android:id="@+id/destination"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:letterSpacing="0.093"
                                         android:text=":Nakuru "
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="23dp"
+                                        android:layout_marginBottom="3dp"
+                                        android:letterSpacing="0.093"
+                                        android:text="Origin"
+                                        android:textColor="#7d7e82"
+                                        android:textSize="12.7sp"
+                                        android:textStyle="normal|bold" />
+
+                                    <TextView
+                                        android:id="@+id/origin"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:letterSpacing="0.093"
+                                        android:text=":Nairobi "
                                         android:textColor="#7d7e82"
                                         android:textSize="12.7sp" />
                                 </LinearLayout>
@@ -346,16 +411,6 @@
                 </android.support.v7.widget.CardView>
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:layout_height="fill_parent"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:visibility="gone"
-                    android:layout_marginBottom="5dp"
-                    android:id="@+id/rv"
-                    >
-                </android.support.v7.widget.RecyclerView>
-
 
                 <TextView
                     android:id="@+id/empty_view"
@@ -363,7 +418,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:visibility="gone"
-                    android:text="No trips"
+                    android:text=""
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:textSize="22sp" />
