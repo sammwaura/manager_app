@@ -218,14 +218,14 @@ public class SecondFragment extends Fragment  {
 
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
-
-        view.findViewById(R.id.expenses).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), Expenses.class);
-                startActivity(intent);
-            }
-        });
+//
+//        view.findViewById(R.id.expenses).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(view.getContext(), Expenses.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
 

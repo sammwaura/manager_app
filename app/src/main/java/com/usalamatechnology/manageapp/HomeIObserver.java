@@ -6,7 +6,5 @@ package com.usalamatechnology.manageapp;
 
 public interface HomeIObserver {
     // change signature of method as per your need
-    void onCardClicked( int pos,String userid, String type,String time,String address,String city,String more,String amount,String category);
-    void onCardApproved( int pos,String userid, String type,String time,String address,String city,String more,String amount,String category);
-    void onEditRate( int pos,String userid, String type,String time,String address,String city,String more,String amount,String category);
+    void onCardClicked( String number_plate,String destination,String origin,String no_passenger, String rate,String amount);
 }

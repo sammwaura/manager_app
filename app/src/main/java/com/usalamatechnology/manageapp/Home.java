@@ -137,11 +137,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         if (id == R.id.nav_home) {
             viewPager.setCurrentItem(0);
         }
-        else if (id == R.id.nav_expenses) {
-            Intent intent = new Intent(Home.this, ExpensesVehicle.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_trips) {
+       else if (id == R.id.nav_trips) {
             Intent intent = new Intent(Home.this, Trips.class);
             startActivity(intent);
 

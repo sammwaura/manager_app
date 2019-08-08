@@ -167,6 +167,11 @@ public class TripManager extends AppCompatActivity implements HomeIObserver {
 
     }
 
+    @Override
+    public void onCardClicked(String number_plate, String destination, String origin, String no_passenger, String rate, String amount) {
+
+    }
+
     private class GetHeader extends AsyncTask<String, Integer, Boolean> {
         String data = null;
 
@@ -555,253 +560,253 @@ public class TripManager extends AppCompatActivity implements HomeIObserver {
         adapter.setListener(this);
     }
 
-    @Override
-    public void onCardClicked(final int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
-        type= homePosts.get(pos).type.split("#")[0];
-        is_approved= homePosts.get(pos).type.split("#")[1];
-        if(type.equals("0"))
-        {
-            dialogBuilder = NiftyDialogBuilder.getInstance(TripManager.this);
-            dialogBuilder
-                    .withTitle("Trip Rate")
-                    .withTitleColor("#00B873")                                  //def
-                    .withDividerColor("#00B873")                              //def//.withMessage(null)  no Msg
-                    .withMessageColor("#00B873")                              //def  | withMessageColor(int resid)
-                    .withDialogColor("#FFFFFF")                               //def  | withDialogColor(int resid)
-                    .withDuration(700)
-                    .isCancelableOnTouchOutside(false)
-                    .isCancelable(false)
-                    .withEffect(Effectstype.Newspager)
-                    .withButton2Text("CANCEL")//def Effectstype.Slidetop
-                    .withButton1Text("CONTINUE")
-                    .setCustomView(R.layout.add_trip_dialog, TripManager.this)//def gone//def gone
-                    .isCancelableOnTouchOutside(true)
-                    .setButton2Click(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialogBuilder.dismiss();
-                        }
-                    })
-                    .setButton1Click(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //  Toast.makeText(v.getContext(), "Okay", Toast.LENGTH_SHORT).show();
-
-                            if (Holder != null) {
-                                if (ActivityCompat.checkSelfPermission(
-                                        TripManager.this,
-                                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                                        &&
-                                        ActivityCompat.checkSelfPermission(TripManager.this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                                                != PackageManager.PERMISSION_GRANTED) {
-                                    return;
-                                }
-
-                            }
-                            EditText t = (EditText) dialogBuilder.findViewById(R.id.editText5);
-                            //dialogBuilder.findViewById(R.id.main_layout).setVisibility(View.GONE);
-                            //dialogBuilder.findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
-                            String rate = t.getText().toString();
-
-                            if (!rate.isEmpty()) {
-                                uploadTrip(rate,homePosts.get(pos).id,"save");
-                                //dialogBuilder.findViewById(R.id.main_layout).setVisibility(View.GONE);
-                                //dialogBuilder.findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
-                            }
-                        }
-                    })
-                    .show();
-        }
-
-    }
-
-    @Override
-    public void onCardApproved(final int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
-
-        if(type.split("#").length >1)
-        {
-            type= homePosts.get(pos).type.split("#")[0];
-        }
-
-        if(type.split("#").length >2)
-        {
-            is_approved= homePosts.get(pos).type.split("#")[1];
-        }
-
-         String phone = "";
-        if(type.split("#").length >3)
-        {
-             phone = homePosts.get(pos).type.split("#")[2];
-        }
-
-        String trip_rate="";
-        if(type.split("#").length >4)
-        {
-             trip_rate = homePosts.get(pos).type.split("#")[3];
-        }
-
-        String time_start="";
-        if(type.split("#").length >5)
-        {
-             time_start = homePosts.get(pos).type.split("#")[4];
-        }
-        String time_end="";
-
-        if(type.split("#").length >6)
-        {
-             time_end = homePosts.get(pos).type.split("#")[5];
-        }
-
-        String name ="";
-        if(type.split("#").length >7)
-        {
-             name = homePosts.get(pos).type.split("#")[6];
-        }
-
-        String trip_amount ="";
-        if(type.split("#").length >8)
-        {
-             trip_amount = homePosts.get(pos).type.split("#")[7];
-        }
-
-
-
-
-
-
-
-
-        String car_reg = homePosts.get(pos).city;
-        String addressOfCar = homePosts.get(pos).address;
-
-        if(type.equals("1") && is_approved.equals("0"))
-        {
-            dialogBuilder = NiftyDialogBuilder.getInstance(TripManager.this);
-            dialogBuilder
-                    .withTitle("Approve Trip")
-                    .withTitleColor("#00B873")                                  //def
-                    .withDividerColor("#00B873")                              //def//.withMessage(null)  no Msg
-                    .withMessageColor("#00B873")                              //def  | withMessageColor(int resid)
-                    .withDialogColor("#FFFFFF")                               //def  | withDialogColor(int resid)
-                    .withDuration(700)
-                    .isCancelableOnTouchOutside(false)
-                    .isCancelable(false)
-                    .withEffect(Effectstype.Newspager)
-                    .withButton2Text("CANCEL")//def Effectstype.Slidetop
-                    .withButton1Text("APPROVE")
-                    .setCustomView(R.layout.approve_trip_dialog, TripManager.this)
-                    .isCancelableOnTouchOutside(true)
-                    .setButton2Click(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialogBuilder.dismiss();
-                        }
-                    })
-                    .setButton1Click(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //  Toast.makeText(v.getContext(), "Okay", Toast.LENGTH_SHORT).show();
-                            uploadApproval(homePosts.get(pos).id);
-                        }
-                    });
-
-            TextView textViewName = (TextView) dialogBuilder.findViewById(R.id.textViewName);
-            TextView textViewLocation = (TextView) dialogBuilder.findViewById(R.id.textViewLocation);
-            TextView textViewRate = (TextView) dialogBuilder.findViewById(R.id.textViewRate);
-            TextView textViewTimeStart = (TextView) dialogBuilder.findViewById(R.id.textViewTimeStart);
-            TextView textViewTimeEnd = (TextView) dialogBuilder.findViewById(R.id.textViewTimeEnd);
-            TextView textViewTotal = (TextView) dialogBuilder.findViewById(R.id.textViewTotal);
-            TextView textViewPhone = (TextView) dialogBuilder.findViewById(R.id.textViewPhone);
-            TextView textCarReg = (TextView) dialogBuilder.findViewById(R.id.textViewCar);
-
-            textViewName.setText("Driver Name : "+name);
-            textViewLocation.setText("Location: "+addressOfCar);
-            textViewRate.setText("Rate : Ksh. "+trip_rate+" per person");
-            textViewTimeStart.setText("Time Start: "+time_start);
-            textViewTimeEnd.setText("Time End: "+time_end);
-            textViewTotal.setText("Total: Ksh."+trip_amount);
-            textViewPhone.setText("Phone: "+phone);
-            textCarReg.setText("Car Reg: "+car_reg);
-
-            final String finalPhone = phone;
-            textViewPhone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:" + finalPhone));
-                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(TripManager.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
-                    }
-                    else
-                    {
-                        context.startActivity(intent);
-                    }
-
-                }
-            });
-
-            dialogBuilder.show();
-        }
-    }
-
-    @Override
-    public void onEditRate(final int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
-        final String managerRate = homePosts.get(pos).more;
-
-        dialogBuilder = NiftyDialogBuilder.getInstance(TripManager.this);
-        dialogBuilder
-                .withTitle("Edit Trip Rate")
-                .withTitleColor("#00B873")                                  //def
-                .withDividerColor("#00B873")                              //def//.withMessage(null)  no Msg
-                .withMessageColor("#00B873")                              //def  | withMessageColor(int resid)
-                .withDialogColor("#FFFFFF")                               //def  | withDialogColor(int resid)
-                .withDuration(700)
-                .isCancelableOnTouchOutside(false)
-                .isCancelable(false)
-                .withEffect(Effectstype.Newspager)
-                .withButton2Text("CANCEL")//def Effectstype.Slidetop
-                .withButton1Text("CONTINUE")
-                .setCustomView(R.layout.edit_trip_dialog, TripManager.this)//def gone//def gone
-                .isCancelableOnTouchOutside(true)
-                .setButton2Click(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogBuilder.dismiss();
-                    }
-                })
-                .setButton1Click(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //  Toast.makeText(v.getContext(), "Okay", Toast.LENGTH_SHORT).show();
-
-                        if (Holder != null) {
-                            if (ActivityCompat.checkSelfPermission(
-                                    TripManager.this,
-                                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                                    &&
-                                    ActivityCompat.checkSelfPermission(TripManager.this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                                            != PackageManager.PERMISSION_GRANTED) {
-                                return;
-                            }
-
-                        }
-                        EditText t = (EditText) dialogBuilder.findViewById(R.id.editText5);
-                        //dialogBuilder.findViewById(R.id.main_layout).setVisibility(View.GONE);
-                        //dialogBuilder.findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
-                        String rate = t.getText().toString();
-                        //t.setText(managerRate);
-
-                        if (!rate.isEmpty()) {
-                            uploadTrip(rate,homePosts.get(pos).id,"edit");
-                            //dialogBuilder.findViewById(R.id.main_layout).setVisibility(View.GONE);
-                            //dialogBuilder.findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
-                        }
-                    }
-                })
-                .show();
-
-
-    }
+//    @Override
+//    public void onCardClicked(final int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
+//        type= homePosts.get(pos).type.split("#")[0];
+//        is_approved= homePosts.get(pos).type.split("#")[1];
+//        if(type.equals("0"))
+//        {
+//            dialogBuilder = NiftyDialogBuilder.getInstance(TripManager.this);
+//            dialogBuilder
+//                    .withTitle("Trip Rate")
+//                    .withTitleColor("#00B873")                                  //def
+//                    .withDividerColor("#00B873")                              //def//.withMessage(null)  no Msg
+//                    .withMessageColor("#00B873")                              //def  | withMessageColor(int resid)
+//                    .withDialogColor("#FFFFFF")                               //def  | withDialogColor(int resid)
+//                    .withDuration(700)
+//                    .isCancelableOnTouchOutside(false)
+//                    .isCancelable(false)
+//                    .withEffect(Effectstype.Newspager)
+//                    .withButton2Text("CANCEL")//def Effectstype.Slidetop
+//                    .withButton1Text("CONTINUE")
+//                    .setCustomView(R.layout.add_trip_dialog, TripManager.this)//def gone//def gone
+//                    .isCancelableOnTouchOutside(true)
+//                    .setButton2Click(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            dialogBuilder.dismiss();
+//                        }
+//                    })
+//                    .setButton1Click(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            //  Toast.makeText(v.getContext(), "Okay", Toast.LENGTH_SHORT).show();
+//
+//                            if (Holder != null) {
+//                                if (ActivityCompat.checkSelfPermission(
+//                                        TripManager.this,
+//                                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                                        &&
+//                                        ActivityCompat.checkSelfPermission(TripManager.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+//                                                != PackageManager.PERMISSION_GRANTED) {
+//                                    return;
+//                                }
+//
+//                            }
+//                            EditText t = (EditText) dialogBuilder.findViewById(R.id.editText5);
+//                            //dialogBuilder.findViewById(R.id.main_layout).setVisibility(View.GONE);
+//                            //dialogBuilder.findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
+//                            String rate = t.getText().toString();
+//
+//                            if (!rate.isEmpty()) {
+//                                uploadTrip(rate,homePosts.get(pos).id,"save");
+//                                //dialogBuilder.findViewById(R.id.main_layout).setVisibility(View.GONE);
+//                                //dialogBuilder.findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
+//                            }
+//                        }
+//                    })
+//                    .show();
+//        }
+//
+//    }
+//
+//    @Override
+//    public void onCardApproved(final int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
+//
+//        if(type.split("#").length >1)
+//        {
+//            type= homePosts.get(pos).type.split("#")[0];
+//        }
+//
+//        if(type.split("#").length >2)
+//        {
+//            is_approved= homePosts.get(pos).type.split("#")[1];
+//        }
+//
+//         String phone = "";
+//        if(type.split("#").length >3)
+//        {
+//             phone = homePosts.get(pos).type.split("#")[2];
+//        }
+//
+//        String trip_rate="";
+//        if(type.split("#").length >4)
+//        {
+//             trip_rate = homePosts.get(pos).type.split("#")[3];
+//        }
+//
+//        String time_start="";
+//        if(type.split("#").length >5)
+//        {
+//             time_start = homePosts.get(pos).type.split("#")[4];
+//        }
+//        String time_end="";
+//
+//        if(type.split("#").length >6)
+//        {
+//             time_end = homePosts.get(pos).type.split("#")[5];
+//        }
+//
+//        String name ="";
+//        if(type.split("#").length >7)
+//        {
+//             name = homePosts.get(pos).type.split("#")[6];
+//        }
+//
+//        String trip_amount ="";
+//        if(type.split("#").length >8)
+//        {
+//             trip_amount = homePosts.get(pos).type.split("#")[7];
+//        }
+//
+//
+//
+//
+//
+//
+//
+//
+//        String car_reg = homePosts.get(pos).city;
+//        String addressOfCar = homePosts.get(pos).address;
+//
+//        if(type.equals("1") && is_approved.equals("0"))
+//        {
+//            dialogBuilder = NiftyDialogBuilder.getInstance(TripManager.this);
+//            dialogBuilder
+//                    .withTitle("Approve Trip")
+//                    .withTitleColor("#00B873")                                  //def
+//                    .withDividerColor("#00B873")                              //def//.withMessage(null)  no Msg
+//                    .withMessageColor("#00B873")                              //def  | withMessageColor(int resid)
+//                    .withDialogColor("#FFFFFF")                               //def  | withDialogColor(int resid)
+//                    .withDuration(700)
+//                    .isCancelableOnTouchOutside(false)
+//                    .isCancelable(false)
+//                    .withEffect(Effectstype.Newspager)
+//                    .withButton2Text("CANCEL")//def Effectstype.Slidetop
+//                    .withButton1Text("APPROVE")
+//                    .setCustomView(R.layout.approve_trip_dialog, TripManager.this)
+//                    .isCancelableOnTouchOutside(true)
+//                    .setButton2Click(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            dialogBuilder.dismiss();
+//                        }
+//                    })
+//                    .setButton1Click(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            //  Toast.makeText(v.getContext(), "Okay", Toast.LENGTH_SHORT).show();
+//                            uploadApproval(homePosts.get(pos).id);
+//                        }
+//                    });
+//
+//            TextView textViewName = (TextView) dialogBuilder.findViewById(R.id.textViewName);
+//            TextView textViewLocation = (TextView) dialogBuilder.findViewById(R.id.textViewLocation);
+//            TextView textViewRate = (TextView) dialogBuilder.findViewById(R.id.textViewRate);
+//            TextView textViewTimeStart = (TextView) dialogBuilder.findViewById(R.id.textViewTimeStart);
+//            TextView textViewTimeEnd = (TextView) dialogBuilder.findViewById(R.id.textViewTimeEnd);
+//            TextView textViewTotal = (TextView) dialogBuilder.findViewById(R.id.textViewTotal);
+//            TextView textViewPhone = (TextView) dialogBuilder.findViewById(R.id.textViewPhone);
+//            TextView textCarReg = (TextView) dialogBuilder.findViewById(R.id.textViewCar);
+//
+//            textViewName.setText("Driver Name : "+name);
+//            textViewLocation.setText("Location: "+addressOfCar);
+//            textViewRate.setText("Rate : Ksh. "+trip_rate+" per person");
+//            textViewTimeStart.setText("Time Start: "+time_start);
+//            textViewTimeEnd.setText("Time End: "+time_end);
+//            textViewTotal.setText("Total: Ksh."+trip_amount);
+//            textViewPhone.setText("Phone: "+phone);
+//            textCarReg.setText("Car Reg: "+car_reg);
+//
+//            final String finalPhone = phone;
+//            textViewPhone.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(Intent.ACTION_CALL);
+//                    intent.setData(Uri.parse("tel:" + finalPhone));
+//                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+//                        ActivityCompat.requestPermissions(TripManager.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
+//                    }
+//                    else
+//                    {
+//                        context.startActivity(intent);
+//                    }
+//
+//                }
+//            });
+//
+//            dialogBuilder.show();
+//        }
+//    }
+//
+//    @Override
+//    public void onEditRate(final int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
+//        final String managerRate = homePosts.get(pos).more;
+//
+//        dialogBuilder = NiftyDialogBuilder.getInstance(TripManager.this);
+//        dialogBuilder
+//                .withTitle("Edit Trip Rate")
+//                .withTitleColor("#00B873")                                  //def
+//                .withDividerColor("#00B873")                              //def//.withMessage(null)  no Msg
+//                .withMessageColor("#00B873")                              //def  | withMessageColor(int resid)
+//                .withDialogColor("#FFFFFF")                               //def  | withDialogColor(int resid)
+//                .withDuration(700)
+//                .isCancelableOnTouchOutside(false)
+//                .isCancelable(false)
+//                .withEffect(Effectstype.Newspager)
+//                .withButton2Text("CANCEL")//def Effectstype.Slidetop
+//                .withButton1Text("CONTINUE")
+//                .setCustomView(R.layout.edit_trip_dialog, TripManager.this)//def gone//def gone
+//                .isCancelableOnTouchOutside(true)
+//                .setButton2Click(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialogBuilder.dismiss();
+//                    }
+//                })
+//                .setButton1Click(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        //  Toast.makeText(v.getContext(), "Okay", Toast.LENGTH_SHORT).show();
+//
+//                        if (Holder != null) {
+//                            if (ActivityCompat.checkSelfPermission(
+//                                    TripManager.this,
+//                                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                                    &&
+//                                    ActivityCompat.checkSelfPermission(TripManager.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+//                                            != PackageManager.PERMISSION_GRANTED) {
+//                                return;
+//                            }
+//
+//                        }
+//                        EditText t = (EditText) dialogBuilder.findViewById(R.id.editText5);
+//                        //dialogBuilder.findViewById(R.id.main_layout).setVisibility(View.GONE);
+//                        //dialogBuilder.findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
+//                        String rate = t.getText().toString();
+//                        //t.setText(managerRate);
+//
+//                        if (!rate.isEmpty()) {
+//                            uploadTrip(rate,homePosts.get(pos).id,"edit");
+//                            //dialogBuilder.findViewById(R.id.main_layout).setVisibility(View.GONE);
+//                            //dialogBuilder.findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
+//                        }
+//                    }
+//                })
+//                .show();
+//
+//
+//    }
 
     private void uploadApproval(final String id) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, uploadApproval,

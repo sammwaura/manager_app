@@ -202,22 +202,27 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
     }
 
     @Override
-    public void onCardClicked(int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
-        amount= homePosts.get(pos).amount;
-        Intent intent = new Intent(Trips.this, TripManager.class);
-        intent.putExtra("VEHICLE_SELECTED", amount);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onCardApproved(int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
+    public void onCardClicked(String number_plate, String destination, String origin, String no_passenger, String rate, String amount) {
 
     }
-
-    @Override
-    public void onEditRate(int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
-
-    }
+//
+//    @Override
+//    public void onCardClicked(int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
+//        amount= homePosts.get(pos).amount;
+//        Intent intent = new Intent(Trips.this, TripManager.class);
+//        intent.putExtra("VEHICLE_SELECTED", amount);
+//        startActivity(intent);
+//    }
+//
+//    @Override
+//    public void onCardApproved(int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
+//
+//    }
+//
+//    @Override
+//    public void onEditRate(int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
+//
+//    }
 
     private class GetHeader extends AsyncTask<String, Integer, Boolean> {
         String data = null;

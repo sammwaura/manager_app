@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.usalamatechnology.manageapp"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    package="com.usalamatechnology.manageapp"
     xsi:schemaLocation="http://schemas.android.com/tools ">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -26,13 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".Home"></activity>
+        <activity android:name=".Home" />
         <activity android:name=".Earnings" />
 
         <service
@@ -66,9 +65,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TripManager"></activity>
+        <activity android:name=".TripManager" />
         <activity android:name=".ExpenseManager" />
         <activity android:name=".ExpensesVehicle" />
+        <activity android:name=".PassengerActivity"></activity>
     </application>
 
 </manifest>

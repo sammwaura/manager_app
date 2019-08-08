@@ -99,7 +99,7 @@ public class VehiclesRVAdapter extends RecyclerView.Adapter<VehiclesRVAdapter.Pe
                 personViewHolder.rippleView.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
                     @Override
                     public void onComplete(RippleView rippleView) {
-                        mObserver.onCardClicked(posi,posterid,poster_type,time,address,city,more,amount,category);
+//                        mObserver.onCardClicked();
                     }
                 });
             }

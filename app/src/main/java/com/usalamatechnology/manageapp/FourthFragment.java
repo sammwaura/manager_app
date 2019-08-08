@@ -181,9 +181,9 @@ public class FourthFragment extends Fragment {
                             "Tally Alert: Help, I am the driver of Bus KCE 2547K and I am in an emergency.Location:http://maps.google.com/?q="+String.valueOf(credentialsSharedPreferences.getString(latKey, "0"))+","+String.valueOf(credentialsSharedPreferences.getString(lonKey, "0"))+"&z=14", null,
                             null);
 
-                Intent intent = new Intent(view.getContext(), Expenses.class);
-                intent.putExtra(Constants.type, "Accident");
-                startActivity(intent);
+//                Intent intent = new Intent(view.getContext(), Expenses.class);
+//                intent.putExtra(Constants.type, "Accident");
+//                startActivity(intent);
 
 
             }
