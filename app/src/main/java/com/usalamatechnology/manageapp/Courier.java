@@ -1,25 +1,12 @@
 package com.usalamatechnology.manageapp;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.location.LocationListener;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -44,8 +31,7 @@ import java.util.Map;
 import static com.usalamatechnology.manageapp.Constants.getAllVehicles;
 import static com.usalamatechnology.manageapp.Constants.getVehiclesCount;
 
-
-public class Trips extends AppCompatActivity implements HomeIObserver {
+public class Courier extends AppCompatActivity implements HomeIObserver {
 
     public static final String ARG_PAGE = "ARG_PAGE";
     private int mPageNo;
@@ -58,18 +44,18 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
     VehiclesRVAdapter adapter;
     private boolean results;
     private TextView_Lato trips_today,total_profits;
-    GetHeader getHeader;
+    Courier.GetHeader getHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trips);
+        setContentView(R.layout.activity_courier);
         homePosts = new ArrayList<>();
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Trips.this, Home.class);
+                Intent intent = new Intent(Courier.this, Home.class);
                 startActivity(intent);
             }
         });
@@ -85,9 +71,9 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
 //        rv.setLayoutManager(llm);
 //        rv.setHasFixedSize(true);
 
-        if (CheckNetwork.isInternetAvailable(Trips.this)) {
+        if (CheckNetwork.isInternetAvailable(Courier.this)) {
             getAllPostFromOnline();
-            getHeader = new GetHeader();
+            getHeader = new Courier.GetHeader();
             getHeader.execute("");
         }
 
@@ -144,7 +130,7 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
                         //Showing toast
                         Toast.makeText(getApplicationContext(), "Error. Try Reopening App", Toast.LENGTH_LONG).show();
 
-                        dialogBuilder = NiftyDialogBuilder.getInstance(Trips.this);
+                        dialogBuilder = NiftyDialogBuilder.getInstance(Courier.this);
                         dialogBuilder
                                 .withTitle("Re-open App")
                                 .withTitleColor("#00B873")                                  //def
@@ -209,7 +195,7 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
 //    @Override
 //    public void onCardClicked(int pos, String userid, String type, String time, String address, String city, String more, String amount, String category) {
 //        amount= homePosts.get(pos).amount;
-//        Intent intent = new Intent(Trips.this, TripManager.class);
+//        Intent intent = new Intent(Fare.this, TripManager.class);
 //        intent.putExtra("VEHICLE_SELECTED", amount);
 //        startActivity(intent);
 //    }
@@ -283,7 +269,7 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
                                 results = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(Trips.this, "Error Fetching Data", Toast.LENGTH_LONG).show();
+                                Toast.makeText(Courier.this, "Error Fetching Data", Toast.LENGTH_LONG).show();
                                 results = false;
                             }
                         }
@@ -300,7 +286,7 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
                         //Showing toast
                         Toast.makeText(getApplicationContext(), "Error. Try Reopening App", Toast.LENGTH_LONG).show();
 
-                        dialogBuilder = NiftyDialogBuilder.getInstance(Trips.this);
+                        dialogBuilder = NiftyDialogBuilder.getInstance(Courier.this);
                         dialogBuilder
                                 .withTitle("Re-open App")
                                 .withTitleColor("#00B873")                                  //def
@@ -345,7 +331,7 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(Trips.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Courier.this);
         //Adding request to the queue
         requestQueue.add(stringRequest);
         return results;
@@ -353,3 +339,5 @@ public class Trips extends AppCompatActivity implements HomeIObserver {
 
 
 }
+
+

@@ -1,32 +1,24 @@
 package com.usalamatechnology.manageapp;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -53,13 +45,9 @@ import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
 import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.Constants.getAdminArea;
 import static com.usalamatechnology.manageapp.Constants.getLocality;
-import static com.usalamatechnology.manageapp.Constants.getManagerHeaderDetails;
-import static com.usalamatechnology.manageapp.Constants.getManagerTrips;
 import static com.usalamatechnology.manageapp.Constants.getSubLocality;
 import static com.usalamatechnology.manageapp.Constants.getVehicleHeaderTrips;
 import static com.usalamatechnology.manageapp.Constants.getVehicleTrips;
-import static com.usalamatechnology.manageapp.Constants.latKey;
-import static com.usalamatechnology.manageapp.Constants.lonKey;
 import static com.usalamatechnology.manageapp.Constants.uploadApproval;
 import static com.usalamatechnology.manageapp.Constants.uploadManagerTrip;
 import static com.usalamatechnology.manageapp.Constants.user_id;
@@ -119,7 +107,7 @@ public class TripManager extends AppCompatActivity implements HomeIObserver {
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TripManager.this, Trips.class);
+                Intent intent = new Intent(TripManager.this, Fare.class);
                 startActivity(intent);
             }
         });

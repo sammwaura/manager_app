@@ -38,7 +38,6 @@
             android:name=".GeocodeAddressIntentService"
             android:exported="false" />
 
-        <activity android:name=".Expenses" />
 
         <provider
             android:name=".GenericFileProvider"
@@ -51,8 +50,8 @@
         </provider>
 
         <activity android:name=".IncomeEdit" />
-        <activity android:name=".ExpenseEdit" />
-        <activity android:name=".Trips" />
+        <activity android:name=".Fare" />
+        <activity android:name=".Courier"/>
         <activity
             android:name=".ExitActivity"
             android:autoRemoveFromRecents="true"
@@ -66,8 +65,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".TripManager" />
-        <activity android:name=".ExpenseManager" />
-        <activity android:name=".ExpensesVehicle" />
+
+
         <activity android:name=".PassengerActivity"></activity>
     </application>
 

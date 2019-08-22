@@ -7,9 +7,14 @@
             android:icon="@drawable/home_drawer"
             android:title="Home"/>
         <item
-            android:id="@+id/nav_trips"
+            android:id="@+id/nav_fare"
             android:icon="@drawable/trips_drawer"
-            android:title="Trips"/>
+            android:title="Fare"/>
+        <item
+            android:id="@+id/nav_courier"
+            android:icon="@drawable/trips_drawer"
+            android:title="Courier"/>
+
 
 
 

@@ -1,34 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
-
+    tools:context="com.usalamatechnology.manageapp.MainActivity">
 
     <FrameLayout
-
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="140dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/bg"
-        android:scaleType="centerCrop">
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="139dp"
+            android:background="@drawable/bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.2"
+                    android:src="@drawable/back" />
+
+
+                <com.usalamatechnology.manageapp.TextView_Lato
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_weight="1.6"
+                    android:gravity="center_horizontal"
+                    android:text="Courier on Transit"
+                    android:textColor="#fff"
+                    android:textSize="26dp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.usalamatechnology.manageapp.TextView_Lato
+                    android:id="@+id/total_trips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="total(s)"
+                    android:textColor="#fff"
+                    android:textSize="14dp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/head"
-        android:layout_width="340dp"
-        android:layout_height="49dp"
+    <com.usalamatechnology.manageapp.TextView_Lato
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="101dp"
-        android:gravity="center"
-        android:text="Passengers Boarded"
-        android:textColor="#fff"
-        android:textSize="34dp" />
+        android:layout_below="@+id/frameLayout"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="19dp"
+        android:paddingLeft="5dp"
+        android:text="Courier on transit"
+        android:textColor="@color/colorGray"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -65,7 +135,7 @@
                             android:layout_marginBottom="3dp"
                             android:layout_marginRight="27dp"
                             android:letterSpacing="0.093"
-                            android:text="Name"
+                            android:text="Number Plate"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="12.7sp"
                             android:textStyle="normal|bold" />
@@ -75,7 +145,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.093"
-                            android:text=":Jane Mwaura"
+                            android:text=":KCA 457Y"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="12.7sp" />
 
@@ -109,17 +179,17 @@
                         android:layout_marginBottom="3dp"
                         android:layout_marginRight="23dp"
                         android:letterSpacing="0.093"
-                        android:text="Phone No"
+                        android:text="Amount Collected"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp"
                         android:textStyle="normal|bold" />
 
                     <TextView
-                        android:id="@+id/phone_n03"
+                        android:id="@+id/amount_courier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.093"
-                        android:text=": 0723717564"
+                        android:text=": 4900"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp" />
                 </LinearLayout>
@@ -142,17 +212,17 @@
                         android:layout_marginBottom="3dp"
                         android:layout_marginRight="23dp"
                         android:letterSpacing="0.093"
-                        android:text="Seat No"
+                        android:text="Courier Id"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp"
                         android:textStyle="normal|bold" />
 
                     <TextView
-                        android:id="@+id/seat_no3"
+                        android:id="@+id/courier_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.093"
-                        android:text=":2"
+                        android:text=":001"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp" />
                 </LinearLayout>
@@ -189,7 +259,7 @@
                             android:layout_marginBottom="3dp"
                             android:layout_marginRight="27dp"
                             android:letterSpacing="0.093"
-                            android:text="Name"
+                            android:text="Number Plate"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="12.7sp"
                             android:textStyle="normal|bold" />
@@ -199,7 +269,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.093"
-                            android:text=":Samuel Wamichwe"
+                            android:text=":KBB 234N"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="12.7sp" />
 
@@ -233,7 +303,7 @@
                         android:layout_marginBottom="3dp"
                         android:layout_marginRight="23dp"
                         android:letterSpacing="0.093"
-                        android:text="Phone No"
+                        android:text="Amount Collected"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp"
                         android:textStyle="normal|bold" />
@@ -243,7 +313,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.093"
-                        android:text=": 0740116783"
+                        android:text=": 4900"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp" />
                 </LinearLayout>
@@ -266,7 +336,7 @@
                         android:layout_marginBottom="3dp"
                         android:layout_marginRight="23dp"
                         android:letterSpacing="0.093"
-                        android:text="Seat No"
+                        android:text="Courier Id"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp"
                         android:textStyle="normal|bold" />
@@ -276,7 +346,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.093"
-                        android:text=":5"
+                        android:text=":002"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp" />
                 </LinearLayout>
@@ -312,7 +382,7 @@
                             android:layout_marginBottom="3dp"
                             android:layout_marginRight="27dp"
                             android:letterSpacing="0.093"
-                            android:text="Name"
+                            android:text="Number Plate"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="12.7sp"
                             android:textStyle="normal|bold" />
@@ -322,7 +392,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.093"
-                            android:text=":James Muhunyu"
+                            android:text=":KBA 567T"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="12.7sp" />
 
@@ -356,7 +426,7 @@
                         android:layout_marginBottom="3dp"
                         android:layout_marginRight="23dp"
                         android:letterSpacing="0.093"
-                        android:text="Phone No"
+                        android:text="Amount Collected"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp"
                         android:textStyle="normal|bold" />
@@ -366,7 +436,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.093"
-                        android:text=": 0704902807"
+                        android:text=": 4900"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp" />
                 </LinearLayout>
@@ -389,7 +459,7 @@
                         android:layout_marginBottom="3dp"
                         android:layout_marginRight="23dp"
                         android:letterSpacing="0.093"
-                        android:text="Seat No"
+                        android:text="Courier id"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp"
                         android:textStyle="normal|bold" />
@@ -399,7 +469,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.093"
-                        android:text=":8"
+                        android:text=":003"
                         android:textColor="#7d7e82"
                         android:textSize="12.7sp" />
                 </LinearLayout>
@@ -411,7 +481,7 @@
     </RelativeLayout>
 
 
-    </RelativeLayout>
 
 
+</RelativeLayout>
 

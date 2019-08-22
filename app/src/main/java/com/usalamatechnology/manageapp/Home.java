@@ -137,11 +137,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         if (id == R.id.nav_home) {
             viewPager.setCurrentItem(0);
         }
-       else if (id == R.id.nav_trips) {
-            Intent intent = new Intent(Home.this, Trips.class);
+       else if (id == R.id.nav_fare) {
+            Intent intent = new Intent(Home.this, Fare.class);
             startActivity(intent);
-
-        } else if (id == R.id.nav_logout) {
+        }
+        else if (id == R.id.nav_courier) {
+            Intent intent = new Intent(Home.this, Courier.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_logout) {
             credentialsEditor.putString(Constants.user_id, "0");
             credentialsEditor.apply();
 
