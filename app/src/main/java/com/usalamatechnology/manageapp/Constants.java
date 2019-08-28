@@ -71,6 +71,8 @@ public final class Constants {
     public static String imageConstant="https://zamzam45.com/tally_driver/";
     public static String deleteExpense="https://zamzam45.com/tally_driver/deleteExpense.php";
     public static String editExpense="https://zamzam45.com/tally_driver/editExpense.php";
+    public static String savePayment="https://zamzam45.com/tally_driver_copy/savePayment.php";
+    public static String paymentDetails = "https://zamzam45.com/tally_driver_copy/getPaymentdetails.php";
 
 
     /*public static String getManagerHeaderDetails="https://zamzam45.com/tally_driver_test/getManagerHeaderDetails.php";
