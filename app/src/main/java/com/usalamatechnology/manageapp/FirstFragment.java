@@ -119,13 +119,17 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
     final int periodicUpdate = minute * milliseconds * seconds ;
 
     private String TAG = "TAG";
+    private static final String SAVED_PAYMENT = "savedpayment";
+    private static final int TARGET_FRAGMENT_REQUEST_CODE = 1;
+
+
 
 
 
     public List<HomePost> homePosts;
     ArrayList<Paymentdetails> paymentdetails;
 
-    private RecyclerView rv;
+     RecyclerView rv;
 
     public static FragmentActivity host;
     HomeRVAdapter adapter;
@@ -152,9 +156,9 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
     }
 
 
-    public static FirstFragment newInstance(int pageNo) {
+    public static FirstFragment getInstance() {
         Bundle args = new Bundle();
-        args.putInt(ARG_PAGE, pageNo);
+//        args.putInt(ARG_PAGE, pageNo);
         FirstFragment fragment = new FirstFragment();
         fragment.setArguments(args);
         return fragment;
@@ -179,8 +183,9 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
     private void showCustomDialog() {
         FragmentManager fragmentManager = getFragmentManager();
-        MyCustomDialogFragment myCustomDialogFragment = MyCustomDialogFragment.newInstance("Enter Number plate");
-        myCustomDialogFragment.show(fragmentManager, "dialog_make_payment");
+        MyCustomDialogFragment myCustomDialogFragment = MyCustomDialogFragment.getInstance();
+        myCustomDialogFragment.setTargetFragment(FirstFragment.this, TARGET_FRAGMENT_REQUEST_CODE);
+        myCustomDialogFragment.show(fragmentManager, MyCustomDialogFragment.TAG);
     }
 
 
@@ -320,15 +325,16 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
 
 
-        CardView cardView = (CardView) view.findViewById(R.id.cardPay);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), PassengerActivity.class);
-                startActivity(intent);
 
-            }
-        });
+//        CardView cardView = (CardView) view.findViewById(R.id.cardPay);
+//        cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), PassengerActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
 
 
         TextView title_day = (TextView_Lato) view.findViewById(R.id.trips_today);
@@ -477,13 +483,32 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         return view;
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK){
+            return;
+        }
+        if (requestCode == TARGET_FRAGMENT_REQUEST_CODE ){
+
+            rv.setAdapter(adapter);
+        }
+    }
+
+
+    public static Intent newIntent( String response) {
+        Intent intent = new Intent();
+        intent.putExtra(SAVED_PAYMENT, response);
+        return intent;
+    }
+
     private void retrievePaymentDetails() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, savePayment,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, paymentDetails,
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
                         System.out.println("123RETRIEEEVE" + s);
-                        textView.setText("retrieve details");
+//                        textView.setText("retrieve details");
                         Toast.makeText(getActivity(), "successfully retrieved", Toast.LENGTH_SHORT).show();
                         try {
                             JSONObject jsonObject = new JSONObject(s);
@@ -520,7 +545,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
                 }) {
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(FirstFragment.host);
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
 
         }
@@ -838,8 +863,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
 
                                     }
-                                })
-                                .show();
+                                });
                         results = false;
                     }
                 }) {

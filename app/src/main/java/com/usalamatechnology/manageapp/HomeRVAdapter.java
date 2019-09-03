@@ -1,5 +1,6 @@
 package com.usalamatechnology.manageapp;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -29,14 +30,16 @@ public class HomeRVAdapter extends RecyclerView.Adapter<HomeRVAdapter.TripViewHo
     public HomeIObserver mObserver;
     AdapterView.OnItemClickListener itemClickListener;
     List<HomePost> homePosts;
+    Context context;
+
 
 
 
     public static class TripViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CardView cv;
-        TextView number_plate,destination,origin;
-        TextView no_passenger, rate, amount;
+        TextView number_plate,destination;
+        TextView  amount;
         AdapterView.OnItemClickListener itemClickListener;
 
 
@@ -46,9 +49,6 @@ public class HomeRVAdapter extends RecyclerView.Adapter<HomeRVAdapter.TripViewHo
 
             number_plate = itemView.findViewById(R.id.number_plate);
             destination = itemView.findViewById(R.id.destination);
-            origin = itemView.findViewById(R.id.origin);
-            no_passenger = itemView.findViewById(R.id.no_passenger);
-            rate = itemView.findViewById(R.id.rate);
             amount = itemView.findViewById(R.id.amount);
             this.itemClickListener = itemClickListener;
 
@@ -68,6 +68,7 @@ public class HomeRVAdapter extends RecyclerView.Adapter<HomeRVAdapter.TripViewHo
     List<HomePost> post;
 
     public HomeRVAdapter(List<HomePost> post){
+
         this.post = post;
     }
 

@@ -7,7 +7,7 @@
 
 
     <EditText
-        android:id="@+id/number_plate"
+        android:id="@+id/number_plate1"
         android:textSize="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
     </Spinner>
 
     <EditText
-        android:id="@+id/amount"
+        android:id="@+id/amount1"
         android:textSize="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         android:gravity="left"
         />
     <EditText
-        android:id="@+id/name_passenger"
+        android:id="@+id/name_passenger1"
         android:textSize="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         />
 
     <EditText
-        android:id="@+id/phone_passenger"
+        android:id="@+id/phone_passenger1"
         android:textSize="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
         />
 
     <EditText
-        android:id="@+id/ID_passenger"
+        android:id="@+id/ID_passenger1"
         android:textSize="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
         android:gravity="left"
         />
     <EditText
-        android:id="@+id/destination"
+        android:id="@+id/destination1"
         android:textSize="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/submitDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="56dp"

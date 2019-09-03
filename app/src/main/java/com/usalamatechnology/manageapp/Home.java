@@ -192,7 +192,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             switch (pos) {
 
                 case 0:
-                    return FirstFragment.newInstance(1);
+                    return FirstFragment.getInstance();
 
             }
             return null;

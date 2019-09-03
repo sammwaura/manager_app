@@ -1,12 +1,13 @@
 package com.usalamatechnology.manageapp;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,11 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alexzh.circleimageview.ItemSelectedListener;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,11 +28,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.usalamatechnology.manageapp.Constants.paymentDetails;
+import static com.usalamatechnology.manageapp.Constants.savePayment;
 
 @SuppressLint("ValidFragment")
 class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditorActionListener, AdapterView.OnItemSelectedListener {
@@ -42,14 +40,13 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
 
     //widgets
 //    private EditText number_plate;
-    private String number_plate;
-    private int fare;
-    private int amount;
-    private int courier;
-    private String name_of_passenger;
-    private int phone_no_of_passenger;
-    private int id_no_of_passenger;
-    private String destination;
+     EditText number_plate;
+     EditText amount;
+     EditText name_of_passenger;
+     EditText phone_no_of_passenger;
+     EditText id_no_of_passenger;
+     EditText destination;
+
     private int actionId;
     Spinner spinner;
 
@@ -57,33 +54,58 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
 
     }
 
-    public static MyCustomDialogFragment newInstance(String title) {
+    public static MyCustomDialogFragment getInstance() {
         MyCustomDialogFragment myCustomDialogFragment = new MyCustomDialogFragment();
         Bundle args = new Bundle();
-        args.putString("Make payment", title);
+//        args.putString("Make payment", title);
         myCustomDialogFragment.setArguments(args);
         return myCustomDialogFragment;
+
+
     }
 
 
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        savePayment();
-        return inflater.inflate(R.layout.dialog_make_payment, container);
+        view = inflater.inflate(R.layout.dialog_make_payment, container, false);
+
+        number_plate = view.findViewById(R.id.number_plate1);
+        amount = view.findViewById(R.id.amount1);
+        name_of_passenger = view.findViewById(R.id.name_passenger1);
+        phone_no_of_passenger = view.findViewById(R.id.phone_passenger1);
+        id_no_of_passenger = view.findViewById(R.id.ID_passenger1);
+        destination = view.findViewById(R.id.destination1);
+
+        return view;
 
     }
 
+
     private void savePayment() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, paymentDetails,
+
+      final String Numberplate = number_plate.getText().toString().trim();
+      final String Amount = amount.getText().toString().trim();
+      final String Name = name_of_passenger.getText().toString().trim();
+      final String PhoneNo = phone_no_of_passenger.getText().toString().trim();
+      final String Id = id_no_of_passenger.getText().toString().trim();
+      final String Destination = destination.getText().toString().trim();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, savePayment,
                 new Response.Listener <String>() {
                     @Override
-                    public void onResponse(String s) {
-                        System.out.println("////////////////123PAAAAIDDD " + s);
-                         Toast.makeText(getActivity(), "Successfully paid", Toast.LENGTH_LONG).show();
-
+                    public void onResponse(String response) {
+                        System.out.println("////////////////123PAAAAIDDD " + response);
+                        if (response != null) {
+                            Toast.makeText(getActivity(), "Successfully paid", Toast.LENGTH_LONG).show();
+                            FirstFragment firstFragment = (FirstFragment) getTargetFragment();
+                            Intent intent = FirstFragment.newIntent(response);
+                            firstFragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                            dismiss();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -93,20 +115,19 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
         }) {
             @Override
             protected Map<String, String> getParams() {
-                Map <String, String> params = new HashMap<>();
-                params.put("number_plate", number_plate);
-                params.put("fare", String.valueOf(fare));
-                params.put("amount", String.valueOf(amount));
-                params.put("courier", String.valueOf(courier));
-                params.put("name_of_passenger", name_of_passenger);
-                params.put("phone_no_of_passenger", String.valueOf(phone_no_of_passenger));
-                params.put("id_no_of_passenger", String.valueOf(id_no_of_passenger));
-                params.put("destination", destination);
+                Map <String, String> params = new HashMap <>();
+                params.put("number_plate", Numberplate);
+                params.put("amount", Amount);
+                params.put("name_of_passenger", Name);
+                params.put("phone_no_of_passenger", PhoneNo);
+                params.put("id_no_of_passenger", Id);
+                params.put("destination", Destination);
 
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         requestQueue.add(stringRequest);
 
     }
@@ -132,8 +153,7 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        number_plate = (EditText) view.findViewById(R.id.number_plate);
-        String title = getArguments().getString("title" ,"Enter Number plate");
+        String title = getArguments().getString("title" ,"make payments");
         getDialog().setTitle(title);
 //        number_plate.requestFocus();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -142,6 +162,13 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.payment, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        view.findViewById(R.id.submitDetails).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savePayment();
+            }
+        });
+
     }
 
     @Override
