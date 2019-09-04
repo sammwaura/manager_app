@@ -28,15 +28,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static com.usalamatechnology.manageapp.Constants.name;
 import static com.usalamatechnology.manageapp.Constants.savePayment;
 
 @SuppressLint("ValidFragment")
 class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditorActionListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "MyCustomDialog";
+    List<String> data;
 
     //widgets
 //    private EditText number_plate;
@@ -99,17 +106,23 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
                     @Override
                     public void onResponse(String response) {
                         System.out.println("////////////////123PAAAAIDDD " + response);
-                        if (response != null) {
-                            Toast.makeText(getActivity(), "Successfully paid", Toast.LENGTH_LONG).show();
-                            FirstFragment firstFragment = (FirstFragment) getTargetFragment();
-                            Intent intent = FirstFragment.newIntent(response);
-                            firstFragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-                            dismiss();
-                        }
+                        number_plate.setText("");
+                        amount.setText("");
+                        name_of_passenger.setText("");
+                        phone_no_of_passenger.setText("");
+                        id_no_of_passenger.setText("");
+                        destination.setText("");
+                        spinner.setSelection(0);
+
+                        Intent intent = FirstFragment.newIntent(response);
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                        dismiss();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                System.out.println("volleyError response " + error.getMessage());
+                Toast.makeText(getActivity(), "Poor network connection.", Toast.LENGTH_LONG).show();
             }
 
         }) {
@@ -117,6 +130,7 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
             protected Map<String, String> getParams() {
                 Map <String, String> params = new HashMap <>();
                 params.put("number_plate", Numberplate);
+                params.put("spinner", spinner.getSelectedItem().toString());
                 params.put("amount", Amount);
                 params.put("name_of_passenger", Name);
                 params.put("phone_no_of_passenger", PhoneNo);
@@ -127,7 +141,7 @@ class MyCustomDialogFragment extends DialogFragment implements TextView.OnEditor
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(FirstFragment.host);
         requestQueue.add(stringRequest);
 
     }
