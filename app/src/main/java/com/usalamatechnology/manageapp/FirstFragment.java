@@ -491,14 +491,16 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         }
         if (requestCode == TARGET_FRAGMENT_REQUEST_CODE ){
 
+//            Bundle extra = data.getBundleExtra(SAVED_PAYMENT);
             rv.setAdapter(adapter);
         }
     }
 
 
-    public static Intent newIntent( String response) {
+    public static Intent newIntent( String s) {
         Intent intent = new Intent();
-        intent.putExtra(SAVED_PAYMENT, response);
+        intent.putExtra( SAVED_PAYMENT, s);
+//        intent.getExtras();
         return intent;
     }
 

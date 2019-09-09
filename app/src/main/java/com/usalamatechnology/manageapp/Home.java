@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -45,8 +46,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         credentialsEditor = credentialsSharedPreferences.edit();
 
         // Setup the viewPager
-         viewPager = (ViewPager) findViewById(R.id.view_pager);
-         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         if (viewPager != null)
             viewPager.setAdapter(pagerAdapter);
 
@@ -137,7 +138,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         if (id == R.id.nav_home) {
             viewPager.setCurrentItem(0);
         }
-       else if (id == R.id.nav_fare) {
+        else if (id == R.id.nav_fare) {
             Intent intent = new Intent(Home.this, Fare.class);
             startActivity(intent);
         }
@@ -178,7 +179,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         public View getTabView(int position) {
             // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
             View view = LayoutInflater.from(Home.this).inflate(R.layout.custom_tab, null);
-  //          TextView title = (TextView) view.findViewById(R.id.title);
+            //          TextView title = (TextView) view.findViewById(R.id.title);
 //            title.setText(mTabsTitle[position]);
             ImageView icon = view.findViewById(R.id.icon);
             icon.setImageResource(mTabsIcons[position]);
