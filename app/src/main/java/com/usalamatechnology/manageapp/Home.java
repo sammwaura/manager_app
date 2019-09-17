@@ -15,29 +15,56 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
 import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
 import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.Constants.paymentDetails;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MyInterface {
-    private TabLayout mTabLayout;
 
-    private int[] mTabsIcons = {
-            R.drawable.tab_home
-            };
 
+    private static final String TAG = "Home Activity";
     DrawerLayout drawer;
 
-    MyPagerAdapter pagerAdapter;
-    ViewPager viewPager;
+    //widgets
+    private EditText number_plate1;
+    private EditText amount1;
+    private EditText name_passenger1;
+    private EditText phone_passenger1;
+    private EditText ID_passenger1;
+    private EditText destination1;
+
+
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
+    private ArrayList<Paymentdetails>paymentdetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,29 +72,22 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         credentialsSharedPreferences =getSharedPreferences(CREDENTIALSPREFERENCES, Context.MODE_PRIVATE);
         credentialsEditor = credentialsSharedPreferences.edit();
 
-        // Setup the viewPager
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        if (viewPager != null)
-            viewPager.setAdapter(pagerAdapter);
+
+        findViewById(R.id.makePayment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: opening dialog");
+                CustomDialog dialog = new CustomDialog();
+                dialog.show(getSupportFragmentManager(), "Custom Dialog");
+
+
+            }
+        });
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        if (mTabLayout != null) {
-            mTabLayout.setupWithViewPager(viewPager);
-
-            for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-                TabLayout.Tab tab = mTabLayout.getTabAt(i);
-                if (tab != null)
-                    tab.setCustomView(pagerAdapter.getTabView(i));
-            }
-
-            mTabLayout.getTabAt(0).getCustomView().setSelected(true);
-        }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,7 +103,73 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.user_name);
         navUsername.setText(credentialsSharedPreferences.getString(Constants.name, "User Name"));
+
+
+        paymentdetails = new ArrayList <>();
+
+        recyclerView = findViewById(R.id.recyclerview);
+        adapter = new PaymentAdapter(paymentdetails);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        retrievePaymentDetails();
+
     }
+
+    private void retrievePaymentDetails() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, paymentDetails,
+                new Response.Listener <String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        System.out.println("123RETRIEEEVE" + s);
+//                        textView.setText("retrieve details");
+                        Toast.makeText(getApplicationContext(), "successfully retrieved", Toast.LENGTH_SHORT).show();
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            JSONArray array = jsonObject.getJSONArray("payments");
+
+                            for (int i =0; i< array.length(); i++){
+                                JSONObject row = array.getJSONObject(i);
+                                Paymentdetails paymentdetail = new Paymentdetails(
+                                        row.getString("number_plate"),
+                                        row.getInt("amount"),
+                                        row.getString("no_of_passengers"),
+                                        row.getInt("rate"),
+                                        row.getString("destination")
+                                );
+                                paymentdetails.add(paymentdetail);
+                                initializeData();
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println("volleyError error" + volleyError.getMessage());
+                        Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+
+                    }
+                }) {
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
+
+    private void initializeData() {
+        PaymentAdapter paymentAdapter = new PaymentAdapter(paymentdetails);
+        recyclerView.setAdapter(paymentAdapter);
+        paymentAdapter.setListener((PassengerDetailsIObserver) this);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -136,9 +222,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         //Toast.makeText(this,"id"+id,Toast.LENGTH_LONG).show();
 
         if (id == R.id.nav_home) {
-            viewPager.setCurrentItem(0);
+
+                    Intent it = new Intent(Home.this, Home.class);
+                    startActivity(it);
+
         }
         else if (id == R.id.nav_fare) {
+
             Intent intent = new Intent(Home.this, Fare.class);
             startActivity(intent);
         }
@@ -164,49 +254,4 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         return drawer;
     }
 
-
-
-    private class MyPagerAdapter extends FragmentPagerAdapter {
-
-        public final int PAGE_COUNT = 1;
-
-        private final String[] mTabsTitle = {"Home"};
-
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        public View getTabView(int position) {
-            // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
-            View view = LayoutInflater.from(Home.this).inflate(R.layout.custom_tab, null);
-            //          TextView title = (TextView) view.findViewById(R.id.title);
-//            title.setText(mTabsTitle[position]);
-            ImageView icon = view.findViewById(R.id.icon);
-            icon.setImageResource(mTabsIcons[position]);
-            return view;
-        }
-
-
-
-        @Override
-        public Fragment getItem(int pos) {
-            switch (pos) {
-
-                case 0:
-                    return FirstFragment.getInstance();
-
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return PAGE_COUNT;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mTabsTitle[position];
-        }
-    }
 }

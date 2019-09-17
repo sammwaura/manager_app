@@ -93,7 +93,7 @@ import static com.usalamatechnology.manageapp.Constants.paymentDetails;
 
 
 
-public class FirstFragment extends Fragment implements LocationListener, HomeIObserver, MyCustomDialogFragment.CustomDialogueListener {
+public class FirstFragment extends Fragment implements LocationListener, HomeIObserver, CustomDialogueListener {
     public static final String ARG_PAGE = "ARG_PAGE";
     private static final int PERMISSIONS_REQUEST_SEND_SMS = 100;
     private static final int REQUEST_PHONE_CALL = 200;
@@ -143,6 +143,7 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
     private MyInterface myInterface;
 
     DrawerLayout drawer;
+     private Object CustomDialogue;
 
 
     @Override
@@ -182,10 +183,10 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 
 
     private void showCustomDialog() {
-        FragmentManager fragmentManager = getFragmentManager();
-        MyCustomDialogFragment myCustomDialogFragment = MyCustomDialogFragment.getInstance();
+        MyCustomDialogFragment myCustomDialogFragment = new MyCustomDialogFragment();
+        myCustomDialogFragment.show(getFragmentManager(), getString(R.string.my_custom_dialog));
         myCustomDialogFragment.setTargetFragment(FirstFragment.this, TARGET_FRAGMENT_REQUEST_CODE);
-        myCustomDialogFragment.show(fragmentManager, MyCustomDialogFragment.TAG);
+
     }
 
 
@@ -234,16 +235,23 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
     }
 
 
-    //when listener is triggered
-    @Override
-    public void onFinishCustomDialogue(String inputText) {
-        System.out.println("Make payment" + inputText);
-    }
+
 
     @Override
     public void onCardClicked(String number_plate, String destination, String origin, String no_passenger, String rate, String amount) {
         //when using rv
     }
+
+    @Override
+    public void onApplyText(String number_plate, String amount, String name_of_passenger, String phone_no_of_passenger, String id_no_of_passenger, String destination) {
+        textView.setText(number_plate);
+        textView.setText(amount);
+        textView.setText(name_of_passenger);
+        textView.setText(phone_no_of_passenger);
+        textView.setText(id_no_of_passenger);
+        textView.setText(destination);
+    }
+
 
     class AddressResultReceiver extends ResultReceiver {
         public AddressResultReceiver(Handler handler) {
@@ -313,13 +321,13 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
 //                    getAllPostFromOnline(view);
                     refreshFragment();
                     getHeaderDetails();
-                    showCustomDialog();
+//                    showCustomDialog();
 
                 }
 
             }
         });
-        retrievePaymentDetails();
+//        retrievePaymentDetails();
 
 
 
@@ -504,53 +512,49 @@ public class FirstFragment extends Fragment implements LocationListener, HomeIOb
         return intent;
     }
 
-    private void retrievePaymentDetails() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, paymentDetails,
-                new Response.Listener <String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        System.out.println("123RETRIEEEVE" + s);
-//                        textView.setText("retrieve details");
-                        Toast.makeText(getActivity(), "successfully retrieved", Toast.LENGTH_SHORT).show();
-                        try {
-                            JSONObject jsonObject = new JSONObject(s);
-                            JSONArray array = jsonObject.getJSONArray("payments");
-
-                            for (int i =0; i< array.length(); i++){
-                                JSONObject row = array.getJSONObject(i);
-                                Paymentdetails paymentdetail = new Paymentdetails(
-                                        row.getString("number_plate"),
-                                        row.getInt("fare"),
-                                        row.getInt("courier"),
-                                        row.getInt("amount"),
-                                        row.getString("name_of_passenger"),
-                                        row.getInt("phone_no_of_passenger"),
-                                        row.getInt("id_no_of_passenger"),
-                                        row.getString("destination")
-                                );
-                                paymentdetails.add(paymentdetail);
-
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("volleyError error" + volleyError.getMessage());
-                        Toast.makeText(getActivity(), "Poor network connection.", Toast.LENGTH_LONG).show();
-
-                    }
-                }) {
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
-
-        }
+//    private void retrievePaymentDetails() {
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, paymentDetails,
+//                new Response.Listener <String>() {
+//                    @Override
+//                    public void onResponse(String s) {
+//                        System.out.println("123RETRIEEEVE" + s);
+////                        textView.setText("retrieve details");
+//                        Toast.makeText(getActivity(), "successfully retrieved", Toast.LENGTH_SHORT).show();
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(s);
+//                            JSONArray array = jsonObject.getJSONArray("payments");
+//
+//                            for (int i =0; i< array.length(); i++){
+//                                JSONObject row = array.getJSONObject(i);
+//                                Paymentdetails paymentdetail = new Paymentdetails(
+//                                        row.getString("number_plate"),
+//                                        row.getInt("amount"),
+//
+//                                        row.getString("destination")
+//                                );
+//                                paymentdetails.add(paymentdetail);
+//
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                        System.out.println("volleyError error" + volleyError.getMessage());
+//                        Toast.makeText(getActivity(), "Poor network connection.", Toast.LENGTH_LONG).show();
+//
+//                    }
+//                }) {
+//        };
+//
+//        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+//        requestQueue.add(stringRequest);
+//
+//        }
 
 
 
