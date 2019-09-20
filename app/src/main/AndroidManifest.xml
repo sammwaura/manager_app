@@ -66,7 +66,7 @@
         <activity android:name=".TripManager" />
         <activity android:name=".PassengerActivity" />
         <activity android:name=".FirstActivity" />
-        <activity android:name=".Home2"></activity>
+        <activity android:name=".Home2" />
     </application>
 
 </manifest>

@@ -3,13 +3,13 @@ package com.usalamatechnology.manageapp;
 public class Paymentdetails {
 
     private String number_plate;
-    private int amount;
+    private String amount;
     private String no_of_passenger;
     private int rate;
     private String destination;
 
 
-    public Paymentdetails(String number_plate, int amount,String no_of_passenger, int rate, String destination) {
+    public Paymentdetails(String number_plate, String amount,String no_of_passenger, int rate, String destination) {
         this.number_plate = number_plate;
         this.amount = amount;
         this.no_of_passenger = no_of_passenger;
@@ -25,11 +25,11 @@ public class Paymentdetails {
         this.number_plate = number_plate;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

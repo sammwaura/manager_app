@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+<LinearLayout
+    android:id="@+id/linear"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.usalamatechnology.manageapp.MainActivity">
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="6dp"
+    android:layout_below="@+id/frameLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="250dp">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="139dp"
-            android:background="@drawable/bg" />
+            android:layout_height="250dp"
+            android:background="@drawable/bg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -36,7 +34,7 @@
                     android:layout_height="24dp"
                     android:layout_margin="16dp"
                     android:layout_weight="0.2"
-                    android:src="@drawable/back" />
+                    android:src="@drawable/menu" />
 
 
                 <com.usalamatechnology.manageapp.TextView_Lato
@@ -47,11 +45,14 @@
                     android:layout_marginRight="14dp"
                     android:layout_marginTop="50dp"
                     android:layout_weight="1.6"
+                    android:id="@+id/trips_today"
                     android:gravity="center_horizontal"
                     android:text="Courier on Transit"
                     android:textColor="#fff"
-                    android:textSize="26dp"
-                    android:textStyle="bold"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+
+                    />
 
             </LinearLayout>
 
@@ -63,10 +64,10 @@
                 android:orientation="horizontal">
 
                 <com.usalamatechnology.manageapp.TextView_Lato
-                    android:id="@+id/total_trips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3"
+                    android:text="0"
+                    android:id="@+id/total_fare"
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -80,408 +81,59 @@
                     android:textSize="14dp" />
 
 
+
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
+
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Courier on Transit"
+                    android:id="@+id/driver_car"
+                    android:textColor="#fff"
+                    android:textSize="14dp" />
+
+
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
     </FrameLayout>
 
-    <com.usalamatechnology.manageapp.TextView_Lato
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/frameLayout"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="19dp"
-        android:paddingLeft="5dp"
-        android:text="Courier on transit"
-        android:textColor="@color/colorGray"
-        android:textSize="16dp"
-        android:textStyle="bold" />
-
-
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:layout_height="fill_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/recyclerview4"
+        >
+    </android.support.v7.widget.RecyclerView>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardPassenger3"
-            android:layout_width="match_parent"
-            android:layout_height="101dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="186dp">
-            <!--android:layout_alignTop="@+id/rv">-->
+    <include
+        layout="@layout/cardcourier"
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/frameLayout"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:layout_marginLeft="20dp"
-                android:orientation="vertical">
+        />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="3dp"
-                            android:layout_marginRight="27dp"
-                            android:letterSpacing="0.093"
-                            android:text="Number Plate"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="12.7sp"
-                            android:textStyle="normal|bold" />
 
-                        <TextView
-                            android:id="@+id/name3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:letterSpacing="0.093"
-                            android:text=":KCA 457Y"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="12.7sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="227dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:gravity="end"
-                        android:paddingEnd="5dp">
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/colorPrimary" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginRight="23dp"
-                        android:letterSpacing="0.093"
-                        android:text="Amount Collected"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp"
-                        android:textStyle="normal|bold" />
-
-                    <TextView
-                        android:id="@+id/amount_courier"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.093"
-                        android:text=": 4900"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:background="#f0f0f0" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginRight="23dp"
-                        android:letterSpacing="0.093"
-                        android:text="Courier Id"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp"
-                        android:textStyle="normal|bold" />
-
-                    <TextView
-                        android:id="@+id/courier_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.093"
-                        android:text=":001"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardPassenger2"
-            android:layout_width="match_parent"
-            android:layout_height="92dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/cardPassenger3">
-            <!--android:layout_alignTop="@+id/rv">-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:layout_marginLeft="20dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="3dp"
-                            android:layout_marginRight="27dp"
-                            android:letterSpacing="0.093"
-                            android:text="Number Plate"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="12.7sp"
-                            android:textStyle="normal|bold" />
-
-                        <TextView
-                            android:id="@+id/name2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:letterSpacing="0.093"
-                            android:text=":KBB 234N"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="12.7sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="227dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:gravity="end"
-                        android:paddingEnd="5dp">
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/colorPrimary" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginRight="23dp"
-                        android:letterSpacing="0.093"
-                        android:text="Amount Collected"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp"
-                        android:textStyle="normal|bold" />
-
-                    <TextView
-                        android:id="@+id/phone_n02"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.093"
-                        android:text=": 4900"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:background="#f0f0f0" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginRight="23dp"
-                        android:letterSpacing="0.093"
-                        android:text="Courier Id"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp"
-                        android:textStyle="normal|bold" />
-
-                    <TextView
-                        android:id="@+id/seat_no2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.093"
-                        android:text=":002"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardPassenger"
-            android:layout_width="match_parent"
-            android:layout_height="101dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/cardPassenger2">
-            <!--android:layout_alignTop="@+id/rv">-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:layout_marginLeft="20dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="3dp"
-                            android:layout_marginRight="27dp"
-                            android:letterSpacing="0.093"
-                            android:text="Number Plate"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="12.7sp"
-                            android:textStyle="normal|bold" />
-
-                        <TextView
-                            android:id="@+id/name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:letterSpacing="0.093"
-                            android:text=":KBA 567T"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="12.7sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="227dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:gravity="end"
-                        android:paddingEnd="5dp">
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/colorPrimary" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginRight="23dp"
-                        android:letterSpacing="0.093"
-                        android:text="Amount Collected"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp"
-                        android:textStyle="normal|bold" />
-
-                    <TextView
-                        android:id="@+id/phone_n0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.093"
-                        android:text=": 4900"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:background="#f0f0f0" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginRight="23dp"
-                        android:letterSpacing="0.093"
-                        android:text="Courier id"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp"
-                        android:textStyle="normal|bold" />
-
-                    <TextView
-                        android:id="@+id/seat_no"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.093"
-                        android:text=":003"
-                        android:textColor="#7d7e82"
-                        android:textSize="12.7sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-
-    </RelativeLayout>
-
-
-
-
-</RelativeLayout>
+</LinearLayout>
 

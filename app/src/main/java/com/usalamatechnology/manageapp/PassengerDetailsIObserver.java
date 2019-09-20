@@ -1,6 +1,9 @@
 package com.usalamatechnology.manageapp;
 
+import android.content.DialogInterface;
+import android.view.View;
+
 public interface PassengerDetailsIObserver {
-    void onCardClicked(String passenger_name, int phone_no, int seat_no );
+    void onCardClicked( int pos, String passenger_name);
 
 }

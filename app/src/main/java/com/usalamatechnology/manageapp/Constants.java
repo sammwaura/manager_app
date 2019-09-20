@@ -73,6 +73,10 @@ public final class Constants {
     public static String editExpense="https://zamzam45.com/tally_driver/editExpense.php";
     public static String savePayment="https://zamzam45.com/tally_driver_copy/save_payment.php";
     public static String paymentDetails = "https://zamzam45.com/tally_driver_copy/get_payment_details.php";
+    public static String passengerDetails = "https://zamzam45.com/tally_driver_copy/get_passenger_details.php";
+    public static String savePassenger="https://zamzam45.com/tally_driver_copy/save_passenger.php";
+    public static String getFare="https://zamzam45.com/tally_driver_copy/get_fare.php";
+    public static String getCourier="https://zamzam45.com/tally_driver_copy/get_courier.php";
 
 
     /*public static String getManagerHeaderDetails="https://zamzam45.com/tally_driver_test/getManagerHeaderDetails.php";

@@ -13,14 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="19dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/cardtouch"
-        android:focusable="true"
-        android:clickable="true"
+        android:id="@+id/cardtouch4"
         android:layout_marginRight="19dp"
         android:layout_marginBottom="5dp"
         ns3:cardCornerRadius="8.7dp"
         ns4:cardElevation="3dp">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,11 +58,11 @@
                                 android:textStyle="normal|bold" />
 
                             <TextView
-                                android:id="@+id/number_plate"
+                                android:id="@+id/number_plate2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:letterSpacing="0.093"
-                                android:text=": KCA 456T"
+                                android:text=": KCE 648A"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="12.7sp" />
 
@@ -94,7 +91,7 @@
                             android:textStyle="normal|bold" />
 
                         <TextView
-                            android:id="@+id/amountCollected"
+                            android:id="@+id/amountCollected2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:letterSpacing="0.093"
@@ -120,17 +117,17 @@
                             android:layout_marginRight="12dp"
                             android:layout_marginBottom="3dp"
                             android:letterSpacing="0.093"
-                            android:text="Destination"
+                            android:text="Courier Id"
                             android:textColor="#7d7e82"
                             android:textSize="12.7sp"
                             android:textStyle="normal|bold" />
 
                         <TextView
-                            android:id="@+id/destination"
+                            android:id="@+id/courier_id"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:letterSpacing="0.093"
-                            android:text=": Nairobi"
+                            android:text=": 5"
                             android:textColor="#7d7e82"
                             android:textSize="12.7sp" />
                     </LinearLayout>

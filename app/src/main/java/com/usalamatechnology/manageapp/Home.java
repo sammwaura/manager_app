@@ -1,5 +1,6 @@
 package com.usalamatechnology.manageapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -41,13 +42,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
 import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
 import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.Constants.paymentDetails;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MyInterface {
+public class Home extends AppCompatActivity implements PassengerDetailsIObserver,NavigationView.OnNavigationItemSelectedListener, MyInterface {
 
 
     private static final String TAG = "Home Activity";
@@ -64,11 +66,16 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
+    private PaymentAdapter.OnItemCLickListener onItemCLickListener;
     private ArrayList<Paymentdetails>paymentdetails;
+
+    private ArrayList<PassengerDetails>passengerDetails;
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         credentialsSharedPreferences =getSharedPreferences(CREDENTIALSPREFERENCES, Context.MODE_PRIVATE);
         credentialsEditor = credentialsSharedPreferences.edit();
 
@@ -106,9 +113,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
 
         paymentdetails = new ArrayList <>();
+        passengerDetails = new ArrayList <>();
 
         recyclerView = findViewById(R.id.recyclerview);
-        adapter = new PaymentAdapter(paymentdetails);
+        adapter = new PaymentAdapter(this, paymentdetails, onItemCLickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -135,7 +143,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                 JSONObject row = array.getJSONObject(i);
                                 Paymentdetails paymentdetail = new Paymentdetails(
                                         row.getString("number_plate"),
-                                        row.getInt("amount"),
+                                        row.getString("amount"),
                                         row.getString("no_of_passengers"),
                                         row.getInt("rate"),
                                         row.getString("destination")
@@ -165,15 +173,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void initializeData() {
-        PaymentAdapter paymentAdapter = new PaymentAdapter(paymentdetails);
+        PaymentAdapter paymentAdapter = new PaymentAdapter(this, paymentdetails, onItemCLickListener);
         recyclerView.setAdapter(paymentAdapter);
-        paymentAdapter.setListener((PassengerDetailsIObserver) this);
+
     }
 
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        @SuppressLint("WrongViewCast") DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (drawer.isDrawerOpen(GravityCompat.END)) {
@@ -222,7 +230,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         //Toast.makeText(this,"id"+id,Toast.LENGTH_LONG).show();
 
         if (id == R.id.nav_home) {
-
                     Intent it = new Intent(Home.this, Home.class);
                     startActivity(it);
 
@@ -244,7 +251,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             startActivity(intent);
 
         }
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -254,4 +261,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         return drawer;
     }
 
+
+    @Override
+    public void onCardClicked(int pos, String passenger_name) {
+        Toast.makeText(getApplicationContext(), "=> "+passengerDetails.get(pos).passenger_name, Toast.LENGTH_LONG).show();
+
+        Intent it = new Intent(Home.this, PassengerActivity.class);
+        it.putExtra("passenger_name", passengerDetails.get(pos).passenger_name);
+        it.putExtra("phone_no", passengerDetails.get(pos).phone_no);
+        it.putExtra("seat_no", passengerDetails.get(pos).seat_no);
+        startActivity(it);
+    }
 }

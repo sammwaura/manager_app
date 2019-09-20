@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alexzh.circleimageview.ItemSelectedListener;
@@ -21,40 +22,65 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     private Context context;
     private ArrayList<Paymentdetails> paymentdetails;
-    private AdapterView.OnItemClickListener itemClickListener;
     public  PassengerDetailsIObserver mObserver;
+    private OnItemCLickListener onItemCLickListener;
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    private String numberplate_tapped;
+    private String amount_tapped;
+
+    public interface OnItemCLickListener{
+        void onItemClicked(int position);
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private  OnItemCLickListener onItemClickListener;
         public TextView number_plate, amountCollected, no_of_passenger, rate, destination;
-        public CardView card_view;
-        public ItemClickListener itemClickListener;
-        public ViewHolder(@NonNull View itemView, ItemClickListener itemClickListener) {
+        public CardView  cardtouch;
+
+
+
+        public ViewHolder(@NonNull View itemView, OnItemCLickListener onItemCLickListener) {
             super(itemView);
             number_plate.findViewById(R.id.number_plate);
             amountCollected.findViewById(R.id.amountCollected);
-            no_of_passenger.findViewById(R.id.no_of_passengers);
-            rate.findViewById(R.id.rate);
+//            no_of_passenger.findViewById(R.id.no_of_passengers);
+//            rate.findViewById(R.id.rate);
             destination.findViewById(R.id.destination);
-            card_view.findViewById(R.id.card_view);
-            this.itemClickListener = itemClickListener;
+            cardtouch.findViewById(R.id.cardtouch);
+            this.onItemClickListener = onItemCLickListener;
+            itemView.setOnClickListener((View.OnClickListener) this);
 
 
         }
+
+        @Override
+        public void onClick(View v) {
+            onItemCLickListener.onItemClicked(getAdapterPosition());
+        }
     }
 
-    public void setListener(PassengerDetailsIObserver obs) { mObserver = obs; }
 
 
-    public PaymentAdapter( ArrayList<Paymentdetails> paymentdetails){
+    public PaymentAdapter( Context context, ArrayList <Paymentdetails> paymentdetails, OnItemCLickListener onItemCLickListener){
         this.paymentdetails = paymentdetails;
+        this.context = context;
+        this.onItemCLickListener = onItemCLickListener;
+
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(context).inflate(R.layout.tripdetail, viewGroup, false);
-        return new ViewHolder(view, (ItemClickListener) itemClickListener);
+        return new ViewHolder(view, onItemCLickListener);
     }
 
     @Override
@@ -66,20 +92,19 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         viewHolder.rate.setText((CharSequence) paymentdetails.get(position));
         viewHolder.destination.setText((CharSequence) paymentdetails.get(position));
 
-        viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
+        numberplate_tapped = paymentdetails.get(position).getNumber_plate();
+        amount_tapped = paymentdetails.get(position).getAmount();
+
+
+
+        final int posi = position;
+
+        viewHolder.cardtouch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Home.class);
-                intent.putExtra("number_plate", paymentdetails.get(position).getNumber_plate());
-                intent.putExtra("amountCollected", paymentdetails.get(position).getAmount());
-                intent.putExtra("no_of_passengers", paymentdetails.get(position).getNo_of_passenger());
-                intent.putExtra("rate", paymentdetails.get(position).getRate());
-                intent.putExtra("destination", paymentdetails.get(position).getDestination());
-                context.startActivity(intent);
-
+                mObserver.onCardClicked(posi, numberplate_tapped);
             }
         });
-
 
     }
 
@@ -87,17 +112,5 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     public int getItemCount() {
         return paymentdetails.size();
     }
-//
-//    @Override
-//    public int getItemCount() {
-//        return paymentdetails.size();
-//    }
-
-    public interface ItemClickListener {
-        void onItemOnClick(View view, int position);
-
-        View.OnClickListener onItemOnClick();
-    }
-
 
 }
