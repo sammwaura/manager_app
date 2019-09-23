@@ -3,6 +3,7 @@ package com.usalamatechnology.manageapp;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +31,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     private String amount_tapped;
 
     public interface OnItemCLickListener{
+        DrawerLayout getDrawer();
+
         void onItemClicked(int position);
     }
 

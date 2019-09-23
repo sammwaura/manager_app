@@ -3,6 +3,7 @@ package com.usalamatechnology.manageapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -49,10 +50,11 @@ import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
 import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.Constants.paymentDetails;
 
-public class Home extends AppCompatActivity implements PassengerDetailsIObserver,NavigationView.OnNavigationItemSelectedListener, MyInterface {
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PaymentAdapter.OnItemCLickListener {
 
 
     private static final String TAG = "Home Activity";
+    public static final String PASSENGER_DETAILS = "_details";
     DrawerLayout drawer;
 
     //widgets
@@ -91,6 +93,13 @@ public class Home extends AppCompatActivity implements PassengerDetailsIObserver
             }
         });
 
+
+        if(getIntent().getExtras().getString("name_passenger").equals("name_passenger"))
+        {
+            findViewById(R.id.name_passenger).setVisibility(View.GONE);
+            findViewById(R.id.phone_passenger).setVisibility(View.GONE);
+            findViewById(R.id.seat_no).setVisibility(View.GONE);
+        }
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -261,15 +270,24 @@ public class Home extends AppCompatActivity implements PassengerDetailsIObserver
         return drawer;
     }
 
+//
+//    @Override
+//    public void onCardClicked(int pos, String passenger_name) {
+//        Toast.makeText(getApplicationContext(), "=> "+passengerDetails.get(pos).passenger_name, Toast.LENGTH_LONG).show();
+//
+//        Intent it = new Intent(Home.this, PassengerActivity.class);
+//        it.putExtra("passenger_name", passengerDetails.get(pos).passenger_name);
+//        it.putExtra("phone_no", passengerDetails.get(pos).phone_no);
+//        it.putExtra("seat_no", passengerDetails.get(pos).seat_no);
+//        startActivity(it);
+//    }
 
     @Override
-    public void onCardClicked(int pos, String passenger_name) {
-        Toast.makeText(getApplicationContext(), "=> "+passengerDetails.get(pos).passenger_name, Toast.LENGTH_LONG).show();
+    public void onItemClicked(int position) {
+        Toast.makeText(getApplicationContext(), "=> "+passengerDetails.get(position).passenger_name, Toast.LENGTH_LONG).show();
 
         Intent it = new Intent(Home.this, PassengerActivity.class);
-        it.putExtra("passenger_name", passengerDetails.get(pos).passenger_name);
-        it.putExtra("phone_no", passengerDetails.get(pos).phone_no);
-        it.putExtra("seat_no", passengerDetails.get(pos).seat_no);
+        it.putExtra(PASSENGER_DETAILS, (Parcelable) passengerDetails.get(position));
         startActivity(it);
     }
 }
