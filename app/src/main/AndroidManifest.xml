@@ -30,8 +30,8 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Home" />
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.Home" />
         <activity android:name=".Earnings" />
 
         <service
@@ -49,14 +49,14 @@
         </provider>
 
         <activity android:name=".IncomeEdit" />
-        <activity android:name=".Fare" />
-        <activity android:name=".Courier" />
+        <activity android:name=".ui.Fare" />
+        <activity android:name=".ui.Courier" />
         <activity
             android:name=".ExitActivity"
             android:autoRemoveFromRecents="true"
             android:theme="@android:style/Theme.NoDisplay" />
         <activity android:name=".No_Internet" />
-        <activity android:name=".PinActivity">
+        <activity android:name=".ui.PinActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".TripManager" />
-        <activity android:name=".PassengerActivity" />
+        <activity android:name=".ui.PassengerActivity" />
         <activity android:name=".FirstActivity" />
         <activity android:name=".Home2" />
     </application>

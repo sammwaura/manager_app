@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;

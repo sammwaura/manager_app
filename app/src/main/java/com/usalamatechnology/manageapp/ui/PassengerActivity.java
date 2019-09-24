@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.usalamatechnology.manageapp.models.Constants;
+import com.usalamatechnology.manageapp.R;
+import com.usalamatechnology.manageapp.adapter.PassengerAdapter;
+import com.usalamatechnology.manageapp.models.PassengerDetails;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,33 +23,37 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.usalamatechnology.manageapp.Constants.getAllVehicles;
-import static com.usalamatechnology.manageapp.Constants.getFare;
+public class PassengerActivity extends AppCompatActivity  {
+
+    private ArrayList<PassengerDetails>passengerDetails ;
 
 
-public class Fare extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-    private ArrayList<Faredetails>faredetails;
+
+    String passenger_name;
+    int phone_no;
+    int seat_no;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fare);
+        setContentView(R.layout.activity_passenger);
 
-        faredetails = new ArrayList <>();
+        passengerDetails = new ArrayList <>();
 
-        recyclerView.findViewById(R.id.recyclerview3);
-        adapter = new FareAdapter(faredetails);
+        recyclerView.findViewById(R.id.recyclerview2);
+        adapter = new PassengerAdapter(passengerDetails);
+        recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        getAllFare();
+        retrievePassengerDetails();
 
     }
 
-    private void getAllFare() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.getFare,
+    private void retrievePassengerDetails() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.passengerDetails,
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
@@ -54,17 +62,17 @@ public class Fare extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "successfully retrieved", Toast.LENGTH_SHORT).show();
                         try {
                             JSONObject jsonObject = new JSONObject(s);
-                            JSONArray array = jsonObject.getJSONArray("fare");
+                            JSONArray array = jsonObject.getJSONArray("passengers");
 
                             for (int i =0; i< array.length(); i++){
                                 JSONObject row = array.getJSONObject(i);
-                                Faredetails faredetail = new Faredetails(
-                                        row.getString("number_plate"),
-                                        row.getString("amount"),
-                                        row.getString("passenger_no")
+                                PassengerDetails passengerDetail = new PassengerDetails(
+                                        row.getString("passenger_name"),
+                                        row.getInt("phone_no"),
+                                        row.getInt("seat_no")
 
                                 );
-                                faredetails.add(faredetail);
+                                passengerDetails.add(passengerDetail);
 
 
                             }

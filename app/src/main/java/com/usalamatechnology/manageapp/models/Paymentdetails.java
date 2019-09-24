@@ -1,15 +1,15 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.models;
 
 public class Paymentdetails {
 
     private String number_plate;
     private String amount;
     private String no_of_passenger;
-    private int rate;
+    private String rate;
     private String destination;
 
 
-    public Paymentdetails(String number_plate, String amount,String no_of_passenger, int rate, String destination) {
+    public Paymentdetails(String number_plate, String amount, String no_of_passenger, String rate, String destination) {
         this.number_plate = number_plate;
         this.amount = amount;
         this.no_of_passenger = no_of_passenger;
@@ -41,11 +41,11 @@ public class Paymentdetails {
         this.no_of_passenger = no_of_passenger;
     }
 
-    public int getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 

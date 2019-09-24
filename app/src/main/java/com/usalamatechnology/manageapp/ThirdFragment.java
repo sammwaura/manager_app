@@ -1,13 +1,10 @@
 package com.usalamatechnology.manageapp;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -40,17 +37,16 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
-import static com.usalamatechnology.manageapp.Constants.addressKey;
-import static com.usalamatechnology.manageapp.Constants.currentTripId;
-import static com.usalamatechnology.manageapp.Constants.getAdminArea;
-import static com.usalamatechnology.manageapp.Constants.getLocality;
-import static com.usalamatechnology.manageapp.Constants.getSubLocality;
-import static com.usalamatechnology.manageapp.Constants.latKey;
-import static com.usalamatechnology.manageapp.Constants.lonKey;
-import static com.usalamatechnology.manageapp.Constants.tripStatus;
-import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
-import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
+import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
+import static com.usalamatechnology.manageapp.models.Constants.currentTripId;
+import static com.usalamatechnology.manageapp.models.Constants.getAdminArea;
+import static com.usalamatechnology.manageapp.models.Constants.getLocality;
+import static com.usalamatechnology.manageapp.models.Constants.getSubLocality;
+import static com.usalamatechnology.manageapp.models.Constants.latKey;
+import static com.usalamatechnology.manageapp.models.Constants.lonKey;
+import static com.usalamatechnology.manageapp.models.Constants.tripStatus;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor;
 
 /**
  * Created by muhunyu on 11/07/18.
@@ -66,7 +62,7 @@ public class ThirdFragment extends Fragment  {
     ImageView navdrawer;
 
     public static FragmentActivity host ;
-    HomeRVAdapter adapter;
+//    HomeRVAdapter adapter;
     private TextView_Lato textView;
     private TextView_Lato trips_today,total_profits;
     private boolean results;
@@ -508,9 +504,9 @@ public class ThirdFragment extends Fragment  {
     }
 
     private void initializeData() {
-
-        adapter = new HomeRVAdapter(homePosts);
-        rv.setAdapter(adapter);
+//
+//        adapter = new HomeRVAdapter(homePosts);
+//        rv.setAdapter(adapter);
 
     }
 

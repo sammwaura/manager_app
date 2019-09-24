@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.models;
 
 import android.content.SharedPreferences;
 
@@ -17,6 +17,7 @@ public final class Constants {
     public static final String getAdminArea = "getAdminArea";
     public static final String tripStatus = "tripStatus";
     public static final String user_id = "user_id";
+
     public static final String CREDENTIALSPREFERENCES = "CredentialsPrefs";
     public static SharedPreferences credentialsSharedPreferences;
     public static SharedPreferences.Editor credentialsEditor;
@@ -77,6 +78,7 @@ public final class Constants {
     public static String savePassenger="https://zamzam45.com/tally_driver_copy/save_passenger.php";
     public static String getFare="https://zamzam45.com/tally_driver_copy/get_fare.php";
     public static String getCourier="https://zamzam45.com/tally_driver_copy/get_courier.php";
+    public static final String vehicle_id = "vehicle_id";
 
 
     /*public static String getManagerHeaderDetails="https://zamzam45.com/tally_driver_test/getManagerHeaderDetails.php";

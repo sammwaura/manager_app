@@ -1,7 +1,6 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
@@ -9,21 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alexzh.circleimageview.ItemSelectedListener;
+import com.usalamatechnology.manageapp.Interface.PassengerDetailsIObserver;
+import com.usalamatechnology.manageapp.R;
+import com.usalamatechnology.manageapp.models.Paymentdetails;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Observer;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Paymentdetails> paymentdetails;
-    public  PassengerDetailsIObserver mObserver;
+    public PassengerDetailsIObserver mObserver;
     private OnItemCLickListener onItemCLickListener;
 
 

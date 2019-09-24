@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.models;
 
  public class Courierdetails {
      private String number_plate;

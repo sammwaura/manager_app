@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.usalamatechnology.manageapp.ui.Home;
+
 public class No_Internet extends AppCompatActivity {
 
     private Internet internet;

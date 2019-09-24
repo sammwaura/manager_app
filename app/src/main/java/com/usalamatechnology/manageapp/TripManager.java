@@ -27,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.usalamatechnology.manageapp.ui.Fare;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,19 +41,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
-import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
-import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
-import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
-import static com.usalamatechnology.manageapp.Constants.getAdminArea;
-import static com.usalamatechnology.manageapp.Constants.getLocality;
-import static com.usalamatechnology.manageapp.Constants.getSubLocality;
-import static com.usalamatechnology.manageapp.Constants.getVehicleHeaderTrips;
-import static com.usalamatechnology.manageapp.Constants.getVehicleTrips;
-import static com.usalamatechnology.manageapp.Constants.uploadApproval;
-import static com.usalamatechnology.manageapp.Constants.uploadManagerTrip;
-import static com.usalamatechnology.manageapp.Constants.user_id;
+import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.getAdminArea;
+import static com.usalamatechnology.manageapp.models.Constants.getLocality;
+import static com.usalamatechnology.manageapp.models.Constants.getSubLocality;
+import static com.usalamatechnology.manageapp.models.Constants.getVehicleHeaderTrips;
+import static com.usalamatechnology.manageapp.models.Constants.getVehicleTrips;
+import static com.usalamatechnology.manageapp.models.Constants.uploadApproval;
+import static com.usalamatechnology.manageapp.models.Constants.uploadManagerTrip;
+import static com.usalamatechnology.manageapp.models.Constants.user_id;
 
-public class TripManager extends AppCompatActivity implements HomeIObserver {
+public class TripManager extends AppCompatActivity {
 
     public static final String ARG_PAGE = "ARG_PAGE";
     private static final int PERMISSIONS_REQUEST_SEND_SMS = 100;
@@ -86,7 +87,7 @@ public class TripManager extends AppCompatActivity implements HomeIObserver {
     private RecyclerView rv;
 
     public static FragmentActivity host;
-    HomeRVAdapter adapter;
+//    HomeRVAdapter adapter;
     boolean results;
 
     String physical_address = "";
@@ -154,11 +155,11 @@ public class TripManager extends AppCompatActivity implements HomeIObserver {
         //getHeaderDetails();
 
     }
-
-    @Override
-    public void onCardClicked(String number_plate, String destination, String origin, String no_passenger, String rate, String amount) {
-
-    }
+//
+//    @Override
+//    public void onCardClicked(String number_plate, String destination, String origin, String no_passenger, String rate, String amount) {
+//
+//    }
 
     private class GetHeader extends AsyncTask<String, Integer, Boolean> {
         String data = null;
@@ -543,9 +544,9 @@ public class TripManager extends AppCompatActivity implements HomeIObserver {
 
     private void initializeData() {
 
-        adapter = new HomeRVAdapter(homePosts);
-        rv.setAdapter(adapter);
-        adapter.setListener(this);
+//        adapter = new HomeRVAdapter(homePosts);
+//        rv.setAdapter(adapter);
+//        adapter.setListener(this);
     }
 
 //    @Override

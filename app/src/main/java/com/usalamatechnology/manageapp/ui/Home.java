@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,13 +6,7 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,41 +15,48 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.usalamatechnology.manageapp.models.Constants;
+import com.usalamatechnology.manageapp.models.PassengerDetails;
+import com.usalamatechnology.manageapp.adapter.PaymentAdapter;
+import com.usalamatechnology.manageapp.models.Paymentdetails;
+import com.usalamatechnology.manageapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Observer;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Objects;
 
-import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
-import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
-import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
-import static com.usalamatechnology.manageapp.Constants.paymentDetails;
+import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
+import static com.usalamatechnology.manageapp.models.Constants.vehicle_id;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PaymentAdapter.OnItemCLickListener {
 
 
     private static final String TAG = "Home Activity";
-    public static final String PASSENGER_DETAILS = "_details";
+    public static String PASSENGER_DETAILS = "_details";
     DrawerLayout drawer;
+
 
     //widgets
     private EditText number_plate1;
@@ -94,12 +95,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
 
 
-        if(getIntent().getExtras().getString("name_passenger").equals("name_passenger"))
-        {
-            findViewById(R.id.name_passenger).setVisibility(View.GONE);
-            findViewById(R.id.phone_passenger).setVisibility(View.GONE);
-            findViewById(R.id.seat_no).setVisibility(View.GONE);
-        }
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -130,43 +125,44 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
         retrievePaymentDetails();
 
+        PASSENGER_DETAILS = getIntent().getExtras().getString("_details");
     }
 
     private void retrievePaymentDetails() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, paymentDetails,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, paymentDetails,
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
-                        System.out.println("123RETRIEEEVE" + s);
-//                        textView.setText("retrieve details");
-                        Toast.makeText(getApplicationContext(), "successfully retrieved", Toast.LENGTH_SHORT).show();
-                        try {
-                            JSONObject jsonObject = new JSONObject(s);
-                            JSONArray array = jsonObject.getJSONArray("payments");
+                        System.out.println("sssssssssssssssssssssssssssssssssssss " + s);
+                        if (s != null) {
+                            JSONArray array = null;
+                            try {
+                                JSONObject jsonObj = new JSONObject(s);
 
-                            for (int i =0; i< array.length(); i++){
-                                JSONObject row = array.getJSONObject(i);
-                                Paymentdetails paymentdetail = new Paymentdetails(
-                                        row.getString("number_plate"),
-                                        row.getString("amount"),
-                                        row.getString("no_of_passengers"),
-                                        row.getInt("rate"),
-                                        row.getString("destination")
-                                );
-                                paymentdetails.add(paymentdetail);
-                                initializeData();
+                                JSONArray posts = jsonObj.getJSONArray("payments");
+                                paymentdetails.clear();
+                                if (posts.length() > 0) {
+                                    for (int i = 0; i < posts.length(); i++) {
+                                        JSONObject row = posts.getJSONObject(i);
 
+                                        String number_plate = row.getString("number_plate");
+                                        String amount = row.getString("amount");
+                                        String no_of_passengers = row.getString("no_of_passengers");
+                                        String rate = row.getString("rate");
+                                        String destination = row.getString("destination");
+                                        paymentdetails.add(new Paymentdetails(number_plate, amount, no_of_passengers, rate, destination));
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
                     }
-                },
+
+                        },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
@@ -175,11 +171,21 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                     }
                 }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creating parameters
+                Map<String, String> params = new Hashtable<>();
+                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_id, "0")));
+                System.out.println();
+                //returning parameters
+                return params;
+            }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
         requestQueue.add(stringRequest);
     }
+
 
     private void initializeData() {
         PaymentAdapter paymentAdapter = new PaymentAdapter(this, paymentdetails, onItemCLickListener);
@@ -284,7 +290,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public void onItemClicked(int position) {
-        Toast.makeText(getApplicationContext(), "=> "+passengerDetails.get(position).passenger_name, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "=> "+passengerDetails.get(position), Toast.LENGTH_LONG).show();
 
         Intent it = new Intent(Home.this, PassengerActivity.class);
         it.putExtra(PASSENGER_DETAILS, (Parcelable) passengerDetails.get(position));

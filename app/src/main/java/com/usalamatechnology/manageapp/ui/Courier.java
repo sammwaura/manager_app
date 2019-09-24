@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.usalamatechnology.manageapp.models.Constants;
+import com.usalamatechnology.manageapp.adapter.CourierAdapter;
+import com.usalamatechnology.manageapp.models.Courierdetails;
+import com.usalamatechnology.manageapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,40 +24,28 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
+public class Courier extends AppCompatActivity {
 
-import static com.usalamatechnology.manageapp.Constants.passengerDetails;
-
-public class PassengerActivity extends AppCompatActivity  {
-
-    private ArrayList<PassengerDetails>passengerDetails ;
-
-
+    private ArrayList<Courierdetails>courierdetails;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-
-    String passenger_name;
-    int phone_no;
-    int seat_no;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passenger);
+        setContentView(R.layout.activity_courier);
 
-        passengerDetails = new ArrayList <>();
-
-        recyclerView.findViewById(R.id.recyclerview2);
-        adapter = new PassengerAdapter(passengerDetails);
-        recyclerView.setAdapter(adapter);
+        courierdetails = new ArrayList <>();
+        recyclerView.findViewById(R.id.recyclerview4);
+        adapter = new CourierAdapter(courierdetails);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        retrievePassengerDetails();
-
+        getAllCourier();
     }
 
-    private void retrievePassengerDetails() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.passengerDetails,
+    private void getAllCourier() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.getCourier,
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
@@ -62,17 +54,17 @@ public class PassengerActivity extends AppCompatActivity  {
                         Toast.makeText(getApplicationContext(), "successfully retrieved", Toast.LENGTH_SHORT).show();
                         try {
                             JSONObject jsonObject = new JSONObject(s);
-                            JSONArray array = jsonObject.getJSONArray("passengers");
+                            JSONArray array = jsonObject.getJSONArray("courier");
 
                             for (int i =0; i< array.length(); i++){
                                 JSONObject row = array.getJSONObject(i);
-                                PassengerDetails passengerDetail = new PassengerDetails(
-                                        row.getString("passenger_name"),
-                                        row.getInt("phone_no"),
-                                        row.getInt("seat_no")
+                                Courierdetails courierdetail = new Courierdetails(
+                                        row.getString("number_plate"),
+                                        row.getString("amount"),
+                                        row.getString("courier_id")
 
                                 );
-                                passengerDetails.add(passengerDetail);
+                                courierdetails.add(courierdetail);
 
 
                             }
@@ -96,5 +88,4 @@ public class PassengerActivity extends AppCompatActivity  {
         requestQueue.add(stringRequest);
 
     }
-
 }

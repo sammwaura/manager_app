@@ -3,7 +3,6 @@ package com.usalamatechnology.manageapp;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Looper;
@@ -24,11 +23,11 @@ import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 
-import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
-import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
-import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
-import static com.usalamatechnology.manageapp.Constants.latKey;
-import static com.usalamatechnology.manageapp.Constants.lonKey;
+import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.latKey;
+import static com.usalamatechnology.manageapp.models.Constants.lonKey;
 
 /**
  * Created by muhunyu on 11/07/18.

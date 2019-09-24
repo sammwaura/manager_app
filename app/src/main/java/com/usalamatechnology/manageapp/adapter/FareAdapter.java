@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.usalamatechnology.manageapp.models.Faredetails;
+import com.usalamatechnology.manageapp.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class FareAdapter extends RecyclerView.Adapter <FareAdapter.ViewHolder> {
     private Context context;

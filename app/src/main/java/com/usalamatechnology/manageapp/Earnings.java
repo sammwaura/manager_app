@@ -2,10 +2,8 @@ package com.usalamatechnology.manageapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.usalamatechnology.manageapp.ui.Home;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,15 +28,13 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
-import static com.usalamatechnology.manageapp.Constants.addressKey;
-import static com.usalamatechnology.manageapp.Constants.getAdminArea;
-import static com.usalamatechnology.manageapp.Constants.getLocality;
-import static com.usalamatechnology.manageapp.Constants.getSubLocality;
-import static com.usalamatechnology.manageapp.Constants.latKey;
-import static com.usalamatechnology.manageapp.Constants.lonKey;
-import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
-import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
+import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
+import static com.usalamatechnology.manageapp.models.Constants.getAdminArea;
+import static com.usalamatechnology.manageapp.models.Constants.getLocality;
+import static com.usalamatechnology.manageapp.models.Constants.getSubLocality;
+import static com.usalamatechnology.manageapp.models.Constants.latKey;
+import static com.usalamatechnology.manageapp.models.Constants.lonKey;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 
 public class Earnings extends AppCompatActivity {
 

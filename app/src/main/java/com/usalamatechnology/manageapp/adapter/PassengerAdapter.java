@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.usalamatechnology.manageapp.R;
+import com.usalamatechnology.manageapp.models.PassengerDetails;
+
 import java.util.ArrayList;
 
-class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.ViewHolder> {
+public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.ViewHolder> {
 
     private ArrayList<PassengerDetails>passengerDetails;
     private Context context;

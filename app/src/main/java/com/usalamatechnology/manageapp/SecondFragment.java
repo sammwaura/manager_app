@@ -50,7 +50,7 @@ public class SecondFragment extends Fragment  {
 
     public static FragmentActivity host ;
     private GetHeader getHeader;
-    HomeRVAdapter adapter;
+//    HomeRVAdapter adapter;
     private boolean results;
     private TextView_Lato trips_today,total_profits;
 
@@ -323,9 +323,9 @@ public class SecondFragment extends Fragment  {
     }
 
     private void initializeData() {
-
-        adapter = new HomeRVAdapter(homePosts);
-        rv.setAdapter(adapter);
+//
+//        adapter = new HomeRVAdapter(homePosts);
+//        rv.setAdapter(adapter);
 
     }
 

@@ -1,20 +1,13 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -26,24 +19,24 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.usalamatechnology.manageapp.CheckNetwork;
+import com.usalamatechnology.manageapp.ExitActivity;
+import com.usalamatechnology.manageapp.R;
+import com.usalamatechnology.manageapp.models.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-import static com.usalamatechnology.manageapp.Constants.CREDENTIALSPREFERENCES;
-import static com.usalamatechnology.manageapp.Constants.credentialsEditor;
-import static com.usalamatechnology.manageapp.Constants.credentialsSharedPreferences;
-import static com.usalamatechnology.manageapp.Constants.currentTripId;
-import static com.usalamatechnology.manageapp.Constants.getvehicles;
-import static com.usalamatechnology.manageapp.Constants.login_driver;
-import static com.usalamatechnology.manageapp.Constants.tripStatus;
-import static com.usalamatechnology.manageapp.Constants.user_id;
+import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor;
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.login_driver;
+import static com.usalamatechnology.manageapp.models.Constants.user_id;
 
 
 public class PinActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.Interface;
 
 import android.content.DialogInterface;
 import android.view.View;

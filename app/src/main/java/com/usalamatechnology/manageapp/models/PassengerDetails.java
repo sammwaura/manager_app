@@ -1,20 +1,37 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.TextView;
 
 public class PassengerDetails implements Parcelable {
 
-    String passenger_name;
-    int phone_no;
-    int seat_no;
+    public String passenger_name;
+    public int phone_no;
+    public int seat_no;
 
     public PassengerDetails(String passenger_name, int phone_no, int seat_no){
         this.passenger_name = passenger_name;
         this.phone_no = phone_no;
         this.seat_no = seat_no;
     }
+
+    protected PassengerDetails(Parcel in) {
+        passenger_name = in.readString();
+        phone_no = in.readInt();
+        seat_no = in.readInt();
+    }
+
+    public static final Creator <PassengerDetails> CREATOR = new Creator <PassengerDetails>() {
+        @Override
+        public PassengerDetails createFromParcel(Parcel in) {
+            return new PassengerDetails(in);
+        }
+
+        @Override
+        public PassengerDetails[] newArray(int size) {
+            return new PassengerDetails[size];
+        }
+    };
 
     /**
      * Describe the kinds of special objects contained in this Parcelable
@@ -40,7 +57,9 @@ public class PassengerDetails implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(passenger_name);
+        dest.writeInt(phone_no);
+        dest.writeInt(seat_no);
     }
 }
 

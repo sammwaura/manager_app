@@ -1,4 +1,4 @@
-package com.usalamatechnology.manageapp;
+package com.usalamatechnology.manageapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,13 +23,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.usalamatechnology.manageapp.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.usalamatechnology.manageapp.Constants.savePayment;
+import static com.usalamatechnology.manageapp.models.Constants.savePayment;
 
 public class CustomDialog  extends DialogFragment{
 
