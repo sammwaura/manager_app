@@ -2,15 +2,15 @@ package com.usalamatechnology.manageapp.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.usalamatechnology.manageapp.Interface.PassengerDetailsIObserver;
+import com.usalamatechnology.manageapp.Interface.PaymentObserver;
 import com.usalamatechnology.manageapp.R;
 import com.usalamatechnology.manageapp.models.Paymentdetails;
 
@@ -20,53 +20,40 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     private Context context;
     private ArrayList<Paymentdetails> paymentdetails;
-    public PassengerDetailsIObserver mObserver;
-    private OnItemCLickListener onItemCLickListener;
+    public PaymentObserver mObserver;
 
 
     private String numberplate_tapped;
     private String amount_tapped;
 
-    public interface OnItemCLickListener{
-        DrawerLayout getDrawer();
-
-        void onItemClicked(int position);
-    }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private  OnItemCLickListener onItemClickListener;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
         public TextView number_plate, amountCollected, no_of_passenger, rate, destination;
-        public CardView  cardtouch;
+        public CardView  card;
+        public LinearLayout touch;
 
 
 
-        public ViewHolder(@NonNull View itemView, OnItemCLickListener onItemCLickListener) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            number_plate.findViewById(R.id.number_plate);
-            amountCollected.findViewById(R.id.amountCollected);
-//            no_of_passenger.findViewById(R.id.no_of_passengers);
-//            rate.findViewById(R.id.rate);
-            destination.findViewById(R.id.destination);
-            cardtouch.findViewById(R.id.cardtouch);
-            this.onItemClickListener = onItemCLickListener;
-            itemView.setOnClickListener((View.OnClickListener) this);
-
+            number_plate = itemView.findViewById(R.id.number_plate);
+            amountCollected = itemView.findViewById(R.id.amountCollected);
+            destination = itemView.findViewById(R.id.destination);
+            card = itemView.findViewById(R.id.card);
+            touch = itemView.findViewById(R.id.touch);
 
         }
 
-        @Override
-        public void onClick(View v) {
-            onItemCLickListener.onItemClicked(getAdapterPosition());
-        }
+
     }
 
-
-
-    public PaymentAdapter( Context context, ArrayList <Paymentdetails> paymentdetails, OnItemCLickListener onItemCLickListener){
-        this.paymentdetails = paymentdetails;
+    public PaymentAdapter(Context context, PaymentObserver observer, ArrayList <Paymentdetails> paymentdetails){
         this.context = context;
-        this.onItemCLickListener = onItemCLickListener;
+        this.mObserver = observer;
+        this.paymentdetails = paymentdetails;
+
 
     }
 
@@ -80,7 +67,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(context).inflate(R.layout.tripdetail, viewGroup, false);
-        return new ViewHolder(view, onItemCLickListener);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -92,14 +79,11 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         viewHolder.rate.setText((CharSequence) paymentdetails.get(position));
         viewHolder.destination.setText((CharSequence) paymentdetails.get(position));
 
-        numberplate_tapped = paymentdetails.get(position).getNumber_plate();
-        amount_tapped = paymentdetails.get(position).getAmount();
-
 
 
         final int posi = position;
 
-        viewHolder.cardtouch.setOnClickListener(new View.OnClickListener() {
+        viewHolder.touch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mObserver.onCardClicked(posi, numberplate_tapped);

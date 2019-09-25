@@ -104,6 +104,13 @@ public class CustomDialog  extends DialogFragment{
     }
 
     private void savePayment() {
+       final String number_plate = number_plate1.getText().toString().trim();
+        final String amount = amount1.getText().toString().trim();
+        final String name_of_passenger = name_passenger1.getText().toString().trim();
+        final String phone_no_of_passenger = phone_passenger1.getText().toString().trim();
+        final String id_no_of_passenger = ID_passenger1.getText().toString().trim();
+        final String destination = destination1.getText().toString().trim();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, savePayment,
                 new Response.Listener <String>() {
                     @Override
@@ -126,13 +133,14 @@ public class CustomDialog  extends DialogFragment{
             @Override
             protected Map<String, String> getParams() {
                 Map <String, String> params = new HashMap<>();
-                params.put("number_plate", number_plate1.getText().toString());
+                params.put("number_plate", number_plate);
                 params.put("spinner", spinner.getSelectedItem().toString());
-                params.put("amount", amount1.getText().toString());
-                params.put("name_of_passenger", name_passenger1.getText().toString());
-                params.put("phone_no_of_passenger", phone_passenger1.getText().toString());
-                params.put("id_no_of_passenger", ID_passenger1.getText().toString());
-                params.put("destination", destination1.getText().toString());
+                params.put("amount",amount);
+                params.put("name_of_passenger",name_of_passenger);
+                params.put("phone_no_of_passenger",phone_no_of_passenger);
+                params.put("id_no_of_passenger",id_no_of_passenger);
+                params.put("destination",destination);
+
 
                 return params;
             }

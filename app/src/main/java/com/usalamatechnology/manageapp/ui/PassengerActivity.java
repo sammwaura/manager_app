@@ -1,20 +1,21 @@
 package com.usalamatechnology.manageapp.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.usalamatechnology.manageapp.models.Constants;
 import com.usalamatechnology.manageapp.R;
 import com.usalamatechnology.manageapp.adapter.PassengerAdapter;
+import com.usalamatechnology.manageapp.models.Constants;
 import com.usalamatechnology.manageapp.models.PassengerDetails;
 
 import org.json.JSONArray;
@@ -22,6 +23,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Objects;
+
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.vehicle_id;
 
 public class PassengerActivity extends AppCompatActivity  {
 
@@ -32,8 +39,12 @@ public class PassengerActivity extends AppCompatActivity  {
     RecyclerView.Adapter adapter;
 
     String passenger_name;
-    int phone_no;
-    int seat_no;
+    String phone_no;
+    String seat_no;
+
+    public static String PASSENGER_DETAILS = "_details";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,12 @@ public class PassengerActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_passenger);
 
         passengerDetails = new ArrayList <>();
+
+        Bundle extras = getIntent().getExtras();
+        passenger_name = extras.getString("passenger_name");
+        phone_no = extras.getString("phone_no");
+        seat_no = extras.getString("seat_no");
+
 
         recyclerView.findViewById(R.id.recyclerview2);
         adapter = new PassengerAdapter(passengerDetails);
@@ -57,41 +74,48 @@ public class PassengerActivity extends AppCompatActivity  {
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
-                        System.out.println("123RETRIEEEVE" + s);
-//                        textView.setText("retrieve details");
-                        Toast.makeText(getApplicationContext(), "successfully retrieved", Toast.LENGTH_SHORT).show();
-                        try {
-                            JSONObject jsonObject = new JSONObject(s);
-                            JSONArray array = jsonObject.getJSONArray("passengers");
+                        if (s != null) {
+                            JSONArray array = null;
+                            try {
+                                JSONObject jsonObj = new JSONObject(s);
 
-                            for (int i =0; i< array.length(); i++){
-                                JSONObject row = array.getJSONObject(i);
-                                PassengerDetails passengerDetail = new PassengerDetails(
-                                        row.getString("passenger_name"),
-                                        row.getInt("phone_no"),
-                                        row.getInt("seat_no")
+                                JSONArray posts = jsonObj.getJSONArray("passengers");
+                                passengerDetails.clear();
+                                if (posts.length() > 0) {
+                                    for (int i = 0; i < posts.length(); i++) {
+                                        JSONObject row = posts.getJSONObject(i);
 
-                                );
-                                passengerDetails.add(passengerDetail);
+                                        String passenger_name = row.getString("passenger_name");
+                                        String phone_no = row.getString("phone_no");
+                                        String no_of_passengers = row.getString("no_of_passengers");
 
+                                        passengerDetails.add(new PassengerDetails(passenger_name, phone_no, no_of_passengers));
+                                    }
+                                }
 
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("volleyError error" + volleyError.getMessage());
-                        Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+            new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            System.out.println("volleyError error" + volleyError.getMessage());
+            Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
 
-                    }
-                }) {
-        };
-
+        }
+    }) {
+        @Override
+        protected Map<String, String> getParams() throws AuthFailureError {
+            //Creating parameters
+            Map<String, String> params = new Hashtable<>();
+            params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_id, "0")));
+            System.out.println();
+            return params;
+        }
+    };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
 

@@ -23,7 +23,7 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
 
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView name_passenger, phone_no, seat_no;
         public CardView cardtouch2;
         public ViewHolder(@NonNull View itemView) {
@@ -33,6 +33,8 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
             phone_no.findViewById(R.id.phone_passenger);
             seat_no.findViewById(R.id.seat_no);
         }
+
+
     }
 
     public PassengerAdapter(ArrayList<PassengerDetails> passengerDetails) {

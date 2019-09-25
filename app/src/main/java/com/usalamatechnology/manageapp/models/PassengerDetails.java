@@ -6,10 +6,10 @@ import android.os.Parcelable;
 public class PassengerDetails implements Parcelable {
 
     public String passenger_name;
-    public int phone_no;
-    public int seat_no;
+    public String phone_no;
+    public String seat_no;
 
-    public PassengerDetails(String passenger_name, int phone_no, int seat_no){
+    public PassengerDetails(String passenger_name, String phone_no, String seat_no){
         this.passenger_name = passenger_name;
         this.phone_no = phone_no;
         this.seat_no = seat_no;
@@ -17,8 +17,8 @@ public class PassengerDetails implements Parcelable {
 
     protected PassengerDetails(Parcel in) {
         passenger_name = in.readString();
-        phone_no = in.readInt();
-        seat_no = in.readInt();
+        phone_no = String.valueOf(in.readInt());
+        seat_no = String.valueOf(in.readInt());
     }
 
     public static final Creator <PassengerDetails> CREATOR = new Creator <PassengerDetails>() {
@@ -58,8 +58,8 @@ public class PassengerDetails implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(passenger_name);
-        dest.writeInt(phone_no);
-        dest.writeInt(seat_no);
+        dest.writeInt(Integer.parseInt(phone_no));
+        dest.writeInt(Integer.parseInt(seat_no));
     }
 }
 

@@ -3,14 +3,13 @@ package com.usalamatechnology.manageapp.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +27,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.usalamatechnology.manageapp.Interface.PaymentObserver;
+import com.usalamatechnology.manageapp.R;
+import com.usalamatechnology.manageapp.adapter.PaymentAdapter;
 import com.usalamatechnology.manageapp.models.Constants;
 import com.usalamatechnology.manageapp.models.PassengerDetails;
-import com.usalamatechnology.manageapp.adapter.PaymentAdapter;
 import com.usalamatechnology.manageapp.models.Paymentdetails;
-import com.usalamatechnology.manageapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,26 +49,16 @@ import static com.usalamatechnology.manageapp.models.Constants.credentialsShared
 import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
 import static com.usalamatechnology.manageapp.models.Constants.vehicle_id;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PaymentAdapter.OnItemCLickListener {
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PaymentObserver{
 
 
     private static final String TAG = "Home Activity";
-    public static String PASSENGER_DETAILS = "_details";
+
     DrawerLayout drawer;
-
-
-    //widgets
-    private EditText number_plate1;
-    private EditText amount1;
-    private EditText name_passenger1;
-    private EditText phone_passenger1;
-    private EditText ID_passenger1;
-    private EditText destination1;
-
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-    private PaymentAdapter.OnItemCLickListener onItemCLickListener;
+    PaymentAdapter paymentAdapter;
     private ArrayList<Paymentdetails>paymentdetails;
 
     private ArrayList<PassengerDetails>passengerDetails;
@@ -94,9 +83,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
 
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -106,10 +92,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         NavigationView navigationViewRight = (NavigationView) findViewById(R.id.nav_view_right);
         navigationViewRight.setNavigationItemSelectedListener(this);
-        navigationView.setNavigationItemSelectedListener(this);
+
 
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.user_name);
@@ -120,14 +108,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         passengerDetails = new ArrayList <>();
 
         recyclerView = findViewById(R.id.recyclerview);
-        adapter = new PaymentAdapter(this, paymentdetails, onItemCLickListener);
+        adapter = new PaymentAdapter(this, this, paymentdetails);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         retrievePaymentDetails();
 
-        PASSENGER_DETAILS = getIntent().getExtras().getString("_details");
     }
 
     private void retrievePaymentDetails() {
@@ -188,11 +175,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
 
     private void initializeData() {
-        PaymentAdapter paymentAdapter = new PaymentAdapter(this, paymentdetails, onItemCLickListener);
+        PaymentAdapter paymentAdapter = new PaymentAdapter(this, this, paymentdetails);
         recyclerView.setAdapter(paymentAdapter);
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -272,28 +258,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     @Override
-    public DrawerLayout getDrawer() {
-        return drawer;
-    }
-
-//
-//    @Override
-//    public void onCardClicked(int pos, String passenger_name) {
-//        Toast.makeText(getApplicationContext(), "=> "+passengerDetails.get(pos).passenger_name, Toast.LENGTH_LONG).show();
-//
-//        Intent it = new Intent(Home.this, PassengerActivity.class);
-//        it.putExtra("passenger_name", passengerDetails.get(pos).passenger_name);
-//        it.putExtra("phone_no", passengerDetails.get(pos).phone_no);
-//        it.putExtra("seat_no", passengerDetails.get(pos).seat_no);
-//        startActivity(it);
-//    }
-
-    @Override
-    public void onItemClicked(int position) {
-        Toast.makeText(getApplicationContext(), "=> "+passengerDetails.get(position), Toast.LENGTH_LONG).show();
+    public void onCardClicked(int pos, String name) {
+        Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
 
         Intent it = new Intent(Home.this, PassengerActivity.class);
-        it.putExtra(PASSENGER_DETAILS, (Parcelable) passengerDetails.get(position));
+        it.putExtra("passenger_name", passengerDetails.get(pos).passenger_name);
+        it.putExtra("phone_no", passengerDetails.get(pos).phone_no);
+        it.putExtra("seat_no", passengerDetails.get(pos).seat_no);
         startActivity(it);
     }
+
 }
