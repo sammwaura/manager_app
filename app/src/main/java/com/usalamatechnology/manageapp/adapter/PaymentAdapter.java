@@ -20,6 +20,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     private Context context;
     private ArrayList<Paymentdetails> paymentdetails;
+    private ItemClickListener itemClickListener;
     public PaymentObserver mObserver;
 
 
@@ -27,26 +28,39 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     private String amount_tapped;
 
 
+    public interface ItemClickListener {
+        void onItemOnClick(View view, int position);
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+        View.OnClickListener onItemOnClick();
+    }
+
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView number_plate, amountCollected, no_of_passenger, rate, destination;
         public CardView  card;
         public LinearLayout touch;
+        public ItemClickListener itemClickListener;
 
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
             number_plate = itemView.findViewById(R.id.number_plate);
             amountCollected = itemView.findViewById(R.id.amountCollected);
             destination = itemView.findViewById(R.id.destination);
             card = itemView.findViewById(R.id.card);
             touch = itemView.findViewById(R.id.touch);
+            this.itemClickListener = itemClickListener;
 
         }
 
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onItemOnClick(v, getAdapterPosition());
 
+        }
     }
 
     public PaymentAdapter(Context context, PaymentObserver observer, ArrayList <Paymentdetails> paymentdetails){
@@ -67,15 +81,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(context).inflate(R.layout.tripdetail, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, itemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
 
-    viewHolder.number_plate.setText((CharSequence) paymentdetails.get(position));
-        viewHolder.amountCollected.setText((CharSequence) paymentdetails.get(position));
-        viewHolder.no_of_passenger.setText((CharSequence) paymentdetails.get(position));
+        viewHolder.number_plate.setText((CharSequence) paymentdetails.get(position));
         viewHolder.rate.setText((CharSequence) paymentdetails.get(position));
         viewHolder.destination.setText((CharSequence) paymentdetails.get(position));
 

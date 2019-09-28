@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
-import static com.usalamatechnology.manageapp.models.Constants.vehicle_id;
+import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
 public class PassengerActivity extends AppCompatActivity  {
 
@@ -40,7 +40,7 @@ public class PassengerActivity extends AppCompatActivity  {
 
     String passenger_name;
     String phone_no;
-    String seat_no;
+
 
     public static String PASSENGER_DETAILS = "_details";
 
@@ -56,7 +56,7 @@ public class PassengerActivity extends AppCompatActivity  {
         Bundle extras = getIntent().getExtras();
         passenger_name = extras.getString("passenger_name");
         phone_no = extras.getString("phone_no");
-        seat_no = extras.getString("seat_no");
+
 
 
         recyclerView.findViewById(R.id.recyclerview2);
@@ -111,7 +111,7 @@ public class PassengerActivity extends AppCompatActivity  {
         protected Map<String, String> getParams() throws AuthFailureError {
             //Creating parameters
             Map<String, String> params = new Hashtable<>();
-            params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_id, "0")));
+            params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
             System.out.println();
             return params;
         }

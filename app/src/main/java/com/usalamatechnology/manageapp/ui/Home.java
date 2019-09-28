@@ -1,6 +1,7 @@
 package com.usalamatechnology.manageapp.ui;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFER
 import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor;
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
-import static com.usalamatechnology.manageapp.models.Constants.vehicle_id;
+import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PaymentObserver{
 
@@ -118,51 +119,49 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void retrievePaymentDetails() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, paymentDetails,
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Retrieving data....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, paymentDetails,
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
-                        System.out.println("sssssssssssssssssssssssssssssssssssss " + s);
-                        if (s != null) {
-                            JSONArray array = null;
+                        progressDialog.dismiss();
+                        System.out.println("Retrieve### " + s);
+                        Toast.makeText(getApplicationContext(), "Retrieved successfully",
+                                Toast.LENGTH_LONG).show();
                             try {
                                 JSONObject jsonObj = new JSONObject(s);
+                                JSONArray array = jsonObj.getJSONArray("payments");
 
-                                JSONArray posts = jsonObj.getJSONArray("payments");
-                                paymentdetails.clear();
-                                if (posts.length() > 0) {
-                                    for (int i = 0; i < posts.length(); i++) {
-                                        JSONObject row = posts.getJSONObject(i);
-
-                                        String number_plate = row.getString("number_plate");
-                                        String amount = row.getString("amount");
-                                        String no_of_passengers = row.getString("no_of_passengers");
-                                        String rate = row.getString("rate");
-                                        String destination = row.getString("destination");
-                                        paymentdetails.add(new Paymentdetails(number_plate, amount, no_of_passengers, rate, destination));
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject row = array.getJSONObject(i);
+                                        Paymentdetails paymentdetail = new Paymentdetails(
+                                         row.getString("number_plate"),
+                                         row.getString("rate"),
+                                         row.getString("destination")
+                                        );
+                                        paymentdetails.add(paymentdetail);
                                     }
-                                }
-
+                                    adapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
                     }
-
                         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         System.out.println("volleyError error" + volleyError.getMessage());
                         Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
-
                     }
                 }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Creating parameters
                 Map<String, String> params = new Hashtable<>();
-                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_id, "0")));
+                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
                 System.out.println();
                 //returning parameters
                 return params;
@@ -264,7 +263,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Intent it = new Intent(Home.this, PassengerActivity.class);
         it.putExtra("passenger_name", passengerDetails.get(pos).passenger_name);
         it.putExtra("phone_no", passengerDetails.get(pos).phone_no);
-        it.putExtra("seat_no", passengerDetails.get(pos).seat_no);
         startActivity(it);
     }
 

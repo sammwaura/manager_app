@@ -34,7 +34,7 @@
     </Spinner>
 
     <EditText
-        android:id="@+id/amount1"
+        android:id="@+id/rate1"
         android:textSize="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

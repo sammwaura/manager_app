@@ -1,5 +1,6 @@
 package com.usalamatechnology.manageapp.ui;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,8 +30,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.models.Constants.savePayment;
+import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
 public class CustomDialog  extends DialogFragment{
 
@@ -43,7 +47,7 @@ public class CustomDialog  extends DialogFragment{
 
     //widgets
     private EditText number_plate1;
-    private EditText amount1;
+    private EditText rate1;
     private EditText name_passenger1;
     private EditText phone_passenger1;
     private EditText ID_passenger1;
@@ -62,7 +66,7 @@ public class CustomDialog  extends DialogFragment{
         View view = inflater.inflate(R.layout.dialog_make_payment, container, false);
         submitDetails = view.findViewById(R.id.submitDetails);
         number_plate1 = view.findViewById(R.id.number_plate1);
-        amount1 = view.findViewById(R.id.amount1);
+        rate1 = view.findViewById(R.id.rate1);
         name_passenger1 = view.findViewById(R.id.name_passenger1);
         phone_passenger1 = view.findViewById(R.id.phone_passenger1);
         ID_passenger1 = view.findViewById(R.id.ID_passenger1);
@@ -80,6 +84,9 @@ public class CustomDialog  extends DialogFragment{
             @Override
             public void onItemSelected(AdapterView <?> parent, View view, int position, long id) {
                 String selectedCategory = spinner.getSelectedItem().toString();
+                if (selectedCategory.equals("Fare")){
+                    //send to the db
+                }
 
             }
 
@@ -105,16 +112,21 @@ public class CustomDialog  extends DialogFragment{
 
     private void savePayment() {
        final String number_plate = number_plate1.getText().toString().trim();
-        final String amount = amount1.getText().toString().trim();
-        final String name_of_passenger = name_passenger1.getText().toString().trim();
-        final String phone_no_of_passenger = phone_passenger1.getText().toString().trim();
-        final String id_no_of_passenger = ID_passenger1.getText().toString().trim();
+        final String rate = rate1.getText().toString().trim();
+        final String name = name_passenger1.getText().toString().trim();
+        final String phone_no = phone_passenger1.getText().toString().trim();
+        final String id_no = ID_passenger1.getText().toString().trim();
         final String destination = destination1.getText().toString().trim();
 
+
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Saving data....");
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, savePayment,
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
+                        progressDialog.dismiss();
                         System.out.println("###SAVED! " + s);
                         Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG).show();
 
@@ -135,12 +147,13 @@ public class CustomDialog  extends DialogFragment{
                 Map <String, String> params = new HashMap<>();
                 params.put("number_plate", number_plate);
                 params.put("spinner", spinner.getSelectedItem().toString());
-                params.put("amount",amount);
-                params.put("name_of_passenger",name_of_passenger);
-                params.put("phone_no_of_passenger",phone_no_of_passenger);
-                params.put("id_no_of_passenger",id_no_of_passenger);
+                params.put("rate",rate);
+                params.put("name",name);
+                params.put("phone_no",phone_no);
+                params.put("id_no",id_no);
                 params.put("destination",destination);
 
+                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
 
                 return params;
             }

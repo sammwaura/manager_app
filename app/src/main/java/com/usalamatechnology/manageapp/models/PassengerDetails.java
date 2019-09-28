@@ -7,18 +7,16 @@ public class PassengerDetails implements Parcelable {
 
     public String passenger_name;
     public String phone_no;
-    public String seat_no;
 
     public PassengerDetails(String passenger_name, String phone_no, String seat_no){
         this.passenger_name = passenger_name;
         this.phone_no = phone_no;
-        this.seat_no = seat_no;
     }
 
     protected PassengerDetails(Parcel in) {
         passenger_name = in.readString();
         phone_no = String.valueOf(in.readInt());
-        seat_no = String.valueOf(in.readInt());
+
     }
 
     public static final Creator <PassengerDetails> CREATOR = new Creator <PassengerDetails>() {
@@ -59,7 +57,6 @@ public class PassengerDetails implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(passenger_name);
         dest.writeInt(Integer.parseInt(phone_no));
-        dest.writeInt(Integer.parseInt(seat_no));
     }
 }
 

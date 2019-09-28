@@ -31,7 +31,6 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
             cardtouch2.findViewById(R.id.cardtouch2);
             name_passenger.findViewById(R.id.name_passenger);
             phone_no.findViewById(R.id.phone_passenger);
-            seat_no.findViewById(R.id.seat_no);
         }
 
 
@@ -59,7 +58,7 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.name_passenger.setText(passengerDetails.get(i).passenger_name);
         viewHolder.phone_no.setText(passengerDetails.get(i).phone_no);
-        viewHolder.seat_no.setText(passengerDetails.get(i).seat_no);
+
 
 
     }
