@@ -207,6 +207,18 @@
         >
     </android.support.v7.widget.RecyclerView>
 
+
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="No vehicles on transit"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="22sp" />
+
     </LinearLayout>
 
 /</android.support.v4.widget.DrawerLayout>

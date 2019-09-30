@@ -60,9 +60,8 @@ public class Fare extends AppCompatActivity {
                             for (int i =0; i< array.length(); i++){
                                 JSONObject row = array.getJSONObject(i);
                                 Faredetails faredetail = new Faredetails(
-                                        row.getString("number_plate"),
-                                        row.getString("amount"),
-                                        row.getString("passenger_no")
+                                        row.getString("number_plate")
+
 
                                 );
                                 faredetails.add(faredetail);

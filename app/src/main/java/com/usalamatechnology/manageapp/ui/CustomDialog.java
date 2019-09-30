@@ -56,13 +56,9 @@ public class CustomDialog  extends DialogFragment{
 
     private Spinner spinner;
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.dialog_make_payment, container, false);
         submitDetails = view.findViewById(R.id.submitDetails);
         number_plate1 = view.findViewById(R.id.number_plate1);
@@ -85,7 +81,7 @@ public class CustomDialog  extends DialogFragment{
             public void onItemSelected(AdapterView <?> parent, View view, int position, long id) {
                 String selectedCategory = spinner.getSelectedItem().toString();
                 if (selectedCategory.equals("Fare")){
-                    //send to the db
+                    //notify the db
                 }
 
             }
@@ -132,7 +128,6 @@ public class CustomDialog  extends DialogFragment{
 
                         Intent intent = new Intent(getContext(), Home.class);
                         startActivity(intent);
-
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -140,7 +135,6 @@ public class CustomDialog  extends DialogFragment{
                 System.out.println("volleyError response " + error.getMessage());
                 Toast.makeText(getContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
             }
-
         }) {
             @Override
             protected Map<String, String> getParams() {

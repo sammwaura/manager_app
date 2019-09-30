@@ -53,8 +53,7 @@ public class FareAdapter extends RecyclerView.Adapter <FareAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.passenger_no.setText(faredetails.get(i).getPassenger_no());
-        viewHolder.amountCollected.setText(faredetails.get(i).getAmount());
+
         viewHolder.number_plate.setText(faredetails.get(i).getNumber_plate());
 
     }

@@ -76,11 +76,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         findViewById(R.id.makePayment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: opening dialog");
                 CustomDialog dialog = new CustomDialog();
                 dialog.show(getSupportFragmentManager(), "Custom Dialog");
-
-
             }
         });
 
@@ -109,13 +106,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         passengerDetails = new ArrayList <>();
 
         recyclerView = findViewById(R.id.recyclerview);
-        adapter = new PaymentAdapter(this, this, paymentdetails);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
+        adapter = new PaymentAdapter(this, this, paymentdetails);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         retrievePaymentDetails();
-
     }
 
     private void retrievePaymentDetails() {
@@ -135,6 +131,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                 JSONObject jsonObj = new JSONObject(s);
                                 JSONArray array = jsonObj.getJSONArray("payments");
 
+                                String amount = null;
+                                String no_of_passengers = null;
                                     for (int i = 0; i < array.length(); i++) {
                                         JSONObject row = array.getJSONObject(i);
                                         Paymentdetails paymentdetail = new Paymentdetails(
@@ -142,7 +140,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                          row.getString("rate"),
                                          row.getString("destination")
                                         );
+                                        row.getString(amount);
+                                        row.getString(no_of_passengers);
+
                                         paymentdetails.add(paymentdetail);
+                                        initializeData();
+                                        findViewById(R.id.empty_view).setVisibility(View.GONE);
                                     }
                                     adapter.notifyDataSetChanged();
                             } catch (JSONException e) {
