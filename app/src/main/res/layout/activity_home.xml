@@ -161,10 +161,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="185dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
+
 
 
                 <Button
@@ -177,6 +178,18 @@
                     android:text="Pay"
                     android:textColor="@color/colorGray"
                     android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:text="Expense"
+                    android:id="@+id/expenses"
+                    android:textColor="@color/colorGray"
+                    android:background="@drawable/roun_rect_white"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
             </LinearLayout>

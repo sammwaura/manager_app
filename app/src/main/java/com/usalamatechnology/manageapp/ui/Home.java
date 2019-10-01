@@ -81,6 +81,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
 
+        findViewById(R.id.expenses).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Expenses.class);
+                startActivity(intent);
+            }
+        });
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

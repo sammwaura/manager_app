@@ -49,6 +49,8 @@
         </provider>
 
         <activity android:name=".IncomeEdit" />
+        <activity android:name=".ui.Expenses" />
+
         <activity android:name=".ui.Fare" />
         <activity android:name=".ui.Courier" />
         <activity
@@ -65,8 +67,7 @@
         </activity>
         <activity android:name=".TripManager" />
         <activity android:name=".ui.PassengerActivity" />
-        <activity android:name=".FirstActivity" />
-        <activity android:name=".Home2" />
+
     </application>
 
 </manifest>
