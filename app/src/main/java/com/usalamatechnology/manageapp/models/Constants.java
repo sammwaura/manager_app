@@ -77,7 +77,9 @@ public final class Constants {
     public static String passengerDetails = "https://zamzam45.com/tally_driver_copy/get_passenger_details.php";
     public static String savePassenger="https://zamzam45.com/tally_driver_copy/save_passenger.php";
     public static String getFare="https://zamzam45.com/tally_driver_copy/get_fare.php";
+    public static String uploadFare="https://zamzam45.com/tally_driver_copy/save_fare.php";
     public static String getCourier="https://zamzam45.com/tally_driver_copy/get_courier.php";
+    public static String uploadCourier="https://zamzam45.com/tally_driver_copy/save_courier.php";
     public static final String vehicle_no = "vehicle_no";
 
 

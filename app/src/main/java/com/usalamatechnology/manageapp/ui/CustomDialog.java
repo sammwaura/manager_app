@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.usalamatechnology.manageapp.R;
+import com.usalamatechnology.manageapp.models.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +35,10 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
 import static com.usalamatechnology.manageapp.models.Constants.savePayment;
+import static com.usalamatechnology.manageapp.models.Constants.uploadCourier;
+import static com.usalamatechnology.manageapp.models.Constants.uploadFare;
 import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
 public class CustomDialog  extends DialogFragment{
@@ -55,10 +60,12 @@ public class CustomDialog  extends DialogFragment{
     private Button submitDetails;
 
     private Spinner spinner;
+    String type = null;
+
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_make_payment, container, false);
         submitDetails = view.findViewById(R.id.submitDetails);
         number_plate1 = view.findViewById(R.id.number_plate1);
@@ -68,22 +75,19 @@ public class CustomDialog  extends DialogFragment{
         ID_passenger1 = view.findViewById(R.id.ID_passenger1);
         destination1 = view.findViewById(R.id.destination1);
 
+
         spinner = view.findViewById(R.id.spinner1);
-        List<String> dataset = new ArrayList <>();
+        final List<String> dataset = new ArrayList <>();
         dataset.add("Fare");
         dataset.add("Courier");
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.payment, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
+        
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView <?> parent, View view, int position, long id) {
-                String selectedCategory = spinner.getSelectedItem().toString();
-                if (selectedCategory.equals("Fare")){
-                    //notify the db
-                }
-
+                Toast.makeText(getContext(), dataset.get(position), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -91,6 +95,96 @@ public class CustomDialog  extends DialogFragment{
 
             }
         });
+
+        if(type != null)
+        {
+            spinner.setVisibility(View.GONE);
+        }
+        else
+        {
+            spinner.setVisibility(View.VISIBLE);
+        }
+
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(final AdapterView <?> parent, View view, final int position, long id) {
+//                String selectedCategory = spinner.getSelectedItem().toString();
+//                if (selectedCategory.equals("Fare")) {
+//                    saveFare();
+//                } else {
+//                    if (selectedCategory.equals("Courier")) {
+//                        saveCourier();
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView <?> parent) {
+//
+//            }
+//
+//    private void saveFare() {
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST, uploadFare,
+//                    new Response.Listener <String>() {
+//                        @Override
+//                        public void onResponse(String response) {
+//                            System.out.println("###SAVED! " + response);
+//                            Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG).show();
+//
+//                            Intent intent = new Intent(getContext(), CustomDialog.class);
+//                            startActivity(intent);
+//                        }
+//
+//                    }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    System.out.println("volleyError response " + error.getMessage());
+//                    Toast.makeText(getContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+//                }
+//            }){
+//                @Override
+//                protected Map <String, String> getParams() throws AuthFailureError {
+//                    getParams().put("spinner", spinner.toString());
+//                    return super.getParams();
+//                }
+//            };
+//
+//            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//            requestQueue.add(stringRequest);
+//        }
+//
+//
+//    private void saveCourier() {
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST, uploadCourier,
+//                    new Response.Listener <String>() {
+//                        @Override
+//                        public void onResponse(String response) {
+//                            System.out.println("###SAVED! " + response);
+//                            Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG).show();
+//
+//                            Intent intent = new Intent(getContext(), CustomDialog.class);
+//                            startActivity(intent);
+//                        }
+//
+//                    }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    System.out.println("volleyError response " + error.getMessage());
+//                    Toast.makeText(getContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+//                }
+//            }) {
+//
+//                @Override
+//                protected Map <String, String> getParams() throws AuthFailureError {
+//                    getParams().put("spinner", spinner.toString());
+//                    return super.getParams();
+//                }
+//            };
+//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//        requestQueue.add(stringRequest);
+//        }
+//
+//    });
 
         submitDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +234,11 @@ public class CustomDialog  extends DialogFragment{
             protected Map<String, String> getParams() {
                 Map <String, String> params = new HashMap<>();
                 params.put("number_plate", number_plate);
-                params.put("spinner", spinner.getSelectedItem().toString());
+
+                if (type != null){
+                    params.put("type", spinner.getSelectedItem().toString());
+                }
+
                 params.put("rate",rate);
                 params.put("name",name);
                 params.put("phone_no",phone_no);

@@ -41,7 +41,6 @@ public class Expenses extends AppCompatActivity {
     EditText dateTime;
     EditText amount;
     EditText other;
-    Button camera;
 
 
     Spinner spinner;
@@ -66,7 +65,6 @@ public class Expenses extends AppCompatActivity {
         dateTime = (EditText)findViewById(R.id.dateTime);
         other = (EditText)findViewById(R.id.editTextOther);
         typeText = (EditText)findViewById(R.id.editTextType);
-        camera = (Button) findViewById(R.id.button);
         dateTime.setKeyListener(null);
         typeText.setKeyListener(null);
 
