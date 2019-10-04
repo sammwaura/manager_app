@@ -128,8 +128,8 @@ public class Expenses extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                Intent intent = new Intent(Expenses.this, ViewExpenses.class);
+                startActivity(intent);
             }
         });
     }

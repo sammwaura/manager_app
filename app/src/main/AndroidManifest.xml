@@ -50,7 +50,6 @@
 
         <activity android:name=".IncomeEdit" />
         <activity android:name=".ui.Expenses" />
-
         <activity android:name=".ui.Fare" />
         <activity android:name=".ui.Courier" />
         <activity
@@ -67,7 +66,7 @@
         </activity>
         <activity android:name=".TripManager" />
         <activity android:name=".ui.PassengerActivity" />
-
+        <activity android:name=".ui.VIewExpenses"></activity>
     </application>
 
 </manifest>

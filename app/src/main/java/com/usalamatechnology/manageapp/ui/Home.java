@@ -229,9 +229,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         return true;
     }
 
-
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -241,17 +238,19 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         //Toast.makeText(this,"id"+id,Toast.LENGTH_LONG).show();
 
         if (id == R.id.nav_home) {
-                    Intent it = new Intent(Home.this, Home.class);
-                    startActivity(it);
+            Intent it = new Intent(Home.this, Home.class);
+            startActivity(it);
 
-        }
-        else if (id == R.id.nav_fare) {
+        } else if (id == R.id.nav_fare) {
 
             Intent intent = new Intent(Home.this, Fare.class);
             startActivity(intent);
-        }
-        else if (id == R.id.nav_courier) {
+        } else if (id == R.id.nav_courier) {
             Intent intent = new Intent(Home.this, Courier.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_expenses){
+            Intent intent = new Intent(Home.this, Expenses.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_logout) {

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.Dataset;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.usalamatechnology.manageapp.R.layout.support_simple_spinner_dropdown_item;
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
 import static com.usalamatechnology.manageapp.models.Constants.savePayment;
@@ -76,18 +78,31 @@ public class CustomDialog  extends DialogFragment{
         destination1 = view.findViewById(R.id.destination1);
 
 
-        spinner = view.findViewById(R.id.spinner1);
-        final List<String> dataset = new ArrayList <>();
+        spinner.findViewById(R.id.spinner1);
+        final List<String> dataset = new ArrayList<>();
         dataset.add("Fare");
         dataset.add("Courier");
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.payment, R.layout.support_simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, dataset);
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+
+        if(type != null)
+        {
+            spinner.setVisibility(View.GONE);
+        }
+        else
+        {
+            spinner.setVisibility(View.VISIBLE);
+        }
+
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView <?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), dataset.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), dataset.get(position)+ "Selected", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

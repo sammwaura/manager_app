@@ -38,7 +38,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView number_plate, amountCollected, no_of_passenger, rate, destination;
+        public TextView number_plate, rate, destination;
         public CardView  card;
         public LinearLayout touch;
         public ItemClickListener itemClickListener;
@@ -48,7 +48,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         public ViewHolder(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
             number_plate = itemView.findViewById(R.id.number_plate);
-            amountCollected = itemView.findViewById(R.id.amountCollected);
             destination = itemView.findViewById(R.id.destination);
             card = itemView.findViewById(R.id.card);
             touch = itemView.findViewById(R.id.touch);

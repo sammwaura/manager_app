@@ -81,6 +81,8 @@ public final class Constants {
     public static String getCourier="https://zamzam45.com/tally_driver_copy/get_courier.php";
     public static String uploadCourier="https://zamzam45.com/tally_driver_copy/save_courier.php";
     public static final String vehicle_no = "vehicle_no";
+    public static String getExpenses="https://zamzam45.com/tally_driver_copy/get_expenses.php";
+
 
 
     /*public static String getManagerHeaderDetails="https://zamzam45.com/tally_driver_test/getManagerHeaderDetails.php";

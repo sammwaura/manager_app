@@ -14,6 +14,10 @@
             android:id="@+id/nav_courier"
             android:icon="@drawable/trips_drawer"
             android:title="Courier"/>
+        <item
+            android:id="@+id/nav_expenses"
+            android:icon="@drawable/expenses_tab"
+            android:title="Expenses" />
 
 
 
