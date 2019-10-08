@@ -52,6 +52,7 @@
         <activity android:name=".ui.Expenses" />
         <activity android:name=".ui.Fare" />
         <activity android:name=".ui.Courier" />
+        <activity android:name=".ui.ViewExpenses"/>
         <activity
             android:name=".ExitActivity"
             android:autoRemoveFromRecents="true"
@@ -66,7 +67,6 @@
         </activity>
         <activity android:name=".TripManager" />
         <activity android:name=".ui.PassengerActivity" />
-        <activity android:name=".ui.VIewExpenses"></activity>
     </application>
 
 </manifest>

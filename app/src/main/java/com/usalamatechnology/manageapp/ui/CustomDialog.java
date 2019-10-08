@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -78,7 +79,7 @@ public class CustomDialog  extends DialogFragment{
         destination1 = view.findViewById(R.id.destination1);
 
 
-        spinner.findViewById(R.id.spinner1);
+        spinner = (Spinner) view.findViewById(R.id.spinner1);
         final List<String> dataset = new ArrayList<>();
         dataset.add("Fare");
         dataset.add("Courier");
@@ -227,13 +228,12 @@ public class CustomDialog  extends DialogFragment{
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Saving data....");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, savePayment,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                savePayment,
                 new Response.Listener <String>() {
                     @Override
-                    public void onResponse(String s) {
-                        progressDialog.dismiss();
-                        System.out.println("###SAVED! " + s);
-                        Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG).show();
+                    public void onResponse(String response) {
+                        Toast.makeText(getContext(), "Successfully Saved.", Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(getContext(), Home.class);
                         startActivity(intent);
@@ -241,19 +241,17 @@ public class CustomDialog  extends DialogFragment{
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("volleyError response " + error.getMessage());
-                Toast.makeText(getContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+
+                System.out.println("volleyError"+ error.getMessage());
+                Toast.makeText(getContext(), "Poor network connection", Toast.LENGTH_LONG).show();
             }
+
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map <String, String> params = new HashMap<>();
                 params.put("number_plate", number_plate);
-
-                if (type != null){
-                    params.put("type", spinner.getSelectedItem().toString());
-                }
-
+                params.put("type", spinner.getSelectedItem().toString());
                 params.put("rate",rate);
                 params.put("name",name);
                 params.put("phone_no",phone_no);

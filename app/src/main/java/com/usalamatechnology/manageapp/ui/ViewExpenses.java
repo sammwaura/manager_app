@@ -42,7 +42,7 @@ import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.models.Constants.getExpenses;
 
-public  class ViewExpenses extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener, ExpensesObserver{
+public  class ViewExpenses extends AppCompatActivity implements  ExpensesObserver{
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
@@ -64,23 +64,6 @@ public  class ViewExpenses extends AppCompatActivity implements  NavigationView.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-        NavigationView navigationViewRight = (NavigationView) findViewById(R.id.nav_view_right);
-        navigationViewRight.setNavigationItemSelectedListener(this);
-
-
-        View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.user_name);
-        navUsername.setText(credentialsSharedPreferences.getString(Constants.name, "User Name"));
-
 
         expenseDetails = new ArrayList <>();
 
@@ -93,10 +76,6 @@ public  class ViewExpenses extends AppCompatActivity implements  NavigationView.
         retrieveExpenses();
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        return false;
-    }
 
     private void retrieveExpenses() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, getExpenses,
@@ -111,7 +90,6 @@ public  class ViewExpenses extends AppCompatActivity implements  NavigationView.
 
                                 posts = jsonObj.getJSONArray("expenses");
 
-
                                 if(posts.length() >0)
                                 {
                                     for (int i = 0; i < posts.length(); i++) {
@@ -125,10 +103,8 @@ public  class ViewExpenses extends AppCompatActivity implements  NavigationView.
                                         String category = row.getString("category");
 
                                         expenseDetails.add(new ExpenseDetails(id, amount, time, type, notes, category));
-
                                     }
                                 }
-
                                 initializeData();
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -10,6 +10,159 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:clickable="true">
+
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/bg"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.2"
+                    android:src="@drawable/menu" />
+
+
+                <com.usalamatechnology.manageapp.TextView_Lato
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_weight="1.6"
+                    android:id="@+id/trips_today"
+                    android:gravity="center_horizontal"
+                    android:text="Number of trips"
+                    android:textColor="#fff"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.usalamatechnology.manageapp.TextView_Lato
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:id="@+id/total_trips"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="trip(s)"
+                    android:textColor="#fff"
+                    android:textSize="14dp" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
+
+                <com.usalamatechnology.manageapp.Textview_lato_thin
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Teller"
+                    android:id="@+id/driver_car"
+                    android:textColor="#fff"
+                    android:textSize="14dp" />
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="185dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+
+            <Button
+                android:id="@+id/makePayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/roun_rect_white"
+                android:text="Pay"
+                android:textColor="@color/colorGray"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:text="Expense"
+                android:id="@+id/expenses"
+                android:textColor="@color/colorGray"
+                android:background="@drawable/roun_rect_white"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+
+    </RelativeLayout>
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
@@ -52,171 +205,8 @@
         android:layout_marginTop="6dp"
         android:layout_below="@+id/frameLayout"
         >
-        <FrameLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:clickable="true">
 
 
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@drawable/bg"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <ImageView
-                        android:id="@+id/back"
-                        android:layout_width="0dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="16dp"
-                        android:layout_weight="0.2"
-                        android:src="@drawable/menu" />
-
-
-                    <com.usalamatechnology.manageapp.TextView_Lato
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="14dp"
-                        android:layout_marginRight="14dp"
-                        android:layout_marginTop="50dp"
-                        android:layout_weight="1.6"
-                        android:id="@+id/trips_today"
-                        android:gravity="center_horizontal"
-                        android:text="Number of trips"
-                        android:textColor="#fff"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-
-                        />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-                    <com.usalamatechnology.manageapp.TextView_Lato
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:id="@+id/total_trips"
-                        android:textColor="#fff"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <com.usalamatechnology.manageapp.Textview_lato_thin
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:text="trip(s)"
-                        android:textColor="#fff"
-                        android:textSize="14dp" />
-
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-
-
-                    <com.usalamatechnology.manageapp.Textview_lato_thin
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:text="Teller"
-                        android:id="@+id/driver_car"
-                        android:textColor="#fff"
-                        android:textSize="14dp" />
-
-
-
-                </LinearLayout>
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="185dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-
-
-                <Button
-                    android:id="@+id/makePayment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/roun_rect_white"
-                    android:text="Pay"
-                    android:textColor="@color/colorGray"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="8dp"
-                    android:text="Expense"
-                    android:id="@+id/expenses"
-                    android:textColor="@color/colorGray"
-                    android:background="@drawable/roun_rect_white"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-
-        </FrameLayout>
-
-
-        <!--<include-->
-        <!--layout="@layout/tripdetail"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_below="@+id/frameLayout"-->
-
-
-        <!--/>-->
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="10dp">
 
     <android.support.v7.widget.RecyclerView
         android:layout_height="fill_parent"
@@ -238,8 +228,9 @@
         android:text="No earnings or expenses for today"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:textSize="22sp" />
-    </RelativeLayout>
+        android:textSize="22sp" >
+
+    </TextView>
     </LinearLayout>
 
 

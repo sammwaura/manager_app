@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,7 +51,7 @@ import static com.usalamatechnology.manageapp.models.Constants.credentialsShared
 import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
 import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PaymentObserver{
+public class Home extends AppCompatActivity implements  PaymentObserver{
 
 
     private static final String TAG = "Home Activity";
@@ -63,7 +64,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private ArrayList<Paymentdetails>paymentdetails;
 
     private ArrayList<PassengerDetails>passengerDetails;
-    @SuppressLint("WrongViewCast")
+    @SuppressLint({"WrongViewCast", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,25 +90,32 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
 
+        findViewById(R.menu.menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.openDrawer(Gravity.START);
+            }
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
+//
+//
+//        NavigationView navigationViewRight = (NavigationView) findViewById(R.id.nav_view_right);
+//        navigationViewRight.setNavigationItemSelectedListener(this);
 
-
-        NavigationView navigationViewRight = (NavigationView) findViewById(R.id.nav_view_right);
-        navigationViewRight.setNavigationItemSelectedListener(this);
-
-
-        View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.user_name);
-        navUsername.setText(credentialsSharedPreferences.getString(Constants.name, "User Name"));
+//
+//        View headerView = navigationView.getHeaderView(0);
+//        TextView navUsername = (TextView) headerView.findViewById(R.id.user_name);
+//        navUsername.setText(credentialsSharedPreferences.getString(Constants.name, "User Name"));
 
 
         paymentdetails = new ArrayList <>();
@@ -222,49 +230,55 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        // Handle the camera action
-        //Toast.makeText(this,"id"+id,Toast.LENGTH_LONG).show();
 
-        if (id == R.id.nav_home) {
-            Intent it = new Intent(Home.this, Home.class);
-            startActivity(it);
 
-        } else if (id == R.id.nav_fare) {
 
-            Intent intent = new Intent(Home.this, Fare.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_courier) {
-            Intent intent = new Intent(Home.this, Courier.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.nav_expenses){
-            Intent intent = new Intent(Home.this, Expenses.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.nav_logout) {
-            credentialsEditor.putString(Constants.user_id, "0");
-            credentialsEditor.apply();
-
-            Intent intent = new Intent(Home.this, PinActivity.class);
-            startActivity(intent);
-
-        }
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//
+//        Bundle bundle = new Bundle();
+//        if (id == R.id.nav_home) {
+//            Intent it = new Intent(Home.this, Home.class);
+//            startActivity(it);
+//
+//        } else if (id == R.id.nav_fare) {
+//
+//            Intent intent = new Intent(Home.this, Fare.class);
+//            startActivity(intent);
+//
+//        } else if (id == R.id.nav_courier) {
+//            Intent intent = new Intent(Home.this, Courier.class);
+//            startActivity(intent);
+//        }
+//        else if (id == R.id.nav_expenses){
+//            Intent intent = new Intent(Home.this, Expenses.class);
+//            startActivity(intent);
+//        }
+//        else if (id == R.id.nav_logout) {
+//            credentialsEditor.putString(Constants.user_id, "0");
+//            credentialsEditor.apply();
+//
+//            Intent intent = new Intent(Home.this, PinActivity.class);
+//            startActivity(intent);
+//
+//        }
 //        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 
     @Override
     public void onCardClicked(int pos, String name) {
