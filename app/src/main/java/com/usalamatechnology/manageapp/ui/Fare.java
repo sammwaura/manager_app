@@ -1,9 +1,11 @@
 package com.usalamatechnology.manageapp.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,10 +38,18 @@ public class Fare extends AppCompatActivity {
 
         faredetails = new ArrayList <>();
 
-        recyclerView.findViewById(R.id.recyclerview3);
+        recyclerView = findViewById(R.id.recyclerviewfare);
         adapter = new FareAdapter(faredetails);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Fare.this, Home.class);
+                startActivity(intent);
+            }
+        });
 
         getAllFare();
 

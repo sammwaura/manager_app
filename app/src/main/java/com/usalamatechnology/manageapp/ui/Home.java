@@ -74,6 +74,27 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
         credentialsEditor = credentialsSharedPreferences.edit();
 
 
+        findViewById(R.id.menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.openDrawer(Gravity.START);
+            }
+        });
+
+        findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Home.this,"Home",Toast.LENGTH_LONG).show();
+                Intent it = new Intent(Home.this, Home.class);
+                startActivity(it);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+
+
+
         findViewById(R.id.makePayment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,32 +111,38 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
             }
         });
 
-        findViewById(R.menu.menu).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.expense).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                drawer.openDrawer(Gravity.START);
+                Intent intent = new Intent(Home.this, ViewExpenses.class);
+                startActivity(intent);
             }
         });
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        findViewById(R.id.fare).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Fare.class);
+                startActivity(intent);
+            }
+        });
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.syncState();
+        findViewById(R.id.courier).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Courier.class);
+                startActivity(intent);
+            }
+        });
 
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
-//
-//
-//        NavigationView navigationViewRight = (NavigationView) findViewById(R.id.nav_view_right);
-//        navigationViewRight.setNavigationItemSelectedListener(this);
+        findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
-//
-//        View headerView = navigationView.getHeaderView(0);
-//        TextView navUsername = (TextView) headerView.findViewById(R.id.user_name);
-//        navUsername.setText(credentialsSharedPreferences.getString(Constants.name, "User Name"));
 
 
         paymentdetails = new ArrayList <>();

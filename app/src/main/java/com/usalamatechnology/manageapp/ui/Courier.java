@@ -1,9 +1,11 @@
 package com.usalamatechnology.manageapp.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,10 +38,19 @@ public class Courier extends AppCompatActivity {
         setContentView(R.layout.activity_courier);
 
         courierdetails = new ArrayList <>();
-        recyclerView.findViewById(R.id.recyclerview4);
+        recyclerView = findViewById(R.id.recyclerview4);
         adapter = new CourierAdapter(courierdetails);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Courier.this, Home.class);
+                startActivity(intent);
+            }
+        });
+
 
         getAllCourier();
     }

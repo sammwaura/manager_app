@@ -12,5 +12,10 @@
     <color name="colorhint">#a9aaac</color>
     <color name="colorBackroundWhite">#f0f2ea</color>
 
+    <color name="colortextMenu">#444a59</color>
+    <color name="colorBg">#80444a59</color>
+    <color name="colorbg">#ffffff</color>
+    <color name="btcolorbg">#C5C7CC</color>
+    <color name="background_line">#444a59</color>
 
 </resources>

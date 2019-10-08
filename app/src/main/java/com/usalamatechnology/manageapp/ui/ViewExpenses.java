@@ -1,6 +1,7 @@
 package com.usalamatechnology.manageapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -72,6 +73,14 @@ public  class ViewExpenses extends AppCompatActivity implements  ExpensesObserve
         recyclerView.setHasFixedSize(true);
         adapter = new ExpensesAdapter(this,this, expenseDetails);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewExpenses.this, Home.class);
+                startActivity(intent);
+            }
+        });
 
         retrieveExpenses();
     }
