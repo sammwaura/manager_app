@@ -32,6 +32,7 @@ import com.usalamatechnology.manageapp.models.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -121,86 +122,7 @@ public class CustomDialog  extends DialogFragment{
             spinner.setVisibility(View.VISIBLE);
         }
 
-//
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(final AdapterView <?> parent, View view, final int position, long id) {
-//                String selectedCategory = spinner.getSelectedItem().toString();
-//                if (selectedCategory.equals("Fare")) {
-//                    saveFare();
-//                } else {
-//                    if (selectedCategory.equals("Courier")) {
-//                        saveCourier();
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView <?> parent) {
-//
-//            }
-//
-//    private void saveFare() {
-//            StringRequest stringRequest = new StringRequest(Request.Method.POST, uploadFare,
-//                    new Response.Listener <String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            System.out.println("###SAVED! " + response);
-//                            Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG).show();
-//
-//                            Intent intent = new Intent(getContext(), CustomDialog.class);
-//                            startActivity(intent);
-//                        }
-//
-//                    }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    System.out.println("volleyError response " + error.getMessage());
-//                    Toast.makeText(getContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
-//                }
-//            }){
-//                @Override
-//                protected Map <String, String> getParams() throws AuthFailureError {
-//                    getParams().put("spinner", spinner.toString());
-//                    return super.getParams();
-//                }
-//            };
-//
-//            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//            requestQueue.add(stringRequest);
-//        }
-//
-//
-//    private void saveCourier() {
-//            StringRequest stringRequest = new StringRequest(Request.Method.POST, uploadCourier,
-//                    new Response.Listener <String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            System.out.println("###SAVED! " + response);
-//                            Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG).show();
-//
-//                            Intent intent = new Intent(getContext(), CustomDialog.class);
-//                            startActivity(intent);
-//                        }
-//
-//                    }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    System.out.println("volleyError response " + error.getMessage());
-//                    Toast.makeText(getContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
-//                }
-//            }) {
-//
-//                @Override
-//                protected Map <String, String> getParams() throws AuthFailureError {
-//                    getParams().put("spinner", spinner.toString());
-//                    return super.getParams();
-//                }
-//            };
-//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//        requestQueue.add(stringRequest);
-//        }
-//
-//    });
+
 
         submitDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,13 +139,6 @@ public class CustomDialog  extends DialogFragment{
     }
 
     private void savePayment() {
-       final String number_plate = number_plate1.getText().toString().trim();
-        final String rate = rate1.getText().toString().trim();
-        final String name = name_passenger1.getText().toString().trim();
-        final String phone_no = phone_passenger1.getText().toString().trim();
-        final String id_no = ID_passenger1.getText().toString().trim();
-        final String destination = destination1.getText().toString().trim();
-
 
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Saving data....");
@@ -234,6 +149,13 @@ public class CustomDialog  extends DialogFragment{
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getContext(), "Successfully Saved.", Toast.LENGTH_LONG).show();
+
+                        number_plate1.setText("");
+                        rate1.setText("");
+                        name_passenger1.setText("");
+                        phone_passenger1.setText("");
+                        ID_passenger1.setText("");
+                        destination1.setText("");
 
                         Intent intent = new Intent(getContext(), Home.class);
                         startActivity(intent);
@@ -247,19 +169,22 @@ public class CustomDialog  extends DialogFragment{
             }
 
         }) {
+
             @Override
-            protected Map<String, String> getParams() {
-                Map <String, String> params = new HashMap<>();
-                params.put("number_plate", number_plate);
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                //Creating parameters
+                Map<String, String> params = new Hashtable<>();
+                params.put("number_plate", number_plate1.toString());
                 params.put("type", spinner.getSelectedItem().toString());
-                params.put("rate",rate);
-                params.put("name",name);
-                params.put("phone_no",phone_no);
-                params.put("id_no",id_no);
-                params.put("destination",destination);
+                params.put("rate", rate1.toString());
+                params.put("name", name_passenger1.toString());
+                params.put("phone_no",phone_passenger1.toString());
+                params.put("id_no",ID_passenger1.toString());
+                params.put("destination", destination1.toString());
 
                 params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
-
+                //returning parameters
                 return params;
             }
         };
