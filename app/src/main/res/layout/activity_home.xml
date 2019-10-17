@@ -10,17 +10,18 @@
     tools:openDrawer="start">
 
 
-        <LinearLayout
+
+    <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="6dp">
 
-            <FrameLayout
-                android:id="@+id/frameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="250dp">
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -158,13 +159,13 @@
 
         </FrameLayout>
 
-            <include
-                layout="@layout/tripdetail"
-                android:layout_marginTop="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_below="@+id/linear" />
+        <include
+            layout="@layout/tripdetail"
+            android:layout_marginTop="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/linear" />
 
 
 
@@ -183,36 +184,33 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        </LinearLayout>
+    </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/empty_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:visibility="gone"
-            android:text="No earnings or expenses for today"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:textSize="22sp" />
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="No earnings or expenses for today"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="22sp" />
 
 
     <!--<include-->
-        <!--layout="@layout/tripdetail"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_below="@+id/frameLayout" />-->
+    <!--layout="@layout/tripdetail"-->
+    <!--android:layout_marginTop="6dp"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_below="@+id/frameLayout" />-->
 
 
 
 
-    <include
-        layout="@layout/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -222,129 +220,129 @@
         app:headerLayout="@layout/nav_header_main"
         android:fitsSystemWindows="true">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00000000"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        android:orientation="vertical"
-        android:paddingLeft="40dp">
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:background="@color/colorbg">
-
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/nav_header1_height"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:background="@color/colorbg"
-        android:paddingBottom="35dp"
-        >
-
-        <TextView
-            android:id="@+id/title"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="tally_teller"
-            android:textSize="30dp"
-            android:paddingLeft="16dp"
-            android:paddingTop="20dp"
-            android:textColor="@color/colortextMenu"
-            android:letterSpacing="0.025"/>
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
 
 
 
-        <View
-            android:visibility="gone"
-            android:layout_marginLeft="20dp"
-            android:paddingTop="30dp"
-            android:layout_width="40dp"
-            android:textColor="@color/colortextMenu"
-            android:layout_height="3dp">
-
-        </View>
-          </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                android:orientation="vertical"
+                android:paddingLeft="40dp">
 
 
 
-    <TextView
-        android:id="@+id/home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="HOME"
-        android:textColor="@color/colortextMenu"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:letterSpacing="0.025"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp"
+                    android:background="@color/colorbg">
 
 
-    <TextView
-        android:id="@+id/expense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:textColor="@color/colortextMenu"
-        android:text="EXPENSES"
-        android:letterSpacing="0.025"/>
+                    <LinearLayout
 
-    <TextView
-        android:id="@+id/fare"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:textColor="@color/colortextMenu"
-        android:text="FARE"
-        android:letterSpacing="0.025"/>
-    <TextView
-        android:id="@+id/courier"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:text="COURIER"
-        android:textColor="@color/colortextMenu"
-        android:letterSpacing="0.025"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/nav_header1_height"
+                        android:orientation="vertical"
+                        android:gravity="bottom"
+                        android:background="@color/colorbg"
+                        android:paddingBottom="35dp"
+                        >
 
-    <TextView
-        android:id="@+id/logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:letterSpacing="0.025"
-        android:paddingLeft="16dp"
-        android:paddingTop="12dp"
-        android:paddingRight="16dp"
-        android:textColor="@color/colortextMenu"
-        android:paddingBottom="12dp"
-        android:text="LOG OUT"/>
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="tally_teller"
+                            android:textSize="30dp"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="20dp"
+                            android:textColor="@color/colortextMenu"
+                            android:letterSpacing="0.025"/>
 
-        </LinearLayout>
-        </LinearLayout>
+
+
+                        <View
+                            android:visibility="gone"
+                            android:layout_marginLeft="20dp"
+                            android:paddingTop="30dp"
+                            android:layout_width="40dp"
+                            android:textColor="@color/colortextMenu"
+                            android:layout_height="3dp">
+
+                        </View>
+                    </LinearLayout>
+
+
+
+                    <TextView
+                        android:id="@+id/home"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="HOME"
+                        android:textColor="@color/colortextMenu"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:letterSpacing="0.025"/>
+
+
+                    <TextView
+                        android:id="@+id/expense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:textColor="@color/colortextMenu"
+                        android:text="EXPENSES"
+                        android:letterSpacing="0.025"/>
+
+                    <TextView
+                        android:id="@+id/fare"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:textColor="@color/colortextMenu"
+                        android:text="FARE"
+                        android:letterSpacing="0.025"/>
+                    <TextView
+                        android:id="@+id/courier"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text="COURIER"
+                        android:textColor="@color/colortextMenu"
+                        android:letterSpacing="0.025"/>
+
+                    <TextView
+                        android:id="@+id/logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.025"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingRight="16dp"
+                        android:textColor="@color/colortextMenu"
+                        android:paddingBottom="12dp"
+                        android:text="LOG OUT"/>
+
+                </LinearLayout>
+            </LinearLayout>
         </FrameLayout>
     </android.support.design.widget.NavigationView>
 
@@ -363,16 +361,16 @@
 
 
 
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab_print"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_gravity="end|bottom"-->
-            <!--android:layout_marginEnd="25dp"-->
-            <!--android:layout_marginBottom="27dp"-->
-            <!--android:src="@drawable/ic_white_printer" />-->
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab_print"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_gravity="end|bottom"-->
+    <!--android:layout_marginEnd="25dp"-->
+    <!--android:layout_marginBottom="27dp"-->
+    <!--android:src="@drawable/ic_white_printer" />-->
 
 
 
@@ -382,4 +380,3 @@
 
 
     /</android.support.v4.widget.DrawerLayout>
-

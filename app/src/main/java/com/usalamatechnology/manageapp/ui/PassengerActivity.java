@@ -53,13 +53,7 @@ public class PassengerActivity extends AppCompatActivity  {
 
         passengerDetails = new ArrayList <>();
 
-        Bundle extras = getIntent().getExtras();
-        passenger_name = extras.getString("passenger_name");
-        phone_no = extras.getString("phone_no");
-
-
-
-        recyclerView.findViewById(R.id.recyclerview2);
+        recyclerView = findViewById(R.id.recyclerview2);
         adapter = new PassengerAdapter(passengerDetails);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);

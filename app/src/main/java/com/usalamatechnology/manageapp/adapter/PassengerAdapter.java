@@ -25,10 +25,9 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView name_passenger, phone_no, seat_no;
-        public CardView cardtouch2;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardtouch2.findViewById(R.id.cardtouch2);
+
             name_passenger.findViewById(R.id.name_passenger);
             phone_no.findViewById(R.id.phone_passenger);
         }
@@ -49,7 +48,7 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        final View view = LayoutInflater.from(context).inflate(R.layout.cardpassenger, viewGroup, false);
+        final View view = LayoutInflater.from(context).inflate(R.layout.passengerdetail, viewGroup, false);
 
         return null;
     }

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -41,9 +42,12 @@ import static com.usalamatechnology.manageapp.R.layout.support_simple_spinner_dr
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
 import static com.usalamatechnology.manageapp.models.Constants.savePayment;
-import static com.usalamatechnology.manageapp.models.Constants.uploadCourier;
-import static com.usalamatechnology.manageapp.models.Constants.uploadFare;
+
 import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
+import static com.usalamatechnology.manageapp.models.Constants.recordFare;
+import static com.usalamatechnology.manageapp.models.Constants.recordCourier;
+
+
 
 public class CustomDialog  extends DialogFragment{
 
@@ -55,16 +59,10 @@ public class CustomDialog  extends DialogFragment{
     private OnInputListener onInputListener;
 
     //widgets
-    private EditText number_plate1;
-    private EditText rate1;
-    private EditText name_passenger1;
-    private EditText phone_passenger1;
-    private EditText ID_passenger1;
-    private EditText destination1;
-    private Button submitDetails;
-
+    private TextView number_plate, rate, name_passenger, phone_passenger, ID_passenger, destination;
+    Button submitDetails;
     private Spinner spinner;
-    String type = null;
+    List<String>dataset;
 
 
     @Nullable
@@ -72,39 +70,33 @@ public class CustomDialog  extends DialogFragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_make_payment, container, false);
         submitDetails = view.findViewById(R.id.submitDetails);
-        number_plate1 = view.findViewById(R.id.number_plate1);
-        rate1 = view.findViewById(R.id.rate1);
-        name_passenger1 = view.findViewById(R.id.name_passenger1);
-        phone_passenger1 = view.findViewById(R.id.phone_passenger1);
-        ID_passenger1 = view.findViewById(R.id.ID_passenger1);
-        destination1 = view.findViewById(R.id.destination1);
+        number_plate= view.findViewById(R.id.number_plate1);
+        rate = view.findViewById(R.id.rate1);
+        name_passenger = view.findViewById(R.id.name_passenger1);
+        phone_passenger = view.findViewById(R.id.phone_passenger1);
+        ID_passenger = view.findViewById(R.id.ID_passenger1);
+        destination = view.findViewById(R.id.destination1);
 
 
-        spinner = (Spinner) view.findViewById(R.id.spinner1);
-        final List<String> dataset = new ArrayList<>();
+        spinner = view.findViewById(R.id.spinner1);
+        dataset = new ArrayList <>();
         dataset.add("Fare");
         dataset.add("Courier");
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, dataset);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
-        if(type != null)
-        {
-            spinner.setVisibility(View.GONE);
-        }
-        else
-        {
-            spinner.setVisibility(View.VISIBLE);
-        }
-
-
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView <?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), dataset.get(position)+ "Selected", Toast.LENGTH_SHORT).show();
-
+                String selectedCategory = spinner.getSelectedItem().toString();
+                if (!selectedCategory.equals("Fare")) {
+                    recordIdFare();
+                } else if (selectedCategory.equals("Courier")) {
+                    recordIdCourier();
+                }
             }
 
             @Override
@@ -113,29 +105,97 @@ public class CustomDialog  extends DialogFragment{
             }
         });
 
-        if(type != null)
-        {
-            spinner.setVisibility(View.GONE);
-        }
-        else
-        {
-            spinner.setVisibility(View.VISIBLE);
-        }
-
-
-
         submitDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: capture input");
                 savePayment();
-
-
             }
         });
 
-
         return view;
+    }
+
+    private void recordIdCourier() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                recordCourier,
+                new Response.Listener <String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getContext(), "Successfully recorded.", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(getContext(), Courier.class);
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                System.out.println("volleyError"+ error.getMessage());
+                Toast.makeText(getContext(), "Poor network connection", Toast.LENGTH_LONG).show();
+            }
+
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                //Creating parameters
+                Map<String, String> params = new Hashtable<>();
+                    if (spinner.getSelectedItem().toString().equals("Courier")){
+                        params.put("id", "");
+                    }
+
+
+                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
+                //returning parameters
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
+    }
+
+    private void recordIdFare() {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                recordFare,
+                new Response.Listener <String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getContext(), "Successfully recorded", Toast.LENGTH_LONG).show();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                System.out.println("volleyError"+ error.getMessage());
+                Toast.makeText(getContext(), "Poor network connection", Toast.LENGTH_LONG).show();
+            }
+
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                //Creating parameters
+                Map<String, String> params = new Hashtable<>();
+               if (spinner.getSelectedItem().toString().equals("Fare")){
+                       params.put("id", "");
+                   }
+
+                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
+                //returning parameters
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
     }
 
     private void savePayment() {
@@ -148,14 +208,15 @@ public class CustomDialog  extends DialogFragment{
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getContext(), "Successfully Saved.", Toast.LENGTH_LONG).show();
+                        System.out.println("#################222222222" + response);
+                        Toast.makeText(getContext(), "Successfully Saved." + response +"Payments(s)", Toast.LENGTH_LONG).show();
 
-                        number_plate1.setText("");
-                        rate1.setText("");
-                        name_passenger1.setText("");
-                        phone_passenger1.setText("");
-                        ID_passenger1.setText("");
-                        destination1.setText("");
+                        number_plate.setText("");
+                        rate.setText("");
+                        name_passenger.setText("");
+                        phone_passenger.setText("");
+                        ID_passenger.setText("");
+                        destination.setText("");
 
                         Intent intent = new Intent(getContext(), Home.class);
                         startActivity(intent);
@@ -175,13 +236,12 @@ public class CustomDialog  extends DialogFragment{
 
                 //Creating parameters
                 Map<String, String> params = new Hashtable<>();
-                params.put("number_plate", number_plate1.toString());
-                params.put("type", spinner.getSelectedItem().toString());
-                params.put("rate", rate1.toString());
-                params.put("name", name_passenger1.toString());
-                params.put("phone_no",phone_passenger1.toString());
-                params.put("id_no",ID_passenger1.toString());
-                params.put("destination", destination1.toString());
+                params.put("number_plate", number_plate.getText().toString());
+                params.put("rate", rate.getText().toString());
+                params.put("name", name_passenger.getText().toString());
+                params.put("phone_no",phone_passenger.getText().toString());
+                params.put("id_no",ID_passenger.getText().toString());
+                params.put("destination", destination.getText().toString());
 
                 params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
                 //returning parameters

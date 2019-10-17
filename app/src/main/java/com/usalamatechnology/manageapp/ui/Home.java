@@ -62,6 +62,7 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
     RecyclerView.Adapter adapter;
     PaymentAdapter paymentAdapter;
     private ArrayList<Paymentdetails>paymentdetails;
+    TextView total_trips;
 
     private ArrayList<PassengerDetails>passengerDetails;
     @SuppressLint({"WrongViewCast", "ResourceType"})
@@ -73,6 +74,16 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
         credentialsSharedPreferences =getSharedPreferences(CREDENTIALSPREFERENCES, Context.MODE_PRIVATE);
         credentialsEditor = credentialsSharedPreferences.edit();
 
+
+        total_trips = findViewById(R.id.total_trips);
+
+        findViewById(R.id.card).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(Home.this, PassengerActivity.class);
+                startActivity(it);
+            }
+        });
 
         findViewById(R.id.menu).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,61 +173,80 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
         progressDialog.setMessage("Retrieving data....");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, paymentDetails,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, paymentDetails,
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
                         progressDialog.dismiss();
                         System.out.println("Retrieve### " + s);
-                        Toast.makeText(getApplicationContext(), "Retrieved successfully",
-                                Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Retrieved successfully", Toast.LENGTH_LONG).show();
+                        if (s != null) {
+                            JSONArray array = null;
                             try {
                                 JSONObject jsonObj = new JSONObject(s);
-                                JSONArray array = jsonObj.getJSONArray("payments");
+                                JSONArray posts = jsonObj.getJSONArray("payments");
+                                paymentdetails.clear();
+                                if (posts.length() > 0) {
 
-                                String amount = null;
-                                String no_of_passengers = null;
-                                    for (int i = 0; i < array.length(); i++) {
-                                        JSONObject row = array.getJSONObject(i);
+                                    String amount = null;
+                                    String no_of_passengers = null;
+                                    for (int i = 0; i < posts.length(); i++) {
+                                        JSONObject row = posts.getJSONObject(i);
                                         Paymentdetails paymentdetail = new Paymentdetails(
-                                         row.getString("number_plate"),
-                                         row.getString("rate"),
-                                         row.getString("destination")
+                                                row.getString("number_plate"),
+                                                row.getString("rate"),
+                                                row.getString("destination")
                                         );
                                         row.getString(amount);
                                         row.getString(no_of_passengers);
 
                                         paymentdetails.add(paymentdetail);
-                                        initializeData();
-                                        findViewById(R.id.empty_view).setVisibility(View.GONE);
+
                                     }
-                                    adapter.notifyDataSetChanged();
+
+                                    initializeData();
+                                    findViewById(R.id.empty_view).setVisibility(View.GONE);
+                                    findViewById(R.id.rv).setVisibility(View.VISIBLE);
+
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                    }
-                        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println("volleyError error" + volleyError.getMessage());
-                        Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Creating parameters
-                Map<String, String> params = new Hashtable<>();
-                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
-                System.out.println();
-                //returning parameters
-                return params;
-            }
-        };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
-        requestQueue.add(stringRequest);
-    }
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Server did not return any useful data", Toast.LENGTH_LONG).show();
+                        }
+                        System.out.println("MAIN response " + s);
+                    }
+                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError volleyError) {
+                                        System.out.println("volleyError error" + volleyError.getMessage());
+                                        Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+                                    }
+                                }) {
+                                    @Override
+                                    protected Map<String, String> getParams() throws AuthFailureError {
+                                        //Creating parameters
+                                        Map<String, String> params = new Hashtable<>();
+
+                                        params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
+
+
+                                        //returning parameters
+                                        return params;
+                                    }
+                                };
+                                RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
+                                requestQueue.add(stringRequest);
+                            }
+
+
+
+
+
 
 
     private void initializeData() {
@@ -267,45 +297,6 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
         return true;
     }
 
-
-
-
-
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        Bundle bundle = new Bundle();
-//        if (id == R.id.nav_home) {
-//            Intent it = new Intent(Home.this, Home.class);
-//            startActivity(it);
-//
-//        } else if (id == R.id.nav_fare) {
-//
-//            Intent intent = new Intent(Home.this, Fare.class);
-//            startActivity(intent);
-//
-//        } else if (id == R.id.nav_courier) {
-//            Intent intent = new Intent(Home.this, Courier.class);
-//            startActivity(intent);
-//        }
-//        else if (id == R.id.nav_expenses){
-//            Intent intent = new Intent(Home.this, Expenses.class);
-//            startActivity(intent);
-//        }
-//        else if (id == R.id.nav_logout) {
-//            credentialsEditor.putString(Constants.user_id, "0");
-//            credentialsEditor.apply();
-//
-//            Intent intent = new Intent(Home.this, PinActivity.class);
-//            startActivity(intent);
-//
-//        }
-//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 
     @Override
     public void onCardClicked(int pos, String name) {

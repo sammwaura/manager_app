@@ -6,14 +6,14 @@
     android:layout_height="wrap_content"
     xmlns:ns3="http://schemas.android.com/apk/res-auto"
     xmlns:ns4="http://schemas.android.com/apk/res-auto"
-    >
+    android:orientation="horizontal">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="19dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/card"
+        android:id="@+id/cardpassenger"
         android:focusable="true"
         android:clickable="true"
         android:layout_marginRight="19dp"
@@ -24,24 +24,31 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="133dp"
+            android:layout_height="86dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="116dp"
+                android:layout_height="107dp"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="2dp"
                 android:orientation="horizontal">
 
 
                 <LinearLayout
-                    android:id="@+id/touch"
+                    android:id="@+id/touchpassenger"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/colorPrimary" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -57,7 +64,7 @@
                                 android:layout_marginBottom="3dp"
                                 android:layout_marginRight="27dp"
                                 android:letterSpacing="0.093"
-                                android:text="Number Plate"
+                                android:text="Number plate"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="12.7sp"
                                 android:textStyle="normal|bold" />
@@ -67,7 +74,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:letterSpacing="0.093"
-                                android:text=": KCA 456T"
+                                android:text=": KCA 456A"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="12.7sp" />
 
@@ -75,13 +82,6 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorPrimary" />
-
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -91,17 +91,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="9dp"
                             android:letterSpacing="0.093"
-                            android:text="No passengers"
+                            android:text="Driver"
                             android:textColor="#7d7e82"
                             android:textSize="12.7sp"
                             android:textStyle="normal|bold" />
 
                         <TextView
-                            android:id="@+id/no_passengers"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/driver"
+                            android:layout_width="87dp"
                             android:layout_height="match_parent"
                             android:letterSpacing="0.093"
-                            android:text=": 14"
+                            android:text=": John Dereva"
                             android:textColor="#7d7e82"
                             android:textSize="12.7sp" />
                     </LinearLayout>
@@ -122,48 +122,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="9dp"
                             android:letterSpacing="0.093"
-                            android:text="Amount Collected"
+                            android:text="Current location"
                             android:textColor="#7d7e82"
                             android:textSize="12.7sp"
                             android:textStyle="normal|bold" />
 
                         <TextView
-                            android:id="@+id/amountCollected"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/currentlocation"
+                            android:layout_width="126dp"
                             android:layout_height="match_parent"
                             android:letterSpacing="0.093"
-                            android:text=": 4900"
-                            android:textColor="#7d7e82"
-                            android:textSize="12.7sp" />
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#f0f0f0" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="9dp"
-                            android:letterSpacing="0.093"
-                            android:text=" Trip Rate"
-                            android:textColor="#7d7e82"
-                            android:textSize="12.7sp"
-                            android:textStyle="normal|bold" />
-
-                        <TextView
-                            android:id="@+id/rate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:letterSpacing="0.093"
-                            android:text=": 350ksh"
+                            android:text=": Naivasha"
                             android:textColor="#7d7e82"
                             android:textSize="12.7sp" />
                     </LinearLayout>
@@ -174,17 +143,14 @@
                         android:layout_marginTop="2dp"
                         android:background="@color/colorPrimary" />
 
-
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp">
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="3dp"
-                            android:layout_marginRight="12dp"
+                            android:layout_marginRight="9dp"
                             android:letterSpacing="0.093"
                             android:text="Destination"
                             android:textColor="#7d7e82"
@@ -193,7 +159,7 @@
 
                         <TextView
                             android:id="@+id/destination"
-                            android:layout_width="wrap_content"
+                            android:layout_width="126dp"
                             android:layout_height="match_parent"
                             android:letterSpacing="0.093"
                             android:text=": Nairobi"
@@ -201,20 +167,9 @@
                             android:textSize="12.7sp" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#f0f0f0" />
-
-
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-
-
 
 </LinearLayout>
