@@ -13,29 +13,31 @@ import com.usalamatechnology.manageapp.models.Faredetails;
 import com.usalamatechnology.manageapp.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FareAdapter extends RecyclerView.Adapter <FareAdapter.ViewHolder> {
     private Context context;
 
-    private ArrayList <Faredetails> faredetails;
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView number_plate, amountCollected, passenger_no;
-        public CardView cardtouch3;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardtouch3.findViewById(R.id.cardtouch3);
-            number_plate.findViewById(R.id.name_passenger);
-            amountCollected.findViewById(R.id.amountCollected);
-            passenger_no.findViewById(R.id.passenger_no);
+
+            number_plate = itemView.findViewById(R.id.name_passenger);
+            amountCollected = itemView.findViewById(R.id.amountCollected);
+            passenger_no = itemView.findViewById(R.id.passenger_no);
 
         }
     }
+    List<Faredetails> posts;
 
-    public FareAdapter(ArrayList<Faredetails> faredetails) {
-        this.faredetails = faredetails;
+    public FareAdapter( Context context, List<Faredetails> posts) {
+        this.context = context;
+        this.posts = posts;
     }
-
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -54,16 +56,15 @@ public class FareAdapter extends RecyclerView.Adapter <FareAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        viewHolder.number_plate.setText(faredetails.get(i).getNumber_plate());
+        viewHolder.number_plate.setText(posts.get(i).getNumber_plate());
+        viewHolder.amountCollected.setText(posts.get(i).getAmount());
+        viewHolder.passenger_no.setText(posts.get(i).getPassenger_no());
 
     }
-
-
 
     @Override
     public int getItemCount() {
-        return faredetails.size();
+        return posts.size();
     }
-
 
 }

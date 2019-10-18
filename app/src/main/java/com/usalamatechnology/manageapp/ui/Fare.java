@@ -1,5 +1,6 @@
 package com.usalamatechnology.manageapp.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.usalamatechnology.manageapp.adapter.PaymentAdapter;
 import com.usalamatechnology.manageapp.models.Constants;
 import com.usalamatechnology.manageapp.adapter.FareAdapter;
 import com.usalamatechnology.manageapp.models.Faredetails;
@@ -38,10 +40,11 @@ public class Fare extends AppCompatActivity {
 
         faredetails = new ArrayList <>();
 
-        recyclerView = findViewById(R.id.recyclerviewfare);
-        adapter = new FareAdapter(faredetails);
+        recyclerView =  findViewById(R.id.recyclerview3);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,28 +59,37 @@ public class Fare extends AppCompatActivity {
     }
 
     private void getAllFare() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.getFare,
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Retrieving data....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                "https://zamzam45.com/tally_driver_copy/get_fare.php",
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
-                        System.out.println("123RETRIEEEVE" + s);
-//                        textView.setText("retrieve details");
-                        Toast.makeText(getApplicationContext(), "successfully retrieved", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        System.out.println("123RETRIEEEVE#######################################3" + s);
+
                         try {
                             JSONObject jsonObject = new JSONObject(s);
                             JSONArray array = jsonObject.getJSONArray("fare");
 
                             for (int i =0; i< array.length(); i++){
                                 JSONObject row = array.getJSONObject(i);
-                                Faredetails faredetail = new Faredetails(
-                                        row.getString("number_plate")
 
+                                String number_plate = row.getString("number_plate");
+                                String amount = row.getString("amount");
+                                String passenger_no = row.getString("passenger_no");
 
-                                );
-                                faredetails.add(faredetail);
-
-
+                                faredetails.add(new Faredetails(number_plate, amount, passenger_no));
                             }
+
+                            initializeData();
+                            findViewById(R.id.no_internet).setVisibility(View.GONE);
+                            findViewById(R.id.progressBar).setVisibility(View.GONE);
+                            findViewById(R.id.empty_view).setVisibility(View.GONE);
+                            findViewById(R.id.recyclerview3).setVisibility(View.VISIBLE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -97,6 +109,11 @@ public class Fare extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
 
+    }
+
+    private void initializeData() {
+        FareAdapter fareAdapter = new FareAdapter(this, faredetails);
+        recyclerView.setAdapter(fareAdapter);
     }
 
 }

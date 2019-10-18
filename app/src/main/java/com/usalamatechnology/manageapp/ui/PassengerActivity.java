@@ -1,9 +1,11 @@
 package com.usalamatechnology.manageapp.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -15,8 +17,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.usalamatechnology.manageapp.R;
 import com.usalamatechnology.manageapp.adapter.PassengerAdapter;
+import com.usalamatechnology.manageapp.adapter.PaymentAdapter;
 import com.usalamatechnology.manageapp.models.Constants;
 import com.usalamatechnology.manageapp.models.PassengerDetails;
+import com.usalamatechnology.manageapp.models.Paymentdetails;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,13 +40,6 @@ public class PassengerActivity extends AppCompatActivity  {
 
 
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
-
-    String passenger_name;
-    String phone_no;
-
-
-    public static String PASSENGER_DETAILS = "_details";
 
 
 
@@ -53,66 +50,85 @@ public class PassengerActivity extends AppCompatActivity  {
 
         passengerDetails = new ArrayList <>();
 
-        recyclerView = findViewById(R.id.recyclerview2);
-        adapter = new PassengerAdapter(passengerDetails);
-        recyclerView.setAdapter(adapter);
+        recyclerView =  findViewById(R.id.recyclerview2);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         retrievePassengerDetails();
 
     }
 
     private void retrievePassengerDetails() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.passengerDetails,
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Retrieving data....");
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                "https://zamzam45.com/tally_driver_copy/get_passenger_details.php",
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
-                        if (s != null) {
-                            JSONArray array = null;
-                            try {
-                                JSONObject jsonObj = new JSONObject(s);
+                        progressDialog.dismiss();
 
-                                JSONArray posts = jsonObj.getJSONArray("passengers");
-                                passengerDetails.clear();
-                                if (posts.length() > 0) {
-                                    for (int i = 0; i < posts.length(); i++) {
-                                        JSONObject row = posts.getJSONObject(i);
+                        System.out.println("Retrieve########################## " + s);
 
-                                        String passenger_name = row.getString("passenger_name");
-                                        String phone_no = row.getString("phone_no");
-                                        String no_of_passengers = row.getString("no_of_passengers");
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            JSONArray array = jsonObject.getJSONArray("passengers");
 
-                                        passengerDetails.add(new PassengerDetails(passenger_name, phone_no, no_of_passengers));
-                                    }
-                                }
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject row = array.getJSONObject(i);
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+
+
+                                String name = row.getString("name");
+                                String phone_no = row.getString("phone_no");
+                                String seat_no = row.getString("seat_no");
+
+                                passengerDetails.add(new PassengerDetails(name, phone_no, seat_no));
+
                             }
+
+                            initializeData();
+                            findViewById(R.id.no_internet).setVisibility(View.GONE);
+                            findViewById(R.id.progressBar).setVisibility(View.GONE);
+                            findViewById(R.id.empty_view).setVisibility(View.GONE);
+                            findViewById(R.id.recyclerview2).setVisibility(View.VISIBLE);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+
                     }
                 },
-            new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-            System.out.println("volleyError error" + volleyError.getMessage());
-            Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println("volleyError error" + volleyError.getMessage());
+                        Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creating parameters
+                Map<String, String> params = new Hashtable<>();
 
-        }
-    }) {
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            //Creating parameters
-            Map<String, String> params = new Hashtable<>();
-            params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
-            System.out.println();
-            return params;
-        }
-    };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
+
+
+                //returning parameters
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(PassengerActivity.this);
         requestQueue.add(stringRequest);
-
     }
+
+    private void initializeData() {
+
+        PassengerAdapter passengerAdapter = new PassengerAdapter(this, passengerDetails);
+        recyclerView.setAdapter(passengerAdapter);
+    }
+
 
 }

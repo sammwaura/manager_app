@@ -11,37 +11,36 @@ import android.widget.TextView;
 
 import com.usalamatechnology.manageapp.models.Courierdetails;
 import com.usalamatechnology.manageapp.R;
+import com.usalamatechnology.manageapp.ui.Courier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CourierAdapter extends RecyclerView.Adapter <CourierAdapter.ViewHolder>{
 
-    private ArrayList<Courierdetails> courierdetails;
     private Context context;
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView number_plate, amount, courier_id;
-        public CardView cardtouch4;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardtouch4.findViewById(R.id.cardtouch4);
-            number_plate.findViewById(R.id.number_plate2);
-            amount.findViewById(R.id.amountCollected2);
-            courier_id.findViewById(R.id.courier_id);
 
+            number_plate = itemView.findViewById(R.id.number_plate2);
+            amount= itemView.findViewById(R.id.amountCollected2);
+            courier_id = itemView.findViewById(R.id.courier_id);
         }
     }
 
-    public CourierAdapter(ArrayList<Courierdetails> courierdetails) {
-        this.courierdetails = courierdetails;
+    List<Courierdetails> posts;
+    public CourierAdapter(Context context, List<Courierdetails> posts) {
+        this.context = context;
+        this.posts = posts;
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-
     }
 
     @NonNull
@@ -53,15 +52,15 @@ public class CourierAdapter extends RecyclerView.Adapter <CourierAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.number_plate.setText(courierdetails.get(i).getNumber_plate());
-        viewHolder.amount.setText(courierdetails.get(i).getAmount());
-        viewHolder.courier_id.setText(courierdetails.get(i).getCourier_id());
+        viewHolder.number_plate.setText(posts.get(i).getNumber_plate());
+        viewHolder.amount.setText(posts.get(i).getAmount());
+        viewHolder.courier_id.setText(posts.get(i).getCourier_id());
 
     }
 
     @Override
     public int getItemCount() {
-        return courierdetails.size();
+        return posts.size();
     }
 
 }

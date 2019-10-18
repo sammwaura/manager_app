@@ -6,9 +6,10 @@ package com.usalamatechnology.manageapp.models;
      private String courier_id;
 
      public Courierdetails(String number_plate, String amount, String courier_id){
+         this.courier_id = courier_id;
          this.number_plate = number_plate;
          this.amount = amount;
-         this.courier_id = courier_id;
+
 
      }
 

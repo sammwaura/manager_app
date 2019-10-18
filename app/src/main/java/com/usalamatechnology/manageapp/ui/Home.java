@@ -51,7 +51,7 @@ import static com.usalamatechnology.manageapp.models.Constants.credentialsShared
 import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
 import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
-public class Home extends AppCompatActivity implements  PaymentObserver{
+public class Home extends AppCompatActivity {
 
 
     private static final String TAG = "Home Activity";
@@ -77,13 +77,7 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
 
         total_trips = findViewById(R.id.total_trips);
 
-//        findViewById(R.id.card).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent it = new Intent(Home.this, PassengerActivity.class);
-//                startActivity(it);
-//            }
-//        });
+
 
         findViewById(R.id.menu).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +151,7 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
 
 
         paymentdetails = new ArrayList <>();
-        passengerDetails = new ArrayList <>();
+
 
 
         recyclerView =  findViewById(R.id.recyclerview);
@@ -240,7 +234,7 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
 
 
     private void initializeData() {
-        PaymentAdapter paymentAdapter = new PaymentAdapter(this, this, paymentdetails);
+        PaymentAdapter paymentAdapter = new PaymentAdapter(this, paymentdetails);
         recyclerView.setAdapter(paymentAdapter);
 
     }
@@ -285,17 +279,6 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-    }
-
-
-    @Override
-    public void onCardClicked(int pos, String name) {
-        Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
-
-        Intent it = new Intent(Home.this, PassengerActivity.class);
-        it.putExtra("passenger_name", passengerDetails.get(pos).passenger_name);
-        it.putExtra("phone_no", passengerDetails.get(pos).phone_no);
-        startActivity(it);
     }
 
 }

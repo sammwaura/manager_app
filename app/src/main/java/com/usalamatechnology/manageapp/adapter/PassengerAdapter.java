@@ -13,30 +13,31 @@ import com.usalamatechnology.manageapp.R;
 import com.usalamatechnology.manageapp.models.PassengerDetails;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.ViewHolder> {
 
-    private ArrayList<PassengerDetails>passengerDetails;
     private Context context;
 
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView name_passenger, phone_no, seat_no;
+        public TextView name, phone_no, seat_no;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name_passenger.findViewById(R.id.name_passenger);
-            phone_no.findViewById(R.id.phone_passenger);
+            name = itemView.findViewById(R.id.name_passenger);
+            phone_no = itemView.findViewById(R.id.phone_passenger);
+            seat_no = itemView.findViewById(R.id.seat_no);
         }
 
 
     }
+    List<PassengerDetails> posts;
 
-    public PassengerAdapter(ArrayList<PassengerDetails> passengerDetails) {
-        this.passengerDetails = passengerDetails;
+    public PassengerAdapter(Context context, List<PassengerDetails> posts) {
+        this.context = context;
+        this.posts = posts;
     }
 
     @Override
@@ -50,23 +51,22 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(context).inflate(R.layout.passengerdetail, viewGroup, false);
 
-        return null;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.name_passenger.setText(passengerDetails.get(i).passenger_name);
-        viewHolder.phone_no.setText(passengerDetails.get(i).phone_no);
+        final PassengerDetails passengerDetail = posts.get(i);
 
-
+        viewHolder.name.setText(passengerDetail.getName());
+//        viewHolder.phone_no.setText(passengerDetail.getPhone_no());
+        viewHolder.seat_no.setText(passengerDetail.getSeat_no());
 
     }
 
-
-
     @Override
     public int getItemCount() {
-        return passengerDetails.size();
+        return posts.size();
     }
 
 }

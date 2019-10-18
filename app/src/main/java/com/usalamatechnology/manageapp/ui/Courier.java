@@ -1,5 +1,6 @@
 package com.usalamatechnology.manageapp.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ public class Courier extends AppCompatActivity {
 
     private ArrayList<Courierdetails>courierdetails;
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,11 @@ public class Courier extends AppCompatActivity {
         setContentView(R.layout.activity_courier);
 
         courierdetails = new ArrayList <>();
-        recyclerView = findViewById(R.id.recyclerview4);
-        adapter = new CourierAdapter(courierdetails);
+
+        recyclerView =  findViewById(R.id.recyclerview4);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,29 +57,37 @@ public class Courier extends AppCompatActivity {
     }
 
     private void getAllCourier() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.getCourier,
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Retrieving data....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                "https://zamzam45.com/tally_driver_copy/get_courier.php",
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
-                        System.out.println("123RETRIEEEVE" + s);
-//                        textView.setText("retrieve details");
-                        Toast.makeText(getApplicationContext(), "successfully retrieved", Toast.LENGTH_SHORT).show();
+                        System.out.println("123RETRIEEEVE$$$$$$$$$$$$$$$$$$$$$$$$$$$$" + s);
+
                         try {
                             JSONObject jsonObject = new JSONObject(s);
                             JSONArray array = jsonObject.getJSONArray("courier");
 
                             for (int i =0; i< array.length(); i++){
                                 JSONObject row = array.getJSONObject(i);
-                                Courierdetails courierdetail = new Courierdetails(
-                                        row.getString("number_plate"),
-                                        row.getString("amount"),
-                                        row.getString("courier_id")
 
-                                );
-                                courierdetails.add(courierdetail);
+                                String courier_id = row.getString("courier_id");
+                                String number_plate = row.getString("number_plate");
+                                String amount = row.getString("amount");
 
-
+                                courierdetails.add(new Courierdetails(courier_id, number_plate, amount));
                             }
+
+                            initializeData();
+                            findViewById(R.id.no_internet).setVisibility(View.GONE);
+                            findViewById(R.id.progressBar).setVisibility(View.GONE);
+                            findViewById(R.id.empty_view).setVisibility(View.GONE);
+                            findViewById(R.id.recyclerview4).setVisibility(View.VISIBLE);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -98,5 +107,10 @@ public class Courier extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
 
+    }
+
+    private void initializeData() {
+        CourierAdapter courierAdapter = new CourierAdapter(this, courierdetails);
+        recyclerView.setAdapter(courierAdapter);
     }
 }
