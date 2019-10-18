@@ -159,44 +159,90 @@
 
         </FrameLayout>
 
-        <include
-            layout="@layout/tripdetail"
-            android:layout_marginTop="6dp"
+        <!--<include-->
+            <!--layout="@layout/tripdetail"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_below="@+id/linear" />-->
+
+
+        <LinearLayout
+            android:id="@+id/linearv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/linear" />
+            android:layout_below="@+id/image"
+            android:layout_marginTop="6dp"
 
-
-
-
-
-
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_height="fill_parent"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:visibility="gone"
-            android:layout_marginBottom="5dp"
-            android:id="@+id/recyclerview"
             >
 
-        </android.support.v7.widget.RecyclerView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="10dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/recyclerview"
+                    >
+                </android.support.v7.widget.RecyclerView>
+
+
+                <TextView
+                    android:id="@+id/empty_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="No creditors"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/no_internet"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="No internet connection. Tap to retry"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/error"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="Error Retrieving Data"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="22sp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:visibility="gone"
-        android:text="No earnings or expenses for today"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="22sp" />
 
 
     <!--<include-->

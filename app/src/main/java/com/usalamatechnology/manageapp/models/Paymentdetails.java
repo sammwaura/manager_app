@@ -2,15 +2,25 @@ package com.usalamatechnology.manageapp.models;
 
 public class Paymentdetails {
 
+    private String id;
     private String number_plate;
     private String rate;
     private String destination;
 
 
-    public Paymentdetails(String number_plate, String rate, String destination) {
+    public Paymentdetails(String id,String number_plate, String rate, String destination) {
+        this.id = id;
         this.number_plate = number_plate;
         this.rate = rate;
         this.destination = destination;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNumber_plate() {

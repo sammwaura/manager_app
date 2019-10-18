@@ -77,13 +77,13 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
 
         total_trips = findViewById(R.id.total_trips);
 
-        findViewById(R.id.card).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(Home.this, PassengerActivity.class);
-                startActivity(it);
-            }
-        });
+//        findViewById(R.id.card).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent it = new Intent(Home.this, PassengerActivity.class);
+//                startActivity(it);
+//            }
+//        });
 
         findViewById(R.id.menu).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,11 +159,11 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
         paymentdetails = new ArrayList <>();
         passengerDetails = new ArrayList <>();
 
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setAdapter(adapter);
+
+        recyclerView =  findViewById(R.id.recyclerview);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
-        adapter = new PaymentAdapter(this, this, paymentdetails);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         retrievePaymentDetails();
     }
@@ -173,54 +173,44 @@ public class Home extends AppCompatActivity implements  PaymentObserver{
         progressDialog.setMessage("Retrieving data....");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, paymentDetails,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                "https://zamzam45.com/tally_driver_copy/get_payment_details.php",
                 new Response.Listener <String>() {
                     @Override
                     public void onResponse(String s) {
                         progressDialog.dismiss();
-                        System.out.println("Retrieve### " + s);
-                        Toast.makeText(getApplicationContext(), "Retrieved successfully", Toast.LENGTH_LONG).show();
-                        if (s != null) {
-                            JSONArray array = null;
+
+                        System.out.println("Retrieve########################## " + s);
+
                             try {
-                                JSONObject jsonObj = new JSONObject(s);
-                                JSONArray posts = jsonObj.getJSONArray("payments");
-                                paymentdetails.clear();
-                                if (posts.length() > 0) {
+                                JSONObject jsonObject = new JSONObject(s);
+                                JSONArray array = jsonObject.getJSONArray("payments");
 
-                                    String amount = null;
-                                    String no_of_passengers = null;
-                                    for (int i = 0; i < posts.length(); i++) {
-                                        JSONObject row = posts.getJSONObject(i);
-                                        Paymentdetails paymentdetail = new Paymentdetails(
-                                                row.getString("number_plate"),
-                                                row.getString("rate"),
-                                                row.getString("destination")
-                                        );
-                                        row.getString(amount);
-                                        row.getString(no_of_passengers);
+                                for (int i = 0; i < array.length(); i++) {
+                                    JSONObject row = array.getJSONObject(i);
 
-                                        paymentdetails.add(paymentdetail);
 
-                                    }
-
-                                    initializeData();
-                                    findViewById(R.id.empty_view).setVisibility(View.GONE);
-                                    findViewById(R.id.rv).setVisibility(View.VISIBLE);
+                                    String id = row.getString("id");
+                                    String number_plate = row.getString("number_plate");
+                                    String rate = row.getString("rate");
+                                    String destination = row.getString("destination");
+                                    paymentdetails.add(new Paymentdetails(id, number_plate, rate, destination));
 
                                 }
+
+                                    initializeData();
+                                findViewById(R.id.no_internet).setVisibility(View.GONE);
+                                findViewById(R.id.progressBar).setVisibility(View.GONE);
+                                findViewById(R.id.empty_view).setVisibility(View.GONE);
+                                findViewById(R.id.recyclerview).setVisibility(View.VISIBLE);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
-
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Server did not return any useful data", Toast.LENGTH_LONG).show();
-                        }
-                        System.out.println("MAIN response " + s);
                     }
                 },
-                                new Response.ErrorListener() {
+                            new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError volleyError) {
                                         System.out.println("volleyError error" + volleyError.getMessage());

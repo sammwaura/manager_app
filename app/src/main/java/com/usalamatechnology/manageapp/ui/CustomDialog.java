@@ -209,7 +209,6 @@ public class CustomDialog  extends DialogFragment{
                     @Override
                     public void onResponse(String response) {
                         System.out.println("#################222222222" + response);
-                        Toast.makeText(getContext(), "Successfully Saved." + response +"Payments(s)", Toast.LENGTH_LONG).show();
 
                         number_plate.setText("");
                         rate.setText("");

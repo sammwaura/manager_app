@@ -15,11 +15,12 @@ import com.usalamatechnology.manageapp.R;
 import com.usalamatechnology.manageapp.models.Paymentdetails;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<Paymentdetails> paymentdetails;
+
     private ItemClickListener itemClickListener;
     public PaymentObserver mObserver;
 
@@ -47,6 +48,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
+
             number_plate = itemView.findViewById(R.id.number_plate);
             destination = itemView.findViewById(R.id.destination);
             card = itemView.findViewById(R.id.card);
@@ -61,11 +63,12 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         }
     }
+    List<Paymentdetails>posts;
 
-    public PaymentAdapter(Context context, PaymentObserver observer, ArrayList <Paymentdetails> paymentdetails){
+    public PaymentAdapter(Context context, PaymentObserver observer,List<Paymentdetails>posts){
         this.context = context;
         this.mObserver = observer;
-        this.paymentdetails = paymentdetails;
+        this.posts = posts;
 
 
     }
@@ -86,26 +89,17 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
 
-        viewHolder.number_plate.setText((CharSequence) paymentdetails.get(position));
-        viewHolder.rate.setText((CharSequence) paymentdetails.get(position));
-        viewHolder.destination.setText((CharSequence) paymentdetails.get(position));
+        final Paymentdetails paymentdetail = posts.get(position);
+        viewHolder.number_plate.setText(paymentdetail.getNumber_plate());
+//        viewHolder.rate.setText(paymentdetail.getRate());
+        viewHolder.destination.setText(paymentdetail.getDestination());
 
-
-
-        final int posi = position;
-
-        viewHolder.touch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mObserver.onCardClicked(posi, numberplate_tapped);
-            }
-        });
 
     }
 
     @Override
     public int getItemCount() {
-        return paymentdetails.size();
+        return posts.size();
     }
 
 }
