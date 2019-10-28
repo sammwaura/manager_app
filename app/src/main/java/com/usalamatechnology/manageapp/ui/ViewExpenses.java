@@ -1,5 +1,6 @@
 package com.usalamatechnology.manageapp.ui;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -37,13 +38,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
 import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor;
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.models.Constants.getExpenses;
+import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
-public  class ViewExpenses extends AppCompatActivity implements  ExpensesObserver{
+public  class ViewExpenses extends AppCompatActivity{
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
@@ -68,11 +71,11 @@ public  class ViewExpenses extends AppCompatActivity implements  ExpensesObserve
 
         expenseDetails = new ArrayList <>();
 
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setAdapter(adapter);
+
+        recyclerView =  findViewById(R.id.recyclerviewX);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
-        adapter = new ExpensesAdapter(this,this, expenseDetails);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,61 +90,59 @@ public  class ViewExpenses extends AppCompatActivity implements  ExpensesObserve
 
 
     private void retrieveExpenses() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Retrieving data....");
+        progressDialog.show();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, getExpenses,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
-                        JSONArray posts = null;
-                        if (s != null) {
-                            JSONArray array = null;
-                            try {
+                        progressDialog.dismiss();
+
+                        System.out.println("Retrieve########################## " + s);
+
+                        try {
                                 JSONObject jsonObj = new JSONObject(s);
+                                 JSONArray array = jsonObj.getJSONArray("expenses");
 
-                                posts = jsonObj.getJSONArray("expenses");
-
-                                if(posts.length() >0)
-                                {
-                                    for (int i = 0; i < posts.length(); i++) {
-                                        JSONObject row = posts.getJSONObject(i);
+                                    for (int i=0; i<array.length(); i++) {
+                                        JSONObject row = array.getJSONObject(i);
 
                                         String id = row.getString("id");
                                         String amount = row.getString("amount");
                                         String time = row.getString("time");
                                         String type = row.getString("type");
                                         String notes = row.getString("notes");
-                                        String category = row.getString("category");
 
-                                        expenseDetails.add(new ExpenseDetails(id, amount, time, type, notes, category));
+                                        expenseDetails.add(new ExpenseDetails(id, amount, time, type, notes));
                                     }
-                                }
+
                                 initializeData();
+                                findViewById(R.id.no_internet).setVisibility(View.GONE);
+                                findViewById(R.id.progressBar).setVisibility(View.GONE);
+                                findViewById(R.id.empty_view).setVisibility(View.GONE);
+                                findViewById(R.id.recyclerviewX).setVisibility(View.VISIBLE);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(getApplicationContext(), "Error Fetching Data", Toast.LENGTH_LONG).show();
-
                             }
-
                         }
-                        System.out.println("MAIN response first " + posts.length());
-
-                    }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        //Dismissing the progress dialog
-                        //loading.dismiss();
                         System.out.println("volleyError response " + volleyError.getMessage());
-                        //Showing toast
-                        Toast.makeText(getApplicationContext(), "Error Fetching Data", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Poor data connection", Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                //creating parameters
                 Map<String, String> params = new Hashtable<>();
 
-                params.put("user_id", "1");
-                params.put("roles_id", "2");
+                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
+
                 //returning parameters
                 return params;
             }
@@ -153,17 +154,8 @@ public  class ViewExpenses extends AppCompatActivity implements  ExpensesObserve
     }
 
     private void initializeData() {
-        ExpensesAdapter adapter = new ExpensesAdapter(this, this, expenseDetails);
+        ExpensesAdapter adapter = new ExpensesAdapter(this, expenseDetails);
         recyclerView.setAdapter(adapter);
-        adapter.setListener(this);
     }
 
-
-
-
-
-    @Override
-    public void onCardClicked(int pos, String name) {
-
-    }
 }

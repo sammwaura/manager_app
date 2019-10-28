@@ -14,12 +14,12 @@ import com.usalamatechnology.manageapp.R;
 import com.usalamatechnology.manageapp.models.ExpenseDetails;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ExpensesAdapter extends RecyclerView.Adapter <ExpensesAdapter.ViewHolder> {
 
 
-    private ArrayList<ExpenseDetails> expenseDetails;
     private Context context;
 
     private ExpensesAdapter.ItemClickListener itemClickListener;
@@ -44,13 +44,11 @@ public class ExpensesAdapter extends RecyclerView.Adapter <ExpensesAdapter.ViewH
 
         }
     }
-    public void setListener(ExpensesObserver obs) {mObserver = obs;}
+    List<ExpenseDetails>posts;
 
-
-    public ExpensesAdapter(Context context, ExpensesObserver mObserver,ArrayList<ExpenseDetails> expenseDetails) {
-        this.expenseDetails = expenseDetails;
+    public ExpensesAdapter(Context context, List<ExpenseDetails> posts) {
+        this.posts = posts;
         this.context = context;
-        this.mObserver = mObserver;
     }
 
 
@@ -70,7 +68,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter <ExpensesAdapter.ViewH
 
     @Override
     public int getItemCount() {
-        return expenseDetails.size();
+        return posts.size();
     }
 
 

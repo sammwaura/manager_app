@@ -48,6 +48,7 @@ import java.util.Objects;
 import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
 import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor;
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.email;
 import static com.usalamatechnology.manageapp.models.Constants.paymentDetails;
 import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
@@ -148,6 +149,13 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.print).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printPaymentDetails();
+            }
+        });
+
 
 
         paymentdetails = new ArrayList <>();
@@ -160,6 +168,51 @@ public class Home extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         retrievePaymentDetails();
+    }
+
+    private void printPaymentDetails() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Retrieving data....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                "https://zamzam45.com/tally_driver_copy/print_details.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        progressDialog.dismiss();
+
+                        System.out.println("Check your email" +s);
+                        Toast.makeText(getApplicationContext(), "Check your email within 5 minutes.", Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                        System.out.println("volleyError response " + volleyError.getMessage());
+                        Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creating parameters
+                Map<String, String> params = new Hashtable<>();
+                params.put("business_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
+                params.put("email", Objects.requireNonNull(credentialsSharedPreferences.getString(email, "0")));
+
+                System.out.println();
+                //returning parameters
+                return params;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
     }
 
     private void retrievePaymentDetails() {

@@ -92,6 +92,18 @@
                         android:textColor="#fff"
                         android:textSize="14dp" />
 
+                    <Button
+                        android:id="@+id/print"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:text="Print"
+                        android:background="@drawable/roun_rect_white"
+                        android:textColor="@color/colorGray"
+                        android:textSize="10dp"
+                        android:textStyle="bold" />
+
 
 
                 </LinearLayout>
@@ -159,16 +171,8 @@
 
         </FrameLayout>
 
-        <!--<include-->
-            <!--layout="@layout/tripdetail"-->
-            <!--android:layout_marginTop="6dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_below="@+id/linear" />-->
 
-
-        <LinearLayout
+         <LinearLayout
             android:id="@+id/linearv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -237,26 +241,13 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true" />
 
+
+
+
             </RelativeLayout>
+
+         </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
-
-
-
-
-    <!--<include-->
-    <!--layout="@layout/tripdetail"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_below="@+id/frameLayout" />-->
-
-
-
-
-
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -391,37 +382,6 @@
             </LinearLayout>
         </FrameLayout>
     </android.support.design.widget.NavigationView>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fab_print"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_gravity="end|bottom"-->
-    <!--android:layout_marginEnd="25dp"-->
-    <!--android:layout_marginBottom="27dp"-->
-    <!--android:src="@drawable/ic_white_printer" />-->
-
-
-
-
-
 
 
 

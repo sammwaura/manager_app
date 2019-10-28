@@ -80,8 +80,7 @@ public final class Constants {
     public static String getCourier="https://zamzam45.com/tally_driver_copy/get_courier.php";
     public static final String vehicle_no = "vehicle_no";
     public static String getExpenses="https://zamzam45.com/tally_driver_copy/get_expenses.php";
-    public static String recordFare ="https://zamzam45.com/tally_driver_copy/record_fare.php";
-    public static String recordCourier ="https://zamzam45.com/tally_driver_copy/record_courier.php";
+    public static String saveSpinner ="https://zamzam45.com/tally_driver_copy/save_spinner.php";
 
 
 

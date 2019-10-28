@@ -8,14 +8,13 @@ public class ExpenseDetails {
     String amount;
     String type;
     String notes;
-    String category;
 
-    public ExpenseDetails(String s, String id, String amount, String type, String notes, String category){
+
+    public ExpenseDetails(String s, String id, String amount, String type, String notes){
         this.id = id;
         this.amount = amount;
         this.type = type;
         this.notes = notes;
-        this.category = category;
     }
 
     public String getId() {
@@ -50,11 +49,4 @@ public class ExpenseDetails {
         this.notes = notes;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }

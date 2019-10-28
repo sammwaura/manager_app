@@ -15,41 +15,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.usalamatechnology.manageapp.R;
 import com.usalamatechnology.manageapp.TextView_Lato;
-import com.usalamatechnology.manageapp.models.Constants;
-
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 
 import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFERENCES;
 
-
 public class Expenses extends AppCompatActivity {
 
-
-
-    EditText dateTime;
-    EditText amount;
-    EditText other;
-
-
-    Spinner spinner;
+  private TextView time, amount, notes, expense_type ;
     TextView_Lato save;
-
-
-    private EditText typeText;
-
-    String type = null;
     private LinearLayout layout;
     private SharedPreferences credentialsSharedPreferences;
 
@@ -60,21 +55,14 @@ public class Expenses extends AppCompatActivity {
 
         credentialsSharedPreferences = getSharedPreferences(CREDENTIALSPREFERENCES, Context.MODE_PRIVATE);
 
-        layout = (LinearLayout)findViewById(R.id.layout_other);
+        layout = (LinearLayout)findViewById(R.id.layout_expense);
         save = (TextView_Lato)findViewById(R.id.save_expense);
-        dateTime = (EditText)findViewById(R.id.dateTime);
-        other = (EditText)findViewById(R.id.editTextOther);
-        typeText = (EditText)findViewById(R.id.editTextType);
-        dateTime.setKeyListener(null);
-        typeText.setKeyListener(null);
+        time = findViewById(R.id.dateTime);
+        expense_type = findViewById(R.id.editExpenseType);
+        notes = findViewById(R.id.editTextNotes);
 
-        Bundle extras = getIntent().getExtras();
+        time.setKeyListener(null);
 
-        if(extras != null)
-        {
-            type = extras.getString(Constants.type);
-            layout.setVisibility(View.GONE);
-        }
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,63 +72,73 @@ public class Expenses extends AppCompatActivity {
             }
         });
 
-
-
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("Y-M-d HH:mm:ss");
 
-        dateTime.setText(sdf.format(c.getTime()));
+        time.setText(sdf.format(c.getTime()));
 
-        amount = (EditText)findViewById(R.id.editTextCash);
-        spinner = (Spinner) findViewById(R.id.spinnerType);
-        List<String> dataset = new ArrayList<>();
-        dataset.add("Fuel");
-        dataset.add("Sacco");
-        dataset.add("Boys");
-        dataset.add("Car Wash");
-        dataset.add("Parking");
-        dataset.add("Puncture");
-        dataset.add("Services/Greasing");
-        dataset.add("Battery");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,dataset);
-
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-
-        if(type != null)
-        {
-            typeText.setText("Accident");
-            typeText.setVisibility(View.VISIBLE);
-            spinner.setVisibility(View.GONE);
-            layout.setVisibility(View.GONE);
-        }
-        else
-        {
-            typeText.setVisibility(View.GONE);
-            spinner.setVisibility(View.VISIBLE);
-            layout.setVisibility(View.VISIBLE);
-        }
-
-        /*Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-        myToolbar.setTitle("Expenses");*/
+        amount = findViewById(R.id.editTextCash);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Expenses.this, ViewExpenses.class);
-                startActivity(intent);
+            saveExpense();
             }
         });
     }
 
 
+    private void saveExpense() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Saving expense....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                "https://zamzam45.com/tally_driver_copy/save_expenses.php",
+                new Response.Listener <String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+
+                        System.out.println("SAAAVVEEEE&&&&&&&&&&&&&&&&&&&" + response);
+
+                        amount.setText("");
+                        time.setText("");
+                        notes.setText("");
+                        expense_type.setText("");
+
+                        Intent it = new Intent(getApplicationContext(), ViewExpenses.class);
+                        startActivity(it);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("volleyError response " + error.getMessage());
+                        Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new Hashtable<>();
+                //Creating parameters
+                params.put("time", time.getText().toString());
+                params.put("amount", amount.getText().toString());
+                params.put("expense_type", expense_type.getText().toString());
+                params.put("notes", notes.getText().toString());
+
+                //returning params
+                return params;
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(Expenses.this);
+        requestQueue.add(stringRequest);
+
+    }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        }
 
 
     @Override
