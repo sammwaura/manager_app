@@ -4,17 +4,27 @@ import com.android.volley.toolbox.StringRequest;
 
 public class ExpenseDetails {
 
+    String time;
     String id;
     String amount;
-    String type;
+    String expense_type;
     String notes;
 
 
-    public ExpenseDetails(String s, String id, String amount, String type, String notes){
+    public ExpenseDetails(String time, String id, String amount, String expense_type, String notes){
+        this.time = time;
         this.id = id;
         this.amount = amount;
-        this.type = type;
+        this.expense_type = expense_type;
         this.notes = notes;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getId() {
@@ -33,12 +43,12 @@ public class ExpenseDetails {
         this.amount = amount;
     }
 
-    public String getType() {
-        return type;
+    public String getExpense_type() {
+        return expense_type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setExpense_type(String expense_type) {
+        this.expense_type = expense_type;
     }
 
     public String getNotes() {

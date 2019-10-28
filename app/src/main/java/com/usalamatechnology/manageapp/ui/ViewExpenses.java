@@ -94,13 +94,14 @@ public  class ViewExpenses extends AppCompatActivity{
         progressDialog.setMessage("Retrieving data....");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, getExpenses,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                "https://zamzam45.com/tally_driver_copy/get_expenses.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         progressDialog.dismiss();
 
-                        System.out.println("Retrieve########################## " + s);
+                        System.out.println("Retrieve!!!!!!!!!!!!!!!!!!!" + s);
 
                         try {
                                 JSONObject jsonObj = new JSONObject(s);
@@ -112,10 +113,10 @@ public  class ViewExpenses extends AppCompatActivity{
                                         String id = row.getString("id");
                                         String amount = row.getString("amount");
                                         String time = row.getString("time");
-                                        String type = row.getString("type");
+                                        String expense_type = row.getString("expense_type");
                                         String notes = row.getString("notes");
 
-                                        expenseDetails.add(new ExpenseDetails(id, amount, time, type, notes));
+                                        expenseDetails.add(new ExpenseDetails(id, amount, time, expense_type, notes));
                                     }
 
                                 initializeData();

@@ -22,25 +22,18 @@ public class ExpensesAdapter extends RecyclerView.Adapter <ExpensesAdapter.ViewH
 
     private Context context;
 
-    private ExpensesAdapter.ItemClickListener itemClickListener;
-    public ExpensesObserver mObserver;
-
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public ItemClickListener itemClickListener;
-        public TextView id, amount, category, notes, type;
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        public TextView time, amount, expense_type, notes;
         public CardView card;
         public LinearLayout touch;
 
-        public ViewHolder(@NonNull View itemView, ItemClickListener itemClickListener){
+        public ViewHolder(@NonNull View itemView){
 
             super(itemView);
-            this.itemClickListener = itemClickListener;
-        }
-
-        @Override
-        public void onClick(View v) {
+            time = itemView.findViewById(R.id.time);
+            amount = itemView.findViewById(R.id.amount);
+            expense_type = itemView.findViewById(R.id.type);
+            notes = itemView.findViewById(R.id.notes);
 
         }
     }
@@ -56,11 +49,15 @@ public class ExpensesAdapter extends RecyclerView.Adapter <ExpensesAdapter.ViewH
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.expensedetail, viewGroup, false);
-        return new ViewHolder(view, itemClickListener);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        viewHolder.time.setText(posts.get(i).getTime());
+        viewHolder.amount.setText(posts.get(i).getAmount());
+        viewHolder.expense_type.setText(posts.get(i).getExpense_type());
+        viewHolder.notes.setText(posts.get(i).getNotes());
 
     }
 
@@ -71,10 +68,6 @@ public class ExpensesAdapter extends RecyclerView.Adapter <ExpensesAdapter.ViewH
         return posts.size();
     }
 
-
-
-    public interface ItemClickListener {
-    }
 
 
 }
