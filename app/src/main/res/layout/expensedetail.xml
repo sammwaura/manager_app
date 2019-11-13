@@ -47,29 +47,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="27dp"
-                                android:layout_marginBottom="3dp"
+                                android:layout_marginRight="9dp"
                                 android:letterSpacing="0.093"
-                                android:text="Time"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:text="Amount"
+                                android:textColor="#7d7e82"
                                 android:textSize="12.7sp"
                                 android:textStyle="normal|bold" />
 
                             <TextView
-                                android:id="@+id/time"
+                                android:id="@+id/amount"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:letterSpacing="0.093"
-                                android:text="note"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:text=": 15000"
+                                android:textColor="#7d7e82"
                                 android:textSize="12.7sp" />
-
                         </LinearLayout>
 
                     </LinearLayout>
@@ -83,26 +83,29 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="9dp"
+                            android:layout_marginRight="27dp"
+                            android:layout_marginBottom="3dp"
                             android:letterSpacing="0.093"
-                            android:text="Amount"
-                            android:textColor="#7d7e82"
+                            android:text="Time"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="12.7sp"
                             android:textStyle="normal|bold" />
 
                         <TextView
-                            android:id="@+id/amount"
+                            android:id="@+id/time"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:letterSpacing="0.093"
-                            android:text=": 15000"
-                            android:textColor="#7d7e82"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="12.7sp" />
+
                     </LinearLayout>
+
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -140,7 +143,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
-                        android:background="#f0f0f0" />
+                        android:background="@color/colorPrimary" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

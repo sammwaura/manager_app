@@ -110,13 +110,12 @@ public  class ViewExpenses extends AppCompatActivity{
                                     for (int i=0; i<array.length(); i++) {
                                         JSONObject row = array.getJSONObject(i);
 
-                                        String id = row.getString("id");
                                         String amount = row.getString("amount");
                                         String time = row.getString("time");
                                         String expense_type = row.getString("expense_type");
                                         String notes = row.getString("notes");
 
-                                        expenseDetails.add(new ExpenseDetails(id, amount, time, expense_type, notes));
+                                        expenseDetails.add(new ExpenseDetails(amount, time, expense_type, notes));
                                     }
 
                                 initializeData();

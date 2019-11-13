@@ -240,8 +240,11 @@ public class Home extends AppCompatActivity {
                                     String id = row.getString("id");
                                     String number_plate = row.getString("number_plate");
                                     String rate = row.getString("rate");
+                                    String amount = row.getString("amount");
+                                    String passenger_no = row.getString("passenger_no");
                                     String destination = row.getString("destination");
-                                    paymentdetails.add(new Paymentdetails(id, number_plate, rate, destination));
+                                    String origin = row.getString("origin");
+                                    paymentdetails.add(new Paymentdetails(id, number_plate, rate, amount, passenger_no, destination, origin));
 
                                 }
 

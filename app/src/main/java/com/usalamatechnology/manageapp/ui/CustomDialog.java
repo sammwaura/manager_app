@@ -52,6 +52,7 @@ import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 public class CustomDialog  extends DialogFragment{
 
     private static final String TAG = "CustomDialog";
+    public static final String type = "type";
 
     public interface OnInputListener{
          void sendInput(String input);
@@ -59,7 +60,7 @@ public class CustomDialog  extends DialogFragment{
     private OnInputListener onInputListener;
 
     //widgets
-    private TextView number_plate, rate, name_passenger, phone_passenger, ID_passenger, destination;
+    private TextView number_plate, rate, name_passenger, phone_passenger, ID_passenger, destination, origin;
     Button submitDetails;
     private Spinner spinner;
     List<String>dataset;
@@ -76,6 +77,10 @@ public class CustomDialog  extends DialogFragment{
         phone_passenger = view.findViewById(R.id.phone_passenger1);
         ID_passenger = view.findViewById(R.id.ID_passenger1);
         destination = view.findViewById(R.id.destination1);
+        origin = view.findViewById(R.id.origin);
+
+
+
 
 
         spinner = view.findViewById(R.id.spinner1);
@@ -83,12 +88,13 @@ public class CustomDialog  extends DialogFragment{
         dataset.add("Fare");
         dataset.add("Courier");
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, dataset);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item, dataset);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        spinner.getSelectedItemPosition();
-        saveSpinnerId();
+
+        System.out.println("////////////////123 "+type);
+        spinner.setSelection(arrayAdapter.getPosition(type));
 
 
         submitDetails.setOnClickListener(new View.OnClickListener() {
@@ -102,49 +108,6 @@ public class CustomDialog  extends DialogFragment{
         return view;
     }
 
-    private void saveSpinnerId() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                "https://zamzam45.com/tally_driver_copy/save_spinner.php",
-                new Response.Listener <String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getContext(), "Successfully recorded.", Toast.LENGTH_LONG).show();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                System.out.println("volleyError"+ error.getMessage());
-                Toast.makeText(getContext(), "Poor network connection", Toast.LENGTH_LONG).show();
-            }
-
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                //Creating parameters
-                Map<String, String> params = new Hashtable<>();
-                params.put("spinner", spinner.getSelectedItem().toString());
-                if (spinner.getSelectedItem().toString().equals("Fare")){
-                    params.put("id", "");
-                }
-
-                if (spinner.getSelectedItem().toString().equals("Courier")){
-                    params.put("id","");
-                }
-
-                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
-                //returning parameters
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
-
-    }
 
 
     private void savePayment() {
@@ -164,6 +127,7 @@ public class CustomDialog  extends DialogFragment{
                         phone_passenger.setText("");
                         ID_passenger.setText("");
                         destination.setText("");
+                        origin.setText("");
 
                         Intent intent = new Intent(getContext(), Home.class);
                         startActivity(intent);
@@ -189,7 +153,8 @@ public class CustomDialog  extends DialogFragment{
                 params.put("phone_no",phone_passenger.getText().toString());
                 params.put("id_no",ID_passenger.getText().toString());
                 params.put("destination", destination.getText().toString());
-                params.put("type", spinner.getSelectedItem().toString() );
+                params.put("origin", origin.getText().toString());
+                params.put("type", spinner.getSelectedItem().toString());
 
                 params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
                 //returning parameters

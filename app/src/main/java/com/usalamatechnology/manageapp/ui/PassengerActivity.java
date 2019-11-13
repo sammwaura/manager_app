@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,6 +27,7 @@ import com.usalamatechnology.manageapp.models.Paymentdetails;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -41,7 +44,8 @@ public class PassengerActivity extends AppCompatActivity  {
 
     RecyclerView recyclerView;
 
-
+    private TextView number_plate;
+    String numberPlate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,11 @@ public class PassengerActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_passenger);
 
         passengerDetails = new ArrayList <>();
+
+        numberPlate = getIntent().getExtras().getString("number_plate");
+        Log.d("number_plate", numberPlate);
+
+        number_plate = findViewById(R.id.number_plate);
 
         recyclerView =  findViewById(R.id.recyclerview2);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
@@ -60,10 +69,11 @@ public class PassengerActivity extends AppCompatActivity  {
     }
 
     private void retrievePassengerDetails() {
+
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Retrieving data....");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 "https://zamzam45.com/tally_driver_copy/get_passenger_details.php",
                 new Response.Listener <String>() {
                     @Override
@@ -113,7 +123,7 @@ public class PassengerActivity extends AppCompatActivity  {
                 //Creating parameters
                 Map<String, String> params = new Hashtable<>();
 
-                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
+                params.put("number_plate", numberPlate);
 
 
                 //returning parameters
