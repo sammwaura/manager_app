@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,11 +26,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Objects;
+
+import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
+import static com.usalamatechnology.manageapp.models.Constants.email;
+import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
 
 public class Courier extends AppCompatActivity {
 
-    private ArrayList<Courierdetails>courierdetails;
+    private ArrayList <Courierdetails> courierdetails;
     RecyclerView recyclerView;
 
     @Override
@@ -39,7 +47,7 @@ public class Courier extends AppCompatActivity {
 
         courierdetails = new ArrayList <>();
 
-        recyclerView =  findViewById(R.id.recyclerview4);
+        recyclerView = findViewById(R.id.recyclerview4);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
@@ -49,6 +57,13 @@ public class Courier extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Courier.this, Home.class);
                 startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.fab_printC).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printAllCourier();
             }
         });
 
@@ -72,7 +87,7 @@ public class Courier extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(s);
                             JSONArray array = jsonObject.getJSONArray("courier");
 
-                            for (int i =0; i< array.length(); i++){
+                            for (int i = 0; i < array.length(); i++) {
                                 JSONObject row = array.getJSONObject(i);
 
                                 String courier_id = row.getString("courier_id");
@@ -113,4 +128,51 @@ public class Courier extends AppCompatActivity {
         CourierAdapter courierAdapter = new CourierAdapter(this, courierdetails);
         recyclerView.setAdapter(courierAdapter);
     }
+
+    private void printAllCourier() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Retrieving data....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                "https://zamzam45.com/tally_driver_copy/print_courier.php",
+                new Response.Listener <String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        progressDialog.dismiss();
+
+                        System.out.println("Check your email" + s);
+                        Toast.makeText(getApplicationContext(), "Check your email within 5 minutes.", Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                        System.out.println("volleyError response " + volleyError.getMessage());
+                        Toast.makeText(getApplicationContext(), "Poor network connection.", Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map <String, String> getParams() throws AuthFailureError {
+                //Creating parameters
+                Map <String, String> params = new Hashtable <>();
+                params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
+                params.put("email", Objects.requireNonNull(credentialsSharedPreferences.getString(email, "0")));
+
+
+                System.out.println();
+                //returning parameters
+                return params;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(Courier.this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+    }
+
 }

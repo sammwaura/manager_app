@@ -26,7 +26,7 @@ public class CourierAdapter extends RecyclerView.Adapter <CourierAdapter.ViewHol
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            number_plate = itemView.findViewById(R.id.number_plate2);
+            number_plate = itemView.findViewById(R.id.number_plateC);
             amount= itemView.findViewById(R.id.amountCollected2);
             courier_id = itemView.findViewById(R.id.courier_id);
         }

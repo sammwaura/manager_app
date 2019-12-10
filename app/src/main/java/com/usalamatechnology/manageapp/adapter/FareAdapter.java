@@ -26,7 +26,7 @@ public class FareAdapter extends RecyclerView.Adapter <FareAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            number_plate = itemView.findViewById(R.id.name_passenger);
+            number_plate = itemView.findViewById(R.id.number_plateF);
             amountCollected = itemView.findViewById(R.id.amountCollected);
             passenger_no = itemView.findViewById(R.id.passenger_no);
 
