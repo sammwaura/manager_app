@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,6 +40,7 @@ public class Courier extends AppCompatActivity {
 
     private ArrayList <Courierdetails> courierdetails;
     RecyclerView recyclerView;
+    TextView total_courier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,9 @@ public class Courier extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
+
+
+        total_courier = findViewById(R.id.total_courier);
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +101,8 @@ public class Courier extends AppCompatActivity {
 
                                 courierdetails.add(new Courierdetails(courier_id, number_plate, amount));
                             }
+
+                            total_courier.setText(String.valueOf(array.length()));
 
                             initializeData();
                             findViewById(R.id.no_internet).setVisibility(View.GONE);

@@ -60,7 +60,7 @@
                         android:layout_marginTop="10dp"
                         android:id="@+id/trips_today"
                         android:letterSpacing="0.1"
-                        android:text="Number of trips"
+                        android:text="Vehicles on transit"
                         android:textAlignment="center"
                         android:textColor="#fff"
                         android:textSize="16dp" />
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
-                        android:text="trip(s)"
+                        android:text="vehicles(s)"
                         android:textColor="#fff"
                         android:textSize="14dp" />
 
@@ -113,18 +113,6 @@
                         android:id="@+id/driver_car"
                         android:textColor="#fff"
                         android:textSize="15dp" />
-
-    <Button
-                        android:id="@+id/print"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:text="Print"
-                        android:background="@drawable/roun_rect_white"
-                        android:textColor="@color/colorGray"
-                        android:textSize="10dp"
-                        android:textStyle="bold" />
 
 
                 </LinearLayout>

@@ -4,17 +4,27 @@ import com.android.volley.toolbox.StringRequest;
 
 public class ExpenseDetails {
 
+    String numberplate;
     String time;
     String amount;
     String expense_type;
     String notes;
 
 
-    public ExpenseDetails(String time, String amount, String expense_type, String notes){
+    public ExpenseDetails(String numberplate, String time, String amount, String expense_type, String notes){
+        this.numberplate = numberplate;
         this.time = time;
         this.amount = amount;
         this.expense_type = expense_type;
         this.notes = notes;
+    }
+
+    public String getNumberplate() {
+        return numberplate;
+    }
+
+    public void setNumberplate(String numberplate) {
+        this.numberplate = numberplate;
     }
 
     public String getTime() {

@@ -195,9 +195,13 @@ public class Home extends AppCompatActivity {
                                     String passenger_no = row.getString("passenger_no");
                                     String destination = row.getString("destination");
                                     String origin = row.getString("origin");
+
                                     paymentdetails.add(new Paymentdetails(id, number_plate, rate, amount, passenger_no, destination, origin));
 
                                 }
+
+                                total_trips.setText(String.valueOf(array.length()));
+
 
                                     initializeData();
                                 findViewById(R.id.no_internet).setVisibility(View.GONE);

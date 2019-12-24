@@ -43,7 +43,7 @@ import static com.usalamatechnology.manageapp.models.Constants.CREDENTIALSPREFER
 
 public class Expenses extends AppCompatActivity {
 
-  private TextView time, amount, notes, expense_type ;
+  private TextView numberplate, time, amount, notes, expense_type ;
     TextView_Lato save;
     private LinearLayout layout;
     private SharedPreferences credentialsSharedPreferences;
@@ -57,6 +57,7 @@ public class Expenses extends AppCompatActivity {
 
         layout = (LinearLayout)findViewById(R.id.layout_expense);
         save = (TextView_Lato)findViewById(R.id.save_expense);
+        numberplate = findViewById(R.id.editTextNumberplate);
         time = findViewById(R.id.dateTime);
         expense_type = findViewById(R.id.editExpenseType);
         notes = findViewById(R.id.editTextNotes);
@@ -102,6 +103,7 @@ public class Expenses extends AppCompatActivity {
 
                         System.out.println("SAAAVVEEEE&&&&&&&&&&&&&&&&&&&" + response);
 
+                        numberplate.setText("");
                         amount.setText("");
                         time.setText("");
                         notes.setText("");
@@ -123,6 +125,7 @@ public class Expenses extends AppCompatActivity {
 
                 Map<String,String> params = new Hashtable<>();
                 //Creating parameters
+                params.put("numberplate", numberplate.getText().toString());
                 params.put("time", time.getText().toString());
                 params.put("amount", amount.getText().toString());
                 params.put("expense_type", expense_type.getText().toString());

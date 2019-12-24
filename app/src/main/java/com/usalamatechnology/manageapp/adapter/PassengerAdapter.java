@@ -27,8 +27,8 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
             super(itemView);
 
             name = itemView.findViewById(R.id.name_passenger);
-            phone_no = itemView.findViewById(R.id.phone_passenger);
             seat_no = itemView.findViewById(R.id.seat_no);
+            phone_no = itemView.findViewById(R.id.phone_passenger1);
         }
 
 
@@ -59,8 +59,9 @@ public class PassengerAdapter extends RecyclerView.Adapter<PassengerAdapter.View
         final PassengerDetails passengerDetail = posts.get(i);
 
         viewHolder.name.setText(passengerDetail.getName());
-//        viewHolder.phone_no.setText(passengerDetail.getPhone_no());
         viewHolder.seat_no.setText(passengerDetail.getSeat_no());
+        viewHolder.phone_no.setText(passengerDetail.getPhone_no());
+
 
     }
 

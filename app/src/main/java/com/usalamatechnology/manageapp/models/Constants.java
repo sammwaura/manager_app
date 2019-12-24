@@ -35,6 +35,7 @@ public final class Constants {
 
     public static String category="category";
     public static String amount="amount";
+    public static String passenger_no = "passenger_no";
     public static String more="more";
     public static String city="city";
     public static String address="address";

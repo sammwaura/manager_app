@@ -165,6 +165,34 @@
                             android:orientation="vertical"
                             android:padding="5dp"
                             >
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="8dp"
+                                >
+                                <ImageView
+                                    android:layout_margin="5dp"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/bus"
+                                    />
+
+
+
+                                <EditText
+                                    android:id="@+id/editTextNumberplate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="8"
+                                    android:backgroundTint="@color/colorOrange"
+                                    android:hint="Number plate"
+                                    android:inputType="text"
+                                    android:textColorHighlight="@color/colorOrange"
+                                    android:textColorHint="@color/colorOrange"
+                                    android:textColorLink="@color/colorOrange" />
+
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"

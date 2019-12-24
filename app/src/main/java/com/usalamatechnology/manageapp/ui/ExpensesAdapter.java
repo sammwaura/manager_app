@@ -23,13 +23,15 @@ public class ExpensesAdapter extends RecyclerView.Adapter <ExpensesAdapter.ViewH
     private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView time, amount, expense_type, notes;
+        public TextView numberplate, time, amount, expense_type, notes;
         public CardView card;
         public LinearLayout touch;
 
         public ViewHolder(@NonNull View itemView){
 
             super(itemView);
+
+            numberplate = itemView.findViewById(R.id.numberplate);
             time = itemView.findViewById(R.id.time);
             amount = itemView.findViewById(R.id.amount);
             expense_type = itemView.findViewById(R.id.type);
@@ -54,6 +56,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter <ExpensesAdapter.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        viewHolder.numberplate.setText(posts.get(i).getNumberplate());
         viewHolder.time.setText(posts.get(i).getTime());
         viewHolder.amount.setText(posts.get(i).getAmount());
         viewHolder.expense_type.setText(posts.get(i).getExpense_type());

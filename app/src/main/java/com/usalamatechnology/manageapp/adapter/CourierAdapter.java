@@ -26,9 +26,9 @@ public class CourierAdapter extends RecyclerView.Adapter <CourierAdapter.ViewHol
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            courier_id = itemView.findViewById(R.id.courier_id);
             number_plate = itemView.findViewById(R.id.number_plateC);
             amount= itemView.findViewById(R.id.amountCollected2);
-            courier_id = itemView.findViewById(R.id.courier_id);
         }
     }
 
@@ -52,10 +52,9 @@ public class CourierAdapter extends RecyclerView.Adapter <CourierAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        viewHolder.courier_id.setText(posts.get(i).getCourier_id());
         viewHolder.number_plate.setText(posts.get(i).getNumber_plate());
         viewHolder.amount.setText(posts.get(i).getAmount());
-        viewHolder.courier_id.setText(posts.get(i).getCourier_id());
-
     }
 
     @Override

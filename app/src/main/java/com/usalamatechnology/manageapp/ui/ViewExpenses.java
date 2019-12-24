@@ -45,6 +45,7 @@ import static com.usalamatechnology.manageapp.models.Constants.credentialsEditor
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.models.Constants.email;
 import static com.usalamatechnology.manageapp.models.Constants.getExpenses;
+import static com.usalamatechnology.manageapp.models.Constants.type;
 import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
 public  class ViewExpenses extends AppCompatActivity{
@@ -127,6 +128,7 @@ public  class ViewExpenses extends AppCompatActivity{
                 Map<String, String> params = new Hashtable<>();
                 params.put("business_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
                 params.put("email", Objects.requireNonNull(credentialsSharedPreferences.getString(email, "0")));
+                params.put("type", Objects.requireNonNull(credentialsSharedPreferences.getString(type, "0")));
 
 
                 System.out.println();
@@ -165,12 +167,13 @@ public  class ViewExpenses extends AppCompatActivity{
                                     for (int i=0; i<array.length(); i++) {
                                         JSONObject row = array.getJSONObject(i);
 
+                                        String numberplate = row.getString("numberplate");
                                         String amount = row.getString("amount");
                                         String time = row.getString("time");
                                         String expense_type = row.getString("expense_type");
                                         String notes = row.getString("notes");
 
-                                        expenseDetails.add(new ExpenseDetails(amount, time, expense_type, notes));
+                                        expenseDetails.add(new ExpenseDetails(numberplate, amount, time, expense_type, notes));
                                     }
 
                                 initializeData();

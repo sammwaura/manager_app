@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,8 +32,10 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.usalamatechnology.manageapp.models.Constants.amount;
 import static com.usalamatechnology.manageapp.models.Constants.credentialsSharedPreferences;
 import static com.usalamatechnology.manageapp.models.Constants.email;
+import static com.usalamatechnology.manageapp.models.Constants.passenger_no;
 import static com.usalamatechnology.manageapp.models.Constants.vehicle_no;
 
 
@@ -40,6 +43,7 @@ public class Fare extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     private ArrayList<Faredetails>faredetails;
+    TextView total_fare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +52,14 @@ public class Fare extends AppCompatActivity {
 
         faredetails = new ArrayList <>();
 
+
+
         recyclerView =  findViewById(R.id.recyclerview3);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
 
+        total_fare = findViewById(R.id.total_fare);
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +106,8 @@ public class Fare extends AppCompatActivity {
 
                                 faredetails.add(new Faredetails(number_plate, amount, passenger_no));
                             }
+
+                            total_fare.setText(String.valueOf(array.length()));
 
                             initializeData();
                             findViewById(R.id.no_internet).setVisibility(View.GONE);
@@ -162,6 +171,8 @@ public class Fare extends AppCompatActivity {
                 Map<String, String> params = new Hashtable<>();
                 params.put("vehicle_id", Objects.requireNonNull(credentialsSharedPreferences.getString(vehicle_no, "0")));
                 params.put("email", Objects.requireNonNull(credentialsSharedPreferences.getString(email, "0")));
+                params.put("amount", Objects.requireNonNull(credentialsSharedPreferences.getString(amount, "")));
+                params.put("passenger_no", Objects.requireNonNull(credentialsSharedPreferences.getString(passenger_no, "")));
 
 
                 System.out.println();
